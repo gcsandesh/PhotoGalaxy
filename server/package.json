@@ -1,0 +1,26 @@
+{
+  "name": "photogalaxy",
+  "version": "1.0.0",
+  "description": "A stock photo website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SandeshGC/PhotoGalaxy.git"
+  },
+  "keywords": [
+    "stock"
+  ],
+  "author": "Sandesh GC, Subek Sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SandeshGC/PhotoGalaxy/issues"
+  },
+  "homepage": "https://github.com/SandeshGC/PhotoGalaxy#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.8.2"
+  }
+}
