@@ -7,11 +7,13 @@ import { Home } from "./pages";
 function App() {
 	return (
 		<Router>
-			<div className="flex flex-col justify-between">
-				<Header />
-				<Routes>
-					<Route path="/" element={<Home />} />
-				</Routes>
+			<div className="flex flex-col justify-between h-screen">
+				<div>
+					<Header />
+					<Routes>
+						<Route path="/" element={<Home />} />
+					</Routes>
+				</div>
 				<Footer />
 			</div>
 		</Router>
