@@ -2,9 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function SiteLogo({ isDark }) {
-	console.log(isDark);
 	return (
-		<picture>
+		<picture className="">
 			<Link to="/">
 				{/* logo.svg */}
 				<svg
@@ -14,7 +13,7 @@ export default function SiteLogo({ isDark }) {
 					xmlns:xlink="http://www.w3.org/1999/xlink"
 					xmlns:svgjs="http://svgjs.dev/svgjs"
 					width="1000"
-					height="131"
+					// height="131"
 					viewBox="0 0 1000 131"
 				>
 					<g transform="matrix(1,0,0,1,-0.6060606060606233,0.3928940348091743)">
