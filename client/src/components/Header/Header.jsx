@@ -1,5 +1,4 @@
 import React from "react";
-import SearchBar from "./SearchBar";
 import { SiteLogo } from "../common";
 import { FaChevronDown, FaRegBell, FaRegUserCircle } from "react-icons/fa";
 
@@ -8,7 +7,6 @@ export default function Header() {
 		<div className="bg-gradient-to-b from-grey-900 to-grey-700 shadow-md p-4 mb-4">
 			<div className="container mx-auto flex items-center justify-between ">
 				<SiteLogo isDark={true} />
-				<SearchBar />
 				<div className="flex gap-4">
 					<div className="flex gap-4">
 						<div className="flex items-center gap-1">

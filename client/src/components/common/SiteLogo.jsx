@@ -10,7 +10,7 @@ export default function SiteLogo({ isDark }) {
 					className={`undefined-text-0 w-44 ${!isDark && "fill-white"}`}
 					xmlns="http://www.w3.org/2000/svg"
 					version="1.1"
-					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlnsXlink="http://www.w3.org/1999/xlink"
 					xmlns:svgjs="http://svgjs.dev/svgjs"
 					width="1000"
 					// height="131"
@@ -24,7 +24,7 @@ export default function SiteLogo({ isDark }) {
 							height="131"
 							width="1000"
 							xmlns="http://www.w3.org/2000/svg"
-							xmlns:xlink="http://www.w3.org/1999/xlink"
+							xmlnsXlink="http://www.w3.org/1999/xlink"
 						>
 							<g
 								id="tight-bounds"
@@ -97,16 +97,16 @@ export default function SiteLogo({ isDark }) {
 																			<g>
 																				<svg
 																					xmlns="http://www.w3.org/2000/svg"
-																					xmlns:xlink="http://www.w3.org/1999/xlink"
+																					xmlnsXlink="http://www.w3.org/1999/xlink"
 																					version="1.1"
 																					x="410.2843"
 																					y="0"
 																					viewBox="0 0 512 512"
-																					enable-background="new 0 0 512 512"
-																					xml:space="preserve"
+																					enableBackground="new 0 0 512 512"
+																					xmlSpace="preserve"
 																					height="62.5357"
 																					width="62.5357"
-																					class="icon-c-0"
+																					className="icon-c-0"
 																					data-fill-palette-color="accent"
 																					id="c-0"
 																				>
