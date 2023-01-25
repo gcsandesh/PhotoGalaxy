@@ -2,7 +2,7 @@ import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
 import "./App.css"
 import { Header } from "./components"
 import { Footer } from "./components/"
-import { Home, Login, Signup } from "./pages"
+import { Home, Login, Signup, UserProfile } from "./pages"
 
 function App() {
 	return (
@@ -15,6 +15,7 @@ function App() {
 							<Route path="/" element={<Home />} />
 							<Route path="/login" element={<Login />} />
 							<Route path="/signup" element={<Signup />} />
+							<Route path="/user/:username" element={<UserProfile />} />
 						</Routes>
 					</div>
 					<Footer />
