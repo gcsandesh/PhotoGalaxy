@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container"
 export default function Header() {
 	return (
 		<Container fluid>
-			<SiteLogo isDark={true} />
+			<SiteLogo />
 			<div>
 				<div>
 					<div>

@@ -6,7 +6,7 @@ export default function Footer() {
 		<div>
 			<div>
 				<div>
-					<SiteLogo isDark={false} />
+					<SiteLogo />
 				</div>
 				<div>
 					<h2>Explore</h2>
