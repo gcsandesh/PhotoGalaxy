@@ -5,7 +5,7 @@ export default function UserProfile() {
 		<div>
             <h1>Profile</h1>
 			<div> 
-            <img src="downloads.jpg" alt="image of sth">
+            <img src="downloads.jpg" alt="image of sth"/>
             <button type="submit">Change</button>   
             <label>Name: Subek Adhikary </label>
             <label>Email : subeksharmaofficial@gamil.com </label>
