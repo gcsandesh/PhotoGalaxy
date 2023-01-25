@@ -7,24 +7,25 @@ import Container from "react-bootstrap/Container"
 
 function App() {
 	return (
-		<div>
-			<Router>
-				<div>
-					<div>
-						<Header />
-						<Container>
-							<Routes>
-								<Route path="/" element={<Home />} />
-								<Route path="/login" element={<Login />} />
-								<Route path="/signup" element={<Signup />} />
-								<Route path="/user/:username" element={<UserProfile />} />
-							</Routes>
-						</Container>
-					</div>
-					<Footer />
-				</div>
-			</Router>
-		</div>
+		<Router>
+			<Container
+				fluid
+				className="p-0 d-flex flex-column justify-content-between vh-100"
+			>
+				<Container fluid className="p-0">
+					<Header />
+					<Container>
+						<Routes>
+							<Route path="/" element={<Home />} />
+							<Route path="/login" element={<Login />} />
+							<Route path="/signup" element={<Signup />} />
+							<Route path="/user/:username" element={<UserProfile />} />
+						</Routes>
+					</Container>
+				</Container>
+				<Footer />
+			</Container>
+		</Router>
 	)
 }
 

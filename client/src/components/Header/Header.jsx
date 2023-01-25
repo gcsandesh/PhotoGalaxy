@@ -1,22 +1,30 @@
 import React from "react"
 import { SiteLogo } from "../common"
-import { FaChevronDown, FaRegBell, FaRegUserCircle } from "react-icons/fa"
-import Container from "react-bootstrap/Container"
+import { FaRegBell, FaRegUserCircle } from "react-icons/fa"
+import { Container, Nav, NavItem, NavDropdown, Button } from "react-bootstrap"
+import DropdownItem from "react-bootstrap/esm/DropdownItem"
 
 export default function Header() {
 	return (
-		<Container fluid>
-			<SiteLogo />
-			<div>
-				<div>
-					<div>
-						<span>Explore</span> <FaChevronDown size={12} />
-					</div>
-					<span>Upload</span>
-				</div>
-				<FaRegBell size={24} />
-				<FaRegUserCircle size={24} />
-			</div>
+		<Container fluid className="shadow mb-4">
+			<Container className="border border-danger d-flex justify-content-between">
+				<SiteLogo />
+
+				<Nav className="d-flex gap-2 align-items-center">
+					<NavDropdown title="Explore">
+						<DropdownItem>Top Downloaded</DropdownItem>
+					</NavDropdown>
+					<NavItem>
+						<Button>Upload</Button>
+					</NavItem>
+					<NavItem>
+						<FaRegBell size={24} />
+					</NavItem>
+					<NavItem>
+						<FaRegUserCircle size={24} />
+					</NavItem>
+				</Nav>
+			</Container>
 		</Container>
 	)
 }

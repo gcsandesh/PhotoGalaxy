@@ -6,7 +6,7 @@ import img from "../../assets/logo.svg"
 export default function SiteLogo() {
 	return (
 		<Link to="/">
-			<Image src={img} width={250} height={50} />
+			<Image src={img} width={200} height={45} />
 		</Link>
 	)
 }
