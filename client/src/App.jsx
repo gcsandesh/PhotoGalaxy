@@ -1,10 +1,8 @@
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
-import "./App.css";
-import { Header } from "./components";
-import { Footer } from "./components/";
-import { Home } from "./pages";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
+import "./App.css"
+import { Header } from "./components"
+import { Footer } from "./components/"
+import { Home, Login, Signup } from "./pages"
 
 function App() {
 	return (
@@ -16,14 +14,14 @@ function App() {
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/login" element={<Login />} />
-							<Route path="/signup" element={<SignUp />} />
+							<Route path="/signup" element={<Signup />} />
 						</Routes>
 					</div>
 					<Footer />
 				</div>
 			</Router>
 		</div>
-	);
+	)
 }
 
-export default App;
+export default App
