@@ -1,16 +1,13 @@
-import React from "react";
-import { SearchBar } from "../components/common";
-import { PopularIn } from "../components";
+import React from "react"
+import { SearchBar } from "../components/common"
 
 export default function Home() {
 	return (
-		<div className="Home">
-			<div className="container mx-auto">
+		<div>
+			<div>
 				<SearchBar />
-				<PopularIn category={"Travel"} />
-				<PopularIn category={"Nature"} />
-				<PopularIn category={"Animals"} />
+				PHOTO GALLERY HERE
 			</div>
 		</div>
-	);
+	)
 }

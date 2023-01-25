@@ -3,20 +3,23 @@ import "./App.css"
 import { Header } from "./components"
 import { Footer } from "./components/"
 import { Home, Login, Signup, UserProfile } from "./pages"
+import Container from "react-bootstrap/Container"
 
 function App() {
 	return (
-		<div className="App text-sm sm:text-base">
+		<div>
 			<Router>
-				<div className="flex flex-col justify-between h-screen">
+				<div>
 					<div>
 						<Header />
-						<Routes>
-							<Route path="/" element={<Home />} />
-							<Route path="/login" element={<Login />} />
-							<Route path="/signup" element={<Signup />} />
-							<Route path="/user/:username" element={<UserProfile />} />
-						</Routes>
+						<Container>
+							<Routes>
+								<Route path="/" element={<Home />} />
+								<Route path="/login" element={<Login />} />
+								<Route path="/signup" element={<Signup />} />
+								<Route path="/user/:username" element={<UserProfile />} />
+							</Routes>
+						</Container>
 					</div>
 					<Footer />
 				</div>
