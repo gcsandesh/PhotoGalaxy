@@ -12,7 +12,7 @@ function App() {
 				fluid
 				className="p-0 d-flex flex-column justify-content-between vh-100"
 			>
-				<Container fluid className="p-0">
+				<Container fluid className="p-0 mb-4">
 					<Header />
 					<Container>
 						<Routes>
