@@ -1,4 +1,4 @@
-import Home from "./Home"
+import Home from "./Home/Home"
 import Photo from "./Photo"
 import Category from "./Category"
 import Login from "./Login"
