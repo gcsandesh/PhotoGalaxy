@@ -12,7 +12,7 @@ export default function Signup() {
 				name="password"
 				required
 			/>
-			<label>Confirm Password : </label>
+			<label>Confirm Your Password : </label>
 			<input
 				type="password"
 				placeholder="Enter Your Password Again"
