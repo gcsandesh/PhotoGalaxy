@@ -1,41 +1,56 @@
-import React from "react";
-import { SiteLogo } from "../common";
+import React from "react"
+import Container from "react-bootstrap/Container"
+import { Row } from "react-bootstrap"
+import { Col } from "react-bootstrap"
+import { SiteLogo } from "../common"
 
 export default function Footer() {
 	return (
-		<div className="bg-gray-800 text-gray-300 mt-4">
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 text-center sm:text-left gap-4 container mx-auto p-4">
-				<div className="self-center">
-					<SiteLogo isDark={false} />
-				</div>
-				<div className="mx-auto">
-					<h2 className="font-bold text-white">Explore</h2>
-					<ul>
-						<li>Most Liked</li>
-						<li>Latest Uploads</li>
-						<li>Most Downloaded</li>
-					</ul>
-				</div>
-				<div className="mx-auto">
-					<h2 className="font-bold text-white">Quick Links</h2>
-					<ul>
-						<li>Home</li>
-						<li>Categories</li>
-						<li>Upload</li>
-					</ul>
-				</div>
-				<div className="mx-auto">
-					<h2 className="font-bold text-white">Contact</h2>
-					<ul>
-						<li>PhotoGalaxy Inc.</li>
-						<li>info.photogalaxy.com.np</li>
-					</ul>
-				</div>
-				<div className="text-gray-400 mx-auto">
-					<p>Terms of Service</p>
-					<p>Privacy Policy</p>
-				</div>
-			</div>
-		</div>
-	);
+		<Container fluid className="bg-dark text-light mt-auto py-4">
+			<Container className="px-0">
+				<Row className="mx-auto gap-2 mx-auto justify-content-between">
+					<Col
+						xs={12}
+						sm={6}
+						lg={3}
+						className="justify-self-center align-self-center text-center"
+					>
+						<SiteLogo />
+					</Col>
+					<Col xs={12} sm={6} lg={2} className="justify-self-center">
+						<h5>Explore</h5>
+						<ul className="p-0">
+							<li>Most Liked</li>
+							<li>Latest Uploads</li>
+							<li>Most Downloaded</li>
+						</ul>
+					</Col>
+					<Col xs={12} sm={6} lg={2} className="justify-self-center">
+						<h5>Quick Links</h5>
+						<ul className="p-0">
+							<li>Home</li>
+							<li>Categories</li>
+							<li>Upload</li>
+						</ul>
+					</Col>
+					<Col xs={12} sm={6} lg={2} className="justify-self-center">
+						<h5>Contact</h5>
+						<ul className="p-0">
+							<li>PhotoGalaxy Inc.</li>
+							<li>info.photogalaxy.com.np</li>
+						</ul>
+					</Col>
+					<Col
+						xs={12}
+						sm={6}
+						lg={2}
+						className="text-secondary justify-self-center"
+					>
+						<div>Terms of Service</div>
+						<div>Privacy Policy</div>
+					</Col>
+				</Row>
+			</Container>
+		</Container>
+	)
 }

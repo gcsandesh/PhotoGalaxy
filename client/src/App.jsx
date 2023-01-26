@@ -1,29 +1,32 @@
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
-import "./App.css";
-import { Header } from "./components";
-import { Footer } from "./components/";
-import { Home } from "./pages";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
+import "./App.css"
+import { Header } from "./components"
+import { Footer } from "./components/"
+import { Home, Login, Signup, UserProfile } from "./pages"
+import Container from "react-bootstrap/Container"
 
 function App() {
 	return (
-		<div className="App text-sm sm:text-base">
-			<Router>
-				<div className="flex flex-col justify-between h-screen">
-					<div>
-						<Header />
+		<Router>
+			<Container
+				fluid
+				className="p-0 d-flex flex-column justify-content-between vh-100"
+			>
+				<Container fluid className="p-0 mb-4">
+					<Header />
+					<Container>
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/login" element={<Login />} />
-							<Route path="/signup" element={<SignUp />} />
+							<Route path="/signup" element={<Signup />} />
+							<Route path="/user/:username" element={<UserProfile />} />
 						</Routes>
-					</div>
-					<Footer />
-				</div>
-			</Router>
-		</div>
-	);
+					</Container>
+				</Container>
+				<Footer />
+			</Container>
+		</Router>
+	)
 }
 
-export default App;
+export default App
