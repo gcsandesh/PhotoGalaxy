@@ -7,7 +7,7 @@ import DropdownItem from "react-bootstrap/esm/DropdownItem"
 export default function Header() {
 	return (
 		<Container fluid className="shadow mb-4">
-			<Container className="border border-danger d-flex justify-content-between">
+			<Container className="d-flex justify-content-between">
 				<SiteLogo />
 
 				<Nav className="d-flex gap-2 align-items-center">
