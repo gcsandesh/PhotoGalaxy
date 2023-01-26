@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ChangePasswordPage() {
+export default function ChangePassword() {
 	return (
         <div>
              <h1>Change Password</h1>
