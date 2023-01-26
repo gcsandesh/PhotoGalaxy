@@ -6,9 +6,9 @@ import { SiteLogo } from "../common"
 
 export default function Footer() {
 	return (
-		<Container fluid className="bg-dark text-light mt-auto">
-			<Container className="border border-primary">
-				<Row className="mx-auto gap-2 border border-danger mx-auto justify-content-between">
+		<Container fluid className="bg-dark text-light mt-auto py-4">
+			<Container className="px-0">
+				<Row className="mx-auto gap-2 mx-auto justify-content-between">
 					<Col
 						xs={12}
 						sm={6}
