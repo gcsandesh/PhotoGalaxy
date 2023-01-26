@@ -10,12 +10,8 @@ export default function UserProfile() {
 				<Button variant="secondary">Change</Button>
 				<label>Name: Subek Adhikary </label>
 				<label>Email : subeksharmaofficial@gamil.com </label>
-				<Button variant="primary" type="submit">
-					Change Password
-				</Button>
-				<Button variant="danger" type="submit">
-					Delete Account
-				</Button>
+				<Button variant="primary">Change Password</Button>
+				<Button variant="danger">Delete Account</Button>
 			</div>
 			<h2>Uploads</h2>
 			<p>the images uploaded by the user is shown here ... </p>
