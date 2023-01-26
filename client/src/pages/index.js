@@ -6,4 +6,4 @@ import Signup from "./Signup"
 import UserProfile from "./UserProfile"
 import ChangePassword from "./ChangePassword"
 
-export { Home, Photo, Login, Signup, UserProfile, Category,ChangePassword }
+export { Home, Photo, Login, Signup, UserProfile, Category, ChangePassword }
