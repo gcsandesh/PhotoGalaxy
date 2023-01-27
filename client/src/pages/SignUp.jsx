@@ -20,7 +20,7 @@ export default function Signup() {
 				required
 			/>
 			<button type="submit">Sign Up</button>
-			Already have an account?
+			Already have an account ?
 			<a href="#"> Log In </a>
 		</div>
 	)
