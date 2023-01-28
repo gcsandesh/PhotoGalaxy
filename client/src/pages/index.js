@@ -5,5 +5,6 @@ import Login from "./Login"
 import Signup from "./Signup"
 import UserProfile from "./UserProfile"
 import ChangePassword from "./ChangePassword"
+import CreatorPage from "./CreatorPage"
 
-export { Home, Photo, Login, Signup, UserProfile, Category, ChangePassword }
+export { Home, Photo, Login, Signup, UserProfile, Category, ChangePassword, CreatorPage }
