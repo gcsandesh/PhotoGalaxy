@@ -9,7 +9,7 @@ export default function CreatorPage() {
             <div className="container">
                 <h1> Subek Adhikary  </h1>
                 <div className="bio">
-                    <p>Hello, i love clicking pictures. This is my hobby.</p>
+                    <p>Hello, I love clicking pictures. This is my hobby.</p>
                 </div>
                 <h2> 5000 Points </h2>
             </div>
