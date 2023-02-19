@@ -18,7 +18,7 @@ export default function Signup() {
 						<input type="password" className="form-control" placeholder="Enter Your Password Again" name="password" required />
 					</div>
 					<button type="submit" className="btn btn-primary">Sign Up</button>
-					<p>Already have an account ? <a href="#"> Log In </a></p>
+					<p>Already have an account? <a href="#"> Log In </a></p>
 				</form>
 			</div>
 
