@@ -29,7 +29,7 @@ export default function Header() {
   ])
 
   const notificationEls = notifications.map((notif) => (
-    <DropdownItem key={notif.notificationID} className="border">
+    <DropdownItem key={notif.notificationID} className="">
       {notif.message}
     </DropdownItem>
   ))
@@ -61,7 +61,9 @@ export default function Header() {
             </NavDropdown>
           </NavItem>
           <NavItem>
-            <FaRegUserCircle size={24} />
+            <Link to="/dashboard">
+              <FaRegUserCircle size={24} />
+            </Link>
           </NavItem>
         </Nav>
       </Container>

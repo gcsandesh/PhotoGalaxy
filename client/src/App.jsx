@@ -3,7 +3,14 @@ import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
 import "./App.css"
 import { Header } from "./components"
 import { Footer } from "./components/"
-import { Home, Login, PhotoUploadPage, Signup, UserProfile } from "./pages"
+import {
+  Home,
+  Login,
+  PhotoUploadPage,
+  Signup,
+  UserDash,
+  UserProfile,
+} from "./pages"
 import Container from "react-bootstrap/Container"
 import AOS from "aos"
 import "aos/dist/aos.css"
@@ -25,6 +32,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/dashboard" element={<UserDash />} />
               <Route path="/user/:username" element={<UserProfile />} />
               <Route path="/upload" element={<PhotoUploadPage />} />
             </Routes>
