@@ -43,5 +43,5 @@ A stock photo platform to find and download beautiful photos of your need.
 
 ## Authors
 
-- [Sandesh GC](https://www.gcsandesh.com.np)
-- [Subek Sharma](https://)
+-  [Sandesh GC](https://www.gcsandesh.com.np)
+-  [Subek Sharma](https://)
