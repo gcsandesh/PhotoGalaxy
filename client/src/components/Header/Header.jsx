@@ -6,21 +6,24 @@ import DropdownItem from "react-bootstrap/esm/DropdownItem"
 import { SiteLogo } from "../common"
 
 export default function Header() {
+  function toggleNotification() {
+    console.log("on/off")
+  }
   return (
     <Container fluid className="shadow mb-4">
       <Container className="d-flex justify-content-between">
-        <Link to="/">
-          <SiteLogo />
-        </Link>
+        <SiteLogo />
 
         <Nav className="d-flex gap-2 align-items-center">
           <NavDropdown title="Explore">
             <DropdownItem>Top Downloaded</DropdownItem>
           </NavDropdown>
           <NavItem>
-            <Button>Upload</Button>
+            <Link to="/upload">
+              <Button>Upload</Button>
+            </Link>
           </NavItem>
-          <NavItem>
+          <NavItem onClick={toggleNotification}>
             <FaRegBell size={24} />
           </NavItem>
           <NavItem>

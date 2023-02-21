@@ -8,10 +8,10 @@ export default function PhotoUploadPage() {
         <form
           action="/upload-photo"
           method="post"
-          enctype="multipart/form-data"
+          encType="multipart/form-data"
         >
           <div className="form-group">
-            <label for="photo">Select a Photo:</label>
+            <label htmlFor="photo">Select a Photo:</label>
             <input
               type="file"
               className="form-control-file"
@@ -20,7 +20,7 @@ export default function PhotoUploadPage() {
             />
           </div>
           <div className="form-group">
-            <label for="title">Title:</label>
+            <label htmlFor="title">Title:</label>
             <input
               type="text"
               className="form-control"
@@ -29,7 +29,7 @@ export default function PhotoUploadPage() {
             />
           </div>
           <div className="form-group">
-            <label for="description">Description:</label>
+            <label htmlFor="description">Description:</label>
             <textarea
               className="form-control"
               id="description"
@@ -37,7 +37,7 @@ export default function PhotoUploadPage() {
             ></textarea>
           </div>
           <div className="form-group">
-            <label for="keywords">Keywords (comma separated):</label>
+            <label htmlFor="keywords">Keywords (comma separated):</label>
             <input
               type="text"
               className="form-control"
