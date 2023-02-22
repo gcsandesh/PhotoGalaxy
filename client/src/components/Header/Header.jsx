@@ -62,7 +62,7 @@ export default function Header() {
           </NavItem>
           <NavItem>
             <Link to="/dashboard">
-              <FaRegUserCircle size={24} />
+              <FaRegUserCircle size={24}/>
             </Link>
           </NavItem>
         </Nav>
