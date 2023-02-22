@@ -61,9 +61,12 @@ export default function Header() {
             </NavDropdown>
           </NavItem>
           <NavItem>
-            <Link to="/dashboard">
-              <FaRegUserCircle size={24}/>
-            </Link>
+            <NavDropdown title={<FaRegUserCircle size={24} />}>
+              <DropdownItem>
+                <Link to="/dashboard">Dashboard</Link>
+              </DropdownItem>
+              <DropdownItem>Log Out</DropdownItem>
+            </NavDropdown>
           </NavItem>
         </Nav>
       </Container>
