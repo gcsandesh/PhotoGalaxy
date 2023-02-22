@@ -10,6 +10,7 @@ import {
   Signup,
   UserDash,
   UserProfile,
+  ResetPassword,
 } from "./pages"
 import Container from "react-bootstrap/Container"
 import AOS from "aos"
@@ -23,17 +24,26 @@ function App() {
     <Router>
       <Container
         fluid
-        className="p-0 d-flex flex-column justify-content-between vh-100"
+        className="text-white p-0 d-flex flex-column justify-content-between vh-100"
       >
         <Container fluid className="p-0 mb-4">
           <Header />
           <Container>
             <Routes>
               <Route path="/" element={<Home />} />
+
+              {/* log in */}
               <Route path="/login" element={<Login />} />
+              {/* sign up */}
               <Route path="/signup" element={<Signup />} />
+              {/* reset password */}
+              <Route path="/reset-password" element={<ResetPassword />} />
+
+              {/* User dashboard */}
               <Route path="/dashboard" element={<UserDash />} />
+              {/* public profile of each user */}
               <Route path="/user/:username" element={<UserProfile />} />
+              {/* photo uploading page */}
               <Route path="/upload" element={<PhotoUploadPage />} />
             </Routes>
           </Container>

@@ -5,7 +5,6 @@ import lightLogo from "../../assets/logo-white.svg"
 import darkLogo from "../../assets/logo-black.svg"
 
 export default function SiteLogo({ logoColor }) {
-  console.log(logoColor)
   return (
     <Link to="/">
       <Image

@@ -1,12 +1,14 @@
 .home-masonry-grid {
-	display: flex;
-	width: auto;
+  display: flex;
+  width: auto;
 }
-.home-masonry-grid_column + .home-masonry-grid_column {
-	padding-left: 15px; /* gutter size */
+.home-masonry-grid_column {
+  margin: 10px;
 }
 
 .home-masonry-grid_column > img {
-	background: grey;
-	margin-bottom: 15px;
+  /* background: white; */
+  /* object-fit: ; */
+  width: 200px;
+  margin-bottom: 15px;
 }

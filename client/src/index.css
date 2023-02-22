@@ -1,8 +1,20 @@
 * {
-	font-family: "Manrope", sans-serif;
-	box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+  box-sizing: border-box;
 }
 
 li {
-	list-style-type: none;
+  list-style-type: none;
+}
+body {
+  /* background-color: #669bbc; */
+  background: url("./assets/gradient-bg.svg") no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: rgba(12, 30, 54, 0.9);
+}
+
+.bg-skyBlue {
+  background-color: #aff1ec;
 }

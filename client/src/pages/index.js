@@ -7,6 +7,7 @@ import UserDash from "./UserDash"
 import ChangePassword from "./ChangePassword"
 import UserProfile from "./UserProfile"
 import PhotoUploadPage from "./PhotoUploadPage"
+import ResetPassword from "./ResetPassword"
 
 export {
   Home,
@@ -18,4 +19,5 @@ export {
   UserDash,
   UserProfile,
   PhotoUploadPage,
+  ResetPassword,
 }

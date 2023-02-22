@@ -53,16 +53,21 @@ export default function Header() {
 
   // console.log(isNotificationOn)
   return (
-    <Container fluid className="shadow mb-4 py-2">
+    <Container fluid className="shadow mb-4 py-2 bg-skyBlue">
       <Container className="d-flex justify-content-between">
+        {/* LOGO */}
         <SiteLogo logoColor={"dark"} />
 
+        {/* NAV */}
         <Nav className="d-flex gap-2 align-items-center">
+          {/* UPLOAD button */}
           <NavItem>
             <Link to="/upload">
               <Button>Upload</Button>
             </Link>
           </NavItem>
+
+          {/* EXPLORE menu */}
           <NavItem>
             <NavDropdown title="Explore" menuVariant="dark">
               <NavDropdown.Item as={Link} to="/categories/top">
@@ -70,16 +75,18 @@ export default function Header() {
               </NavDropdown.Item>
             </NavDropdown>
           </NavItem>
+
           {/* if user is logged in, show notification icon and option to visit dashboard */}
-          {/* if user is not logged in, show option to login/signup */}
           {isLoggedIn ? (
             <>
+              {/* NOTIFICATION */}
               <NavItem onClick={toggleNotification}>
                 <NavDropdown title={<FaRegBell size={24} />} menuVariant="dark">
                   {notificationEls}
                 </NavDropdown>
               </NavItem>
 
+              {/* USER menu */}
               <NavItem>
                 <NavDropdown
                   menuVariant="dark"
@@ -95,6 +102,7 @@ export default function Header() {
             </>
           ) : (
             <NavItem>
+              {/* if user is not logged in, show option to login/signup */}
               <NavDropdown
                 menuVariant="dark"
                 className="text-white"

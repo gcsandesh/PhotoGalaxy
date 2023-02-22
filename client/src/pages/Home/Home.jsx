@@ -21,6 +21,7 @@ export default function Home() {
   const imgGallery = images.map((eachImage) => (
     <img
       data-aos="fade-up"
+      data-aos-duration={4000}
       key={eachImage.id}
       src={eachImage.download_url}
       className="w-100 home-masonry-grid_column"
@@ -31,8 +32,9 @@ export default function Home() {
     <div>
       <div>
         <SearchBar />
+
         <Masonry
-          breakpointCols={{ default: 4, 1100: 3, 700: 2, 500: 1 }}
+          breakpointCols={{ default: 3, 500: 1, 768: 2 }}
           className="home-masonry-grid"
           columnClassName="home-masonry-grid_column"
         >
