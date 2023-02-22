@@ -5,6 +5,7 @@ import { Container, Nav, NavItem, NavDropdown, Button } from "react-bootstrap"
 import { SiteLogo } from "../common"
 
 export default function Header() {
+  const isLoggedIn = false
   // const [isNotificationOn, setIsNotificationOn] = useState(false)
   const [notifications, setNotifications] = useState([
     {
@@ -62,7 +63,6 @@ export default function Header() {
               <Button>Upload</Button>
             </Link>
           </NavItem>
-
           <NavItem>
             <NavDropdown title="Explore" menuVariant="dark">
               <NavDropdown.Item as={Link} to="/categories/top">
@@ -70,25 +70,45 @@ export default function Header() {
               </NavDropdown.Item>
             </NavDropdown>
           </NavItem>
+          {/* if user is logged in, show notification icon and option to visit dashboard */}
+          {/* if user is not logged in, show option to login/signup */}
+          {isLoggedIn ? (
+            <>
+              <NavItem onClick={toggleNotification}>
+                <NavDropdown title={<FaRegBell size={24} />} menuVariant="dark">
+                  {notificationEls}
+                </NavDropdown>
+              </NavItem>
 
-          <NavItem onClick={toggleNotification}>
-            <NavDropdown title={<FaRegBell size={24} />} menuVariant="dark">
-              {notificationEls}
-            </NavDropdown>
-          </NavItem>
-
-          <NavItem>
-            <NavDropdown
-              menuVariant="dark"
-              className="text-white"
-              title={<FaRegUserCircle size={24} />}
-            >
-              <NavDropdown.Item as={Link} to="/dashboard">
-                Dashboard
-              </NavDropdown.Item>
-              <NavDropdown.Item>Log Out</NavDropdown.Item>
-            </NavDropdown>
-          </NavItem>
+              <NavItem>
+                <NavDropdown
+                  menuVariant="dark"
+                  className="text-white"
+                  title={<FaRegUserCircle size={24} />}
+                >
+                  <NavDropdown.Item as={Link} to="/dashboard">
+                    Dashboard
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>Log Out</NavDropdown.Item>
+                </NavDropdown>
+              </NavItem>
+            </>
+          ) : (
+            <NavItem>
+              <NavDropdown
+                menuVariant="dark"
+                className="text-white"
+                title={<FaRegUserCircle size={24} />}
+              >
+                <NavDropdown.Item as={Link} to="/login">
+                  Log In
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/signup">
+                  Sign Up
+                </NavDropdown.Item>
+              </NavDropdown>
+            </NavItem>
+          )}
         </Nav>
       </Container>
     </Container>
