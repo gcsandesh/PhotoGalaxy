@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { FaRegBell, FaRegUserCircle } from "react-icons/fa"
 import { Container, Nav, NavItem, NavDropdown, Button } from "react-bootstrap"
-import DropdownItem from "react-bootstrap/esm/DropdownItem"
 import { SiteLogo } from "../common"
 
 export default function Header() {
@@ -28,11 +27,22 @@ export default function Header() {
     },
   ])
 
-  const notificationEls = notifications.map((notif) => (
-    <DropdownItem key={notif.notificationID} className="">
-      {notif.message}
-    </DropdownItem>
-  ))
+  const notificationEls = notifications.map((notif, index, originalArray) => {
+    if (index === originalArray.length - 1) {
+      return (
+        <NavDropdown.Item key={notif.notificationID}>
+          {notif.message}
+        </NavDropdown.Item>
+      )
+    }
+    return (
+      <NavDropdown.Item key={notif.notificationID}>
+        {notif.message}
+
+        <NavDropdown.Divider />
+      </NavDropdown.Item>
+    )
+  })
 
   function toggleNotification() {
     // here we should fetch notifications for that user
@@ -42,30 +52,41 @@ export default function Header() {
 
   // console.log(isNotificationOn)
   return (
-    <Container fluid className="shadow mb-4">
+    <Container fluid className="shadow mb-4 py-2">
       <Container className="d-flex justify-content-between">
         <SiteLogo logoColor={"dark"} />
 
         <Nav className="d-flex gap-2 align-items-center">
-          <NavDropdown title="Explore">
-            <DropdownItem>Top Downloaded</DropdownItem>
-          </NavDropdown>
           <NavItem>
             <Link to="/upload">
               <Button>Upload</Button>
             </Link>
           </NavItem>
+
+          <NavItem>
+            <NavDropdown title="Explore" menuVariant="dark">
+              <NavDropdown.Item as={Link} to="/categories/top">
+                Top Downloaded
+              </NavDropdown.Item>
+            </NavDropdown>
+          </NavItem>
+
           <NavItem onClick={toggleNotification}>
-            <NavDropdown title={<FaRegBell size={24} />}>
+            <NavDropdown title={<FaRegBell size={24} />} menuVariant="dark">
               {notificationEls}
             </NavDropdown>
           </NavItem>
+
           <NavItem>
-            <NavDropdown title={<FaRegUserCircle size={24} />}>
-              <DropdownItem>
-                <Link to="/dashboard">Dashboard</Link>
-              </DropdownItem>
-              <DropdownItem>Log Out</DropdownItem>
+            <NavDropdown
+              menuVariant="dark"
+              className="text-white"
+              title={<FaRegUserCircle size={24} />}
+            >
+              <NavDropdown.Item as={Link} to="/dashboard">
+                Dashboard
+              </NavDropdown.Item>
+              <NavDropdown.Item>Log Out</NavDropdown.Item>
             </NavDropdown>
           </NavItem>
         </Nav>
