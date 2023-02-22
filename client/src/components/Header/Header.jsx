@@ -44,7 +44,7 @@ export default function Header() {
   return (
     <Container fluid className="shadow mb-4">
       <Container className="d-flex justify-content-between">
-        <SiteLogo />
+        <SiteLogo logoColor={"dark"} />
 
         <Nav className="d-flex gap-2 align-items-center">
           <NavDropdown title="Explore">
