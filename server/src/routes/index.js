@@ -5,5 +5,6 @@ const photoRoutes = require("./photoRoutes")
 
 router.use("/users", userRoutes)
 router.use("/photos", photoRoutes)
+router.use("/auth", )
 
 module.exports = router

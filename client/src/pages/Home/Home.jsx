@@ -8,7 +8,7 @@ export default function Home() {
   //getting dummy images
   React.useEffect(() => {
     async function receiveImages() {
-      const response = await fetch("https://picsum.photos/v2/list")
+      const response = await fetch("https://picsum.photos/v2/list?page=2&limit=100")
       if (!response.ok) throw new Error("Error while fetching!")
 
       const data = await response.json()
