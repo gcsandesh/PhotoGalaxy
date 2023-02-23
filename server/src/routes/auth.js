@@ -2,4 +2,4 @@ const router = require("express").Router()
 const { handleLogin, handleSignup } = require("../controllers/auth")
 
 router.post("/login", handleLogin)
-router.post("/register", handleSignup)
+router.post("/signup", handleSignup)

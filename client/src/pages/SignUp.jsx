@@ -1,48 +1,112 @@
-import React from "react"
+import React, { useState } from "react"
+import { Link } from "react-router-dom"
+import Button from "react-bootstrap/esm/Button"
+import Form from "react-bootstrap/Form"
+import Container from "react-bootstrap/Container"
 
 export default function Signup() {
+  const emptyForm = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    cpassword: "",
+  }
+  const [formData, setFormData] = useState(emptyForm)
+
+  function handleFormInput(event) {
+    const { name, value } = event.target
+
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }))
+  }
+
+  function handleSignup(event) {
+    event.preventDefault()
+    fetch("http://localhost:9988/api/auth/signup", { method: "POST" })
+      .then(() => console.log("Signed Up!"))
+      .catch((ex) => console.error(ex))
+  }
+
   return (
     <div>
-      <div className="container">
-        <form>
-          <div className="form-group">
-            <label>Email: </label>
-            <input
+      <Container>
+        <Form
+          className="w-50 mx-auto d-flex flex-column align-items-center gap-2"
+          onSubmit={handleSignup}
+        >
+          <Form.Group className="d-flex mx-auto w-50 gap-4">
+            {/* first name */}
+            <Form.Group>
+              <Form.Label>First Name: </Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="First Name"
+                name="firstName"
+                onChange={handleFormInput}
+                value={formData.firstName}
+                required
+              />
+            </Form.Group>
+
+            {/* last name */}
+            <Form.Group>
+              <Form.Label>Last Name: </Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Last Name"
+                name="lastName"
+                required
+              />
+            </Form.Group>
+          </Form.Group>
+
+          {/* email */}
+          <Form.Group className="w-50">
+            <Form.Label>Email: </Form.Label>
+            <Form.Control
               type="text"
-              className="form-control"
               placeholder="Enter Your Email"
               name="email"
               required
             />
-          </div>
-          <div className="form-group">
-            <label>Password : </label>
-            <input
+          </Form.Group>
+
+          {/* password */}
+          <Form.Group className="w-50">
+            <Form.Label>Password : </Form.Label>
+            <Form.Control
               type="password"
-              className="form-control"
               placeholder="Enter Your Password"
               name="password"
               required
             />
-          </div>
-          <div className="form-group">
-            <label>Confirm Your Password : </label>
-            <input
+          </Form.Group>
+
+          {/* confirm password */}
+          <Form.Group className="w-50">
+            <Form.Label>Confirm Your Password : </Form.Label>
+            <Form.Control
               type="password"
-              className="form-control"
               placeholder="Enter Your Password Again"
-              name="password"
+              name="cpassword"
               required
             />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Sign Up
-          </button>
-          <p>
-            Already have an account? <a href="#"> Log In </a>
-          </p>
-        </form>
-      </div>
+          </Form.Group>
+
+          {/* "sign up"  button*/}
+          <Form.Group>
+            <Button type="submit" variant="primary">
+              Sign Up
+            </Button>
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Text>
+              Already have an account? <Link to="/login"> Log In </Link>
+            </Form.Text>
+          </Form.Group>
+        </Form>
+      </Container>
     </div>
   )
 }
