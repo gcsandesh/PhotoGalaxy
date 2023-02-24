@@ -1,16 +1,14 @@
 import React from "react"
+import { DragAndDropZone } from "../components"
 
 export default function PhotoUploadPage() {
   return (
     <div>
       <div className="container">
         <h1 className="text-center my-5">Upload Your Photos</h1>
-        <form
-          action="/upload-photo"
-          method="post"
-          encType="multipart/form-data"
-        >
-          <div className="form-group">
+
+        <DragAndDropZone />
+        {/* <div className="form-group">
             <label htmlFor="photo">Select a Photo:</label>
             <input
               type="file"
@@ -18,8 +16,8 @@ export default function PhotoUploadPage() {
               id="photo"
               name="photo"
             />
-          </div>
-          {/* <div className="form-group">
+          </div> */}
+        {/* <div className="form-group">
             <label htmlFor="title">Title:</label>
             <input
               type="text"
@@ -45,8 +43,6 @@ export default function PhotoUploadPage() {
               name="keywords"
             />
           </div> */}
-          <input type="submit" className="btn btn-primary" value="Upload" />
-        </form>
       </div>
     </div>
   )
