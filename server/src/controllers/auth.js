@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const { User } = require("../models/users")
 
 async function handleLogin(req, res) {
   const email = req.body.email
@@ -14,20 +15,27 @@ async function handleLogin(req, res) {
 async function handleSignup(req, res) {
   const { email, password, firstName, lastName } = req.body
 
-  //   hashing the password
-  const salt = await bcrypt.genSalt()
-  const hashedPassword = await bcrypt.hash(password, salt)
+  try {
+    //   hashing the password
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
 
-  //   creating user object
-  const user = {
-    first_name: firstName,
-    last_name: lastName,
-    email: email,
-    password: hashedPassword,
+    //   creating user object
+    const user = new User({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: hashedPassword,
+    })
+    console.log(user)
+
+    //   add user to users collection
+    const result = await user.save()
+    res.send(result)
+  } catch (ex) {
+    console.log("error while adding user to db")
+    console.error(new Error(ex))
   }
-  //   add user to users collection
-  // await users.save()
-  res.send(user)
 }
 
 module.exports = { handleLogin, handleSignup }

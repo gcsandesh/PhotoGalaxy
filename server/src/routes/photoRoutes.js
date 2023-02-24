@@ -1,10 +1,10 @@
 const router = require("express").Router()
 const {
-	getPhoto,
-	getAllPhotos,
-	getPhotosFromCategory,
-	getSimilarPhotos,
-	uploadPhoto,
+  getPhoto,
+  getAllPhotos,
+  getPhotosFromCategory,
+  getSimilarPhotos,
+  uploadPhoto,
 } = require("../controllers/photoController")
 
 router.get("/", getAllPhotos)
