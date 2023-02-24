@@ -22,8 +22,16 @@ export default function Signup() {
 
   function handleSignup(event) {
     event.preventDefault()
-    fetch("http://localhost:9988/api/auth/signup", { method: "POST" })
-      .then(() => console.log("Signed Up!"))
+    // console.log(JSON.stringify(formData))
+    fetch("http://localhost:9988/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
       .catch((ex) => console.error(ex))
   }
 
@@ -42,8 +50,8 @@ export default function Signup() {
                 type="text"
                 placeholder="First Name"
                 name="firstName"
-                onChange={handleFormInput}
                 value={formData.firstName}
+                onChange={handleFormInput}
                 required
               />
             </Form.Group>
@@ -55,6 +63,8 @@ export default function Signup() {
                 type="text"
                 placeholder="Last Name"
                 name="lastName"
+                value={formData.lastName}
+                onChange={handleFormInput}
                 required
               />
             </Form.Group>
@@ -67,6 +77,8 @@ export default function Signup() {
               type="text"
               placeholder="Enter Your Email"
               name="email"
+              value={formData.email}
+              onChange={handleFormInput}
               required
             />
           </Form.Group>
@@ -78,6 +90,8 @@ export default function Signup() {
               type="password"
               placeholder="Enter Your Password"
               name="password"
+              value={formData.password}
+              onChange={handleFormInput}
               required
             />
           </Form.Group>
@@ -89,6 +103,8 @@ export default function Signup() {
               type="password"
               placeholder="Enter Your Password Again"
               name="cpassword"
+              value={formData.cpassword}
+              onChange={handleFormInput}
               required
             />
           </Form.Group>

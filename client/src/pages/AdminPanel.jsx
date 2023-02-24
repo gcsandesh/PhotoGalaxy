@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function AdminPanal() {
+export default function AdminPanel() {
 	return (
 		<div>
 		</div>

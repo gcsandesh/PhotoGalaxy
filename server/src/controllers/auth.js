@@ -27,14 +27,13 @@ async function handleSignup(req, res) {
       email: email,
       password: hashedPassword,
     })
-    console.log(user)
 
     //   add user to users collection
     const result = await user.save()
     res.send(result)
   } catch (ex) {
-    console.log("error while adding user to db")
     console.error(new Error(ex))
+    res.json({ message: new Error(ex) })
   }
 }
 
