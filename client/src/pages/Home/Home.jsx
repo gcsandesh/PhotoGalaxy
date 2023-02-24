@@ -1,4 +1,5 @@
 import React from "react"
+import { Helmet } from "react-helmet"
 import Masonry from "react-masonry-css"
 import "./myMasonry.css"
 import { SearchBar } from "../../components/common"
@@ -8,7 +9,9 @@ export default function Home() {
   //getting dummy images
   React.useEffect(() => {
     async function receiveImages() {
-      const response = await fetch("https://picsum.photos/v2/list?page=2&limit=100")
+      const response = await fetch(
+        "https://picsum.photos/v2/list?page=2&limit=100"
+      )
       if (!response.ok) throw new Error("Error while fetching!")
 
       const data = await response.json()
@@ -30,6 +33,9 @@ export default function Home() {
 
   return (
     <div>
+      <Helmet>
+        <title>PhotoGalaxy - Best Free Images</title>
+      </Helmet>
       <div>
         <SearchBar />
 
