@@ -1,6 +1,7 @@
 ////////////    UPLOAD ONE OR MANY PHOTOS    /////////////
 function uploadPhotos(req, res) {
   console.log(req.body)
+  console.log("query", req.query)
   console.log("photo is received and uploaded to server")
   return res.send({ message: req.body })
 }
@@ -32,5 +33,5 @@ module.exports = {
   getPhoto,
   getPhotosFromCategory,
   getSimilarPhotos,
-  uploadPhotoS,
+  uploadPhotos,
 }
