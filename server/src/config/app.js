@@ -3,11 +3,15 @@ const morgan = require("morgan")
 const cors = require("cors")
 const app = express()
 
+// finding node environment
+require("dotenv").config({ path: "../.env" })
+console.log(process.env.SERVER_NODE_ENV)
+
 // connecting to db
 require("./db")()
 
 // logging for development mode
-if (process.env.NODE_ENV == "development") {
+if (process.env.SERVER_NODE_ENV == "development") {
   app.use(morgan("dev"))
   console.log("Morgan is running...")
 }
@@ -20,7 +24,7 @@ app.use("/api", require("../routes"))
 
 // routes
 app.get("/", (req, res) => {
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.SERVER_NODE_ENV === "production") {
     res.send("here goes index.html page")
   }
   res.status(404).send("You're in development mode")
