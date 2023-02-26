@@ -1,11 +1,11 @@
 const express = require("express")
 const router = express.Router()
-const userRoutes = require("./userRoutes")
-const photoRoutes = require("./photoRoutes")
+const users = require("./users")
+const photos = require("./photos")
 const auth = require("./auth")
 
-router.use("/users", userRoutes)
-router.use("/photos", photoRoutes)
+router.use("/users", users)
+router.use("/photos", photos)
 router.use("/auth", auth)
 
 module.exports = router

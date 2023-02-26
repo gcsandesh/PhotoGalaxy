@@ -4,13 +4,13 @@ const {
   getAllPhotos,
   getPhotosFromCategory,
   getSimilarPhotos,
-  uploadPhoto,
-} = require("../controllers/photoController")
+  uploadPhotos,
+} = require("../controllers/photos")
 
 router.get("/", getAllPhotos)
 router.get("/id/:id", getPhoto)
 router.get("/category/:category", getPhotosFromCategory)
 router.post("/similar", getSimilarPhotos)
-router.post("/", uploadPhoto)
+router.post("/", uploadPhotos)
 
 module.exports = router
