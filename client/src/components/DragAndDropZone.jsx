@@ -2,61 +2,60 @@ import React, { useEffect, useState } from "react"
 
 export default function DragAndDropZone() {
   const [previews, setPreviews] = useState([])
-  //   const [files, setFiles] = useState([])
+  const [files, setFiles] = useState([])
   ////////////////    UPLOAD FILES AT LAST    //////////////////
   function handlePhotosUpload(event) {
     event.preventDefault()
 
-    // let formData = new FormData()
-    // files.forEach((file, index) => {
-    //   formData.append(`file_${index}`, file)
-    // })
-    // console.log(formData)
-    // let url = `http://localhost:9988/api/photos/`
-    // fetch(url, {
-    //   method: "POST",
-    //   body: formData,
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data))
-    //   .catch((ex) => console.log(ex))
+    let formData = new FormData()
+    files.forEach((file) => {
+      formData.append(`photo`, file)
+    })
+    console.log(formData)
+    let url = `http://localhost:9988/api/photos/`
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((ex) => console.log(ex))
     console.log("photos sent to backend!")
-    // event.target.reset()
   }
 
   ///////////////    SHOWS PREVIEWS WHEN PHOTOS ARE READ    ////////////
   function handleFiles(files) {
     // when files are dropped, files are sent to this function
     // here files is FileList, so converting it to array and iterating
-    // ;[...files].forEach(saveFile)
+    ;[...files].forEach(saveFile)
     ;[...files].forEach(previewFile)
-    ;[...files].forEach(uploadFile)
+    // ;[...files].forEach(uploadFile)
   }
 
-  function uploadFile(file) {
-    let url = "http://localhost:9988/api/photos"
-    let formData = new FormData()
+  // function uploadFile(file) {
+  //   let url = "http://localhost:9988/api/photos"
+  //   let formData = new FormData()
 
-    formData.append("file", file)
+  //   formData.append("photo", file)
 
-    fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        /* Done. Inform the user */
-      })
-      .catch(() => {
-        console.log("error while fetching!")
-        /* Error. Inform the user */
-      })
+  //   fetch(url, {
+  //     method: "POST",
+  //     body: formData,
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data)
+  //       /* Done. Inform the user */
+  //     })
+  //     .catch(() => {
+  //       console.log("error while fetching!")
+  //       /* Error. Inform the user */
+  //     })
+  // }
+
+  function saveFile(file) {
+    setFiles((prevFiles) => [...prevFiles, file])
   }
-
-  //   function saveFile(file) {
-  //     setFiles((prevFiles) => [...prevFiles, file])
-  //   }
 
   function previewFile(file) {
     let reader = new FileReader()
