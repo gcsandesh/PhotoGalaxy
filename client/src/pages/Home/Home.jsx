@@ -2,9 +2,11 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { SearchBar } from "../../components/common"
 import { Gallery } from "react-grid-gallery"
+import { useNavigate } from "react-router-dom"
 
 export default function Home() {
   const [images, setImages] = React.useState([])
+  const navigate = useNavigate()
 
   //getting dummy images
   React.useEffect(() => {
@@ -22,8 +24,14 @@ export default function Home() {
   }, [])
 
   const imgGallery = images.map((eachImage) => ({
+    _id: "404",
     src: eachImage.download_url,
+    alt: "good nice photo wow",
   }))
+
+  function openEachPhotoPage(index, photo, event) {
+    navigate(`/photo/${photo._id}`)
+  }
 
   return (
     <div>
@@ -32,7 +40,12 @@ export default function Home() {
       </Helmet>
       <div>
         <SearchBar />
-        <Gallery images={imgGallery} enableImageSelection={false} />
+        <Gallery
+          images={imgGallery}
+          enableImageSelection={false}
+          onClick={openEachPhotoPage}
+          margin={3}
+        />
       </div>
     </div>
   )

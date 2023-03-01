@@ -49,12 +49,12 @@ export default function Header() {
   // console.log(isNotificationOn)
   return (
     <div className="shadow-md mb-4 py-2 bg-highlightOrange">
-      <div className="d-flex justify-content-between">
+      <div className="flex justify-between">
         {/* LOGO */}
         <SiteLogo logoColor={"light"} />
 
         {/* NAV */}
-        <div className="d-flex gap-2 align-items-center">
+        <div className="flex gap-2 items-center">
           {/* UPLOAD button */}
           <div>
             <Link to="/upload">

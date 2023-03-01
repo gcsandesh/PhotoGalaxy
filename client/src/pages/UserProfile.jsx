@@ -1,29 +1,32 @@
 import React, { useState } from "react"
-import { useParams } from "react-router-dom"
-import Masonry from "react-masonry-css"
-import "../pages/Home/myMasonry.css"
+import { useNavigate, useParams } from "react-router-dom"
 import { Gallery } from "react-grid-gallery"
 
 export default function UserProfile() {
   const params = useParams()
+  const navigate = useNavigate()
   console.log(params.username)
   const [userUploads, setUserUploads] = useState([
     {
+      _id: "123",
       src: "https://picsum.photos/id/0/5000/3333",
       width: 950,
       height: 200,
     },
     {
+      _id: "111",
       src: "https://fastly.picsum.photos/id/220/350/350.jpg?hmac=I8BX8Fg9UVkOB74C1exWvExDIOJ51GdzCEEagiS9_yM",
       width: 3500,
       height: 750,
     },
     {
+      _id: "222",
       src: "https://fastly.picsum.photos/id/52/350/350.jpg?hmac=Q3V4GgnpXq3S-pwb99ATu6mk3zGJqzdErVGc2wJ6vRY",
       width: 1920,
       height: 80,
     },
     {
+      _id: "333",
       src: "https://fastly.picsum.photos/id/354/350/350.jpg?hmac=HhYdM2mII9asa3KjiazJD73aGn9hUICREn_Gykn9CPM",
       width: 850,
       height: 350,
@@ -37,9 +40,13 @@ export default function UserProfile() {
     // "https://fastly.picsum.photos/id/755/200/300.jpg?hmac=CfzLROBA3atEQnBKXK5SeavNo-1QRwZRwcqZwwdBMdM",
   ])
 
-  const userUploadsImgEls =
-    userUploads &&
-    userUploads.map((photo, index) => <img key={index} src={photo} />)
+  function handleImgClick(index, image, event) {
+    console.log("clicked")
+    console.log(index)
+    console.log(image)
+    console.log(event)
+    navigate(`/photo/${image._id}`)
+  }
 
   return (
     <div>
@@ -65,7 +72,11 @@ export default function UserProfile() {
           Photos by Subek Adhikary
         </h3>
         <div className="my-2">
-          <Gallery images={userUploads} enableImageSelection={false} />
+          <Gallery
+            images={userUploads}
+            enableImageSelection={false}
+            onClick={handleImgClick}
+          />
         </div>
       </div>
     </div>

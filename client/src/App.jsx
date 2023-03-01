@@ -11,6 +11,7 @@ import {
   UserDash,
   UserProfile,
   ResetPassword,
+  Photo,
 } from "./pages"
 import Container from "react-bootstrap/Container"
 import AOS from "aos"
@@ -43,6 +44,9 @@ function App() {
               <Route path="/dashboard" element={<UserDash />} />
               {/* public profile of each user */}
               <Route path="/user/:username" element={<UserProfile />} />
+
+              {/* each photo page when any photo is clicked or the route is matched*/}
+              <Route path="/photo/:id" element={<Photo />} />
               {/* photo uploading page */}
               <Route path="/upload" element={<PhotoUploadPage />} />
             </Routes>
