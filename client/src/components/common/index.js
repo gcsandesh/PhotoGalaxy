@@ -1,5 +1,4 @@
-import SiteLogo from "./SiteLogo";
-import SearchBar from "./SearchBar";
-import PhotoCard from "./PhotoCard";
+import SiteLogo from "./SiteLogo"
+import SearchBar from "./SearchBar"
 
-export { SiteLogo, SearchBar, PhotoCard };
+export { SiteLogo, SearchBar }
