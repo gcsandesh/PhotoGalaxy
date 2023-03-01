@@ -1,20 +1,19 @@
 import React from "react"
-import { Button, Form, FormGroup, FormControl } from "react-bootstrap"
 import { FaSearch } from "react-icons/fa"
 
 export default function SearchBar() {
-	return (
-		<Form className="my-4">
-			<FormGroup className="d-flex gap-2 align-items-center">
-				<FormControl
-					type="text"
-					className="w-25"
-					placeholder="Search quality photos..."
-				/>
-				<Button variant="success">
-					<FaSearch />
-				</Button>
-			</FormGroup>
-		</Form>
-	)
+  return (
+    <div className="my-4">
+      <form className="flex gap-2 items-center">
+        <input
+          type="text"
+          className="w-full md:max-w-25 px-2 py-1 rounded-sm"
+          placeholder="Search quality photos..."
+        />
+        <button className="bg-secondaryGreen p-2 rounded-sm">
+          <FaSearch />
+        </button>
+      </form>
+    </div>
+  )
 }
