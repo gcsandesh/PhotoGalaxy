@@ -1,11 +1,11 @@
 import React from "react"
 import { Helmet } from "react-helmet"
-import Masonry from "react-masonry-css"
-import "./myMasonry.css"
 import { SearchBar } from "../../components/common"
+import { Gallery } from "react-grid-gallery"
 
 export default function Home() {
   const [images, setImages] = React.useState([])
+
   //getting dummy images
   React.useEffect(() => {
     async function receiveImages() {
@@ -21,15 +21,9 @@ export default function Home() {
     return () => console.log("remove Effect")
   }, [])
 
-  const imgGallery = images.map((eachImage) => (
-    <img
-      data-aos="fade-up"
-      data-aos-duration={4000}
-      key={eachImage.id}
-      src={eachImage.download_url}
-      className="w-100 home-masonry-grid_column"
-    />
-  ))
+  const imgGallery = images.map((eachImage) => ({
+    src: eachImage.download_url,
+  }))
 
   return (
     <div>
@@ -38,14 +32,7 @@ export default function Home() {
       </Helmet>
       <div>
         <SearchBar />
-
-        <Masonry
-          breakpointCols={{ default: 3, 500: 1, 768: 2 }}
-          className="home-masonry-grid"
-          columnClassName="home-masonry-grid_column"
-        >
-          {!imgGallery.length ? "Photo gallery here..." : imgGallery}
-        </Masonry>
+        <Gallery images={imgGallery} enableImageSelection={false} />
       </div>
     </div>
   )

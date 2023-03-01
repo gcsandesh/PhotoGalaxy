@@ -1,21 +1,32 @@
 import React, { useState } from "react"
+import { useParams } from "react-router-dom"
 import Masonry from "react-masonry-css"
 import "../pages/Home/myMasonry.css"
-import Gallery from "react-grid-gallery"
+import { Gallery } from "react-grid-gallery"
 
 export default function UserProfile() {
+  const params = useParams()
+  console.log(params.username)
   const [userUploads, setUserUploads] = useState([
     {
-      url: "https://fastly.picsum.photos/id/409/350/350.jpg?hmac=lkO1jX0CeJ_gSXHgQtNjHrkQSocDa6qC7twCkmIJ0qk",
+      src: "https://picsum.photos/id/0/5000/3333",
+      width: 950,
+      height: 200,
     },
     {
-      url: "https://fastly.picsum.photos/id/220/350/350.jpg?hmac=I8BX8Fg9UVkOB74C1exWvExDIOJ51GdzCEEagiS9_yM",
+      src: "https://fastly.picsum.photos/id/220/350/350.jpg?hmac=I8BX8Fg9UVkOB74C1exWvExDIOJ51GdzCEEagiS9_yM",
+      width: 3500,
+      height: 750,
     },
     {
-      url: "https://fastly.picsum.photos/id/52/350/350.jpg?hmac=Q3V4GgnpXq3S-pwb99ATu6mk3zGJqzdErVGc2wJ6vRY",
+      src: "https://fastly.picsum.photos/id/52/350/350.jpg?hmac=Q3V4GgnpXq3S-pwb99ATu6mk3zGJqzdErVGc2wJ6vRY",
+      width: 1920,
+      height: 80,
     },
     {
-      url: "https://fastly.picsum.photos/id/354/350/350.jpg?hmac=HhYdM2mII9asa3KjiazJD73aGn9hUICREn_Gykn9CPM",
+      src: "https://fastly.picsum.photos/id/354/350/350.jpg?hmac=HhYdM2mII9asa3KjiazJD73aGn9hUICREn_Gykn9CPM",
+      width: 850,
+      height: 350,
     },
     // "https://fastly.picsum.photos/id/157/350/350.jpg?hmac=gN2xTuBJNpOIVuaONznS68vPBxSqzjEgfhQIm98DwVg",
     // "https://fastly.picsum.photos/id/508/350/350.jpg?hmac=X236OAe_2017MlLZY04X8oKeGFVbUYczLpjxay60ng8",
@@ -47,23 +58,14 @@ export default function UserProfile() {
               Hello there, I love clicking pictures. This is my hobby.
             </p>
           </div>
-          {/* <h2>5000 Points </h2> */}
         </div>
       </div>
       <div className="mt-4">
         <h3 className="font-bold my-2 text-xl underline underline-offset-4 text-center">
-          Photos by Subek Adhikary{" "}
+          Photos by Subek Adhikary
         </h3>
         <div className="my-2">
-          <Gallery images={images} />
-          {/* <Masonry
-            breakpointCols={{ default: 3, 500: 1, 768: 2 }}
-            className="home-masonry-grid"
-            columnClassName="home-masonry-grid_column"
-          >
-            {!userUploadsImgEls.length ? "Loading..." : userUploadsImgEls}
-        
-          </Masonry> */}
+          <Gallery images={userUploads} enableImageSelection={false} />
         </div>
       </div>
     </div>
