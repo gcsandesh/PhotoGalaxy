@@ -1,8 +1,5 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import Button from "react-bootstrap/esm/Button"
-import Form from "react-bootstrap/Form"
-import Container from "react-bootstrap/Container"
 
 export default function Signup() {
   const emptyForm = {
@@ -39,10 +36,9 @@ export default function Signup() {
     <div>
       <Container>
         <Form
-          className="w-50 mx-auto d-flex flex-column align-items-center gap-2"
           onSubmit={handleSignup}
         >
-          <Form.Group className="d-flex mx-auto w-50 gap-4">
+          <Form.Group >
             {/* first name */}
             <Form.Group>
               <Form.Label>First Name: </Form.Label>
@@ -71,7 +67,7 @@ export default function Signup() {
           </Form.Group>
 
           {/* email */}
-          <Form.Group className="w-50">
+          <Form.Group >
             <Form.Label>Email: </Form.Label>
             <Form.Control
               type="text"
@@ -84,7 +80,7 @@ export default function Signup() {
           </Form.Group>
 
           {/* password */}
-          <Form.Group className="w-50">
+          <Form.Group >
             <Form.Label>Password : </Form.Label>
             <Form.Control
               type="password"
@@ -97,7 +93,7 @@ export default function Signup() {
           </Form.Group>
 
           {/* confirm password */}
-          <Form.Group className="w-50">
+          <Form.Group>
             <Form.Label>Confirm Your Password : </Form.Label>
             <Form.Control
               type="password"
@@ -111,7 +107,7 @@ export default function Signup() {
 
           {/* "sign up"  button*/}
           <Form.Group>
-            <Button type="submit" variant="primary">
+            <Button type="submit" >
               Sign Up
             </Button>
           </Form.Group>

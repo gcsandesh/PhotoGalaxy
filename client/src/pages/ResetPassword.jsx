@@ -9,10 +9,9 @@ export default function ResetPassword() {
   }
   return (
     <Form
-      className="d-flex flex-column gap-2 w-50 mx-auto"
       onSubmit={sendPasswordResetLink}
     >
-      <Form.Group className="d-flex flex-column align-items-start">
+      <Form.Group >
         <Form.Text>
           Check your inbox for a temporary password reset link.
         </Form.Text>
@@ -23,7 +22,7 @@ export default function ResetPassword() {
           required
         />
       </Form.Group>
-      <Button className="mx-auto">Send link</Button>
+      <Button>Send link</Button>
     </Form>
   )
 }
