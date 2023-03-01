@@ -107,7 +107,7 @@ export default function Signup() {
 
           {/* "sign up"  button*/}
           <Form.Group>
-            <Button type="submit" variant="primary">
+            <Button type="submit" >
               Sign Up
             </Button>
           </Form.Group>
