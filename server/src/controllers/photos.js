@@ -1,19 +1,42 @@
-const cloudinary = require('cloudinary').v2
+const cloudinary = require('../utils/cloudinary')
+const streamifier = require('streamifier')
 
 ////////////    UPLOAD ONE OR MANY PHOTOS    /////////////
 function uploadPhotos(req, res) {
-  console.log('files', req.files)
-  console.log(req.body)
-  console.log('query', req.query)
-  console.log('photo is received and uploaded to server')
+  const photos = req.body
+  const photoBuffers = []
 
-  const resp = cloudinary.uploader.upload(req.files[0], {
-    public_id: 'first_upload_gc',
+  if (photos) {
+    for (const photo of Object.keys(photos)) {
+      // console.log(photo, Buffer.from(photos[photo]))
+      photoBuffers.push(Buffer.from(photos[photo]))
+    }
+    console.log(photoBuffers)
+
+    /////  uploading to cloudinary  /////
+    photoBuffers.forEach((photo) => {
+      console.log(photo)
+      uploadPhotoFromBuffer(photo)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
+    })
+  }
+  return res.send({ message: 'uploaded' })
+}
+
+function uploadPhotoFromBuffer(photo) {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader
+      .upload_stream(
+        { folder: 'test', resource_type: 'raw', format: 'jpg' },
+        (error, result) => {
+          if (error) reject(error)
+          if (result) resolve(result)
+        }
+      )
+      .end(photo)
+    // streamifier.createReadStream(photo).pipe(cld_upload_stream)
   })
-
-  resp.then(() => console.log('uploaded')).catch((err) => console.log(err))
-
-  return res.send({ message: req.body })
 }
 
 ////////////    GET PHOTO    /////////////
