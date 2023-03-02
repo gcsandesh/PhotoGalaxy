@@ -1,56 +1,68 @@
-import React from "react"
-import Container from "react-bootstrap/Container"
-import { Row } from "react-bootstrap"
-import { Col } from "react-bootstrap"
-import { SiteLogo } from "../common"
+import React from 'react'
+import { SiteLogo } from '../common'
 
 export default function Footer() {
   return (
-    <Container fluid className="bg-dark text-light mt-auto py-4">
-      <Container className="px-0">
-        <Row className="mx-auto gap-2 mx-auto justify-content-between">
-          <Col
-            xs={12}
-            sm={6}
-            lg={3}
-            className="justify-self-center align-self-center text-center"
-          >
-            <SiteLogo logoColor={"light"} />
-          </Col>
-          <Col xs={12} sm={6} lg={2} className="justify-self-center">
-            <h5>Explore</h5>
-            <ul className="p-0">
-              <li>Most Liked</li>
-              <li>Latest Uploads</li>
-              <li>Most Downloaded</li>
+    <div className="bg-[#001219] text-gray-300 mt-auto p-4 ">
+      <div className="container mx-auto w-full grid grid-cols-1 text-center md:text-left gap-4">
+        <div className="m-auto my-4">
+          <SiteLogo logoColor={'light'} />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 items-start justify-around gap-2">
+          {/* EXPLORE */}
+          <div className="mx-auto">
+            <h5 className=" font-semibold text-gray-50 underline underline-offset-2">
+              Explore
+            </h5>
+            <ul>
+              <li className=" hover:text-gray-50 cursor-pointer">Most Liked</li>
+              <li className=" hover:text-gray-50 cursor-pointer">
+                Latest Uploads
+              </li>
+              <li className=" hover:text-gray-50 cursor-pointer">
+                Most Downloaded
+              </li>
             </ul>
-          </Col>
-          <Col xs={12} sm={6} lg={2} className="justify-self-center">
-            <h5>Quick Links</h5>
-            <ul className="p-0">
-              <li>Home</li>
-              <li>Categories</li>
-              <li>Upload</li>
+          </div>
+
+          {/* QUICK LINKS */}
+          <div className="mx-auto">
+            <h5 className=" font-semibold text-gray-50 underline underline-offset-2">
+              Quick Links
+            </h5>
+            <ul>
+              <li className=" hover:text-gray-50 cursor-pointer">Home</li>
+              <li className=" hover:text-gray-50 cursor-pointer">Categories</li>
+              <li className=" hover:text-gray-50 cursor-pointer">Upload</li>
             </ul>
-          </Col>
-          <Col xs={12} sm={6} lg={2} className="justify-self-center">
-            <h5>Contact</h5>
-            <ul className="p-0">
-              <li>PhotoGalaxy Inc.</li>
-              <li>info.photogalaxy.com.np</li>
+          </div>
+
+          {/* CONTACT */}
+          <div className="mx-auto">
+            <h5 className=" font-semibold text-gray-50 underline underline-offset-2">
+              Contact
+            </h5>
+            <ul>
+              <li className=" hover:text-gray-50 cursor-pointer">
+                PhotoGalaxy Inc.
+              </li>
+              <li className=" hover:text-gray-50 cursor-pointer">
+                info.photogalaxy.com.np
+              </li>
             </ul>
-          </Col>
-          <Col
-            xs={12}
-            sm={6}
-            lg={2}
-            className="text-secondary justify-self-center"
-          >
-            <div>Terms of Service</div>
-            <div>Privacy Policy</div>
-          </Col>
-        </Row>
-      </Container>
-    </Container>
+          </div>
+        </div>
+
+        {/* TERMS AND CONDITIONS */}
+        <div className="text-center lg:text-right text-gray-400 text-sm uppercase font-bold">
+          <div>Terms of Service</div>
+          <div>Privacy Policy</div>
+        </div>
+      </div>
+      <span className="text-sm">
+        &copy;PhotoGalaxy 2023 - All Rights Reserved
+      </span>
+    </div>
   )
 }

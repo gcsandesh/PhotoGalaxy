@@ -63,13 +63,13 @@ export default function Header() {
           </div>
 
           {/* EXPLORE menu */}
-          <div>
+          {/* <div>
             <div title="Explore">
               <NavLink as={Link} to="/categories/top">
                 Top Downloaded
               </NavLink>
             </div>
-          </div>
+          </div> */}
 
           {/* if user is logged in, show notification icon and option to visit dashboard */}
           {isLoggedIn ? (

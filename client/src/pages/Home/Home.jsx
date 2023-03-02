@@ -27,6 +27,8 @@ export default function Home() {
     _id: "404",
     src: eachImage.download_url,
     alt: "good nice photo wow",
+    width: 400,
+    height: 500,
   }))
 
   function openEachPhotoPage(index, photo, event) {

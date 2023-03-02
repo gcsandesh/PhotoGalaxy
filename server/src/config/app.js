@@ -5,7 +5,6 @@ const app = express()
 
 // finding node environment
 require("dotenv").config({ path: "../.env" })
-console.log(process.env.SERVER_NODE_ENV)
 
 // connecting to db
 require("./db")()
