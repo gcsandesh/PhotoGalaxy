@@ -1,8 +1,8 @@
-import React, { useEffect } from "react"
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
-import "./App.css"
-import { Header } from "./components"
-import { Footer } from "./components/"
+import React, { useEffect } from 'react'
+import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
+import './App.css'
+import { Header } from './components'
+import { Footer } from './components/'
 import {
   Home,
   Login,
@@ -13,9 +13,9 @@ import {
   ResetPassword,
   Photo,
   ChangePassword,
-} from "./pages"
-import AOS from "aos"
-import "aos/dist/aos.css"
+} from './pages'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 function App() {
   useEffect(() => {
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <Router>
-      <div className="text-white p-0 flex flex-column justify-between h-100">
+      <div className=" container flex flex-col justify-between p-0 h-screen">
         <div className="p-0 mb-4">
           <Header />
           <div>
@@ -44,7 +44,7 @@ function App() {
                 {/* change password */}
                 <Route
                   // path={"change/some-unique-random-link"}
-                  path={"change"}
+                  path={'change'}
                   element={<ChangePassword />}
                 />
               </Route>
