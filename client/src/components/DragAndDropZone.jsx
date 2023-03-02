@@ -42,8 +42,8 @@ export default function DragAndDropZone() {
       .catch(() => console.log('error'))
   }
 
-  const previews = files.map((file) => (
-    <Preview b64={Buffer.from(file).toString('base64')} />
+  const previews = files.map((file, index) => (
+    <Preview key={index} b64={Buffer.from(file).toString('base64')} />
   ))
 
   return (
