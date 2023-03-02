@@ -12,25 +12,24 @@ export default function UserDash() {
   return (
     <div>
       <h1>Dashboard</h1>
-      <div >
-        <Image
+      <div>
+        <img
           src={"https://via.placeholder.com/350x150"}
-          alt="image of sth"
-          roundedCircle
+          alt="user profile picture"
           width={200}
           height={200}
         />
-        <Form.Control type={"file"} />
-        <Form.Label>Name:</Form.Label>
-        <Form.Control type="text" value={name} onChange={handleNameChange} />
-        <Form.Label>Email:</Form.Label>
-        <Form.Control type="text" value={email} onChange={handleEmailChange} />
-        <Form.Group >
-          <Button >Change Password</Button>
-          <Button >Delete Account</Button>
-        </Form.Group>
+        <input type={"file"} />
+        <label htmlFor="name">Name:</label>
+        <input type="text" value={name} onChange={handleNameChange} />
+        <label htmlFor="email">Email:</label>
+        <input type="text" value={email} onChange={handleEmailChange} />
+        <div>
+          <button>Change Password</button>
+          <button>Delete Account</button>
+        </div>
       </div>
-      <h2 >Uploads</h2>
+      <h2>Uploads</h2>
       <p>the images uploaded by the user is shown here ... </p>
     </div>
   )

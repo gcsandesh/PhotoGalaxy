@@ -39,30 +39,3 @@ export default function DragAndDropZone() {
     </div>
   )
 }
-
-// <form action="/upload-photo" method="post" encType="multipart/form-data">
-// <form onSubmit={handlePhotosUpload} encType={"multipart/form-data"}>
-//   <div
-//     className="border-2 border-dashed p-4 min-h-[350px] flex flex-col items-center justify-center"
-//     id="drop-zone"
-//   >
-//     <input
-//       className="w-full hidden"
-//       type={"file"}
-//       name={"photos"}
-//       id="photos"
-//       multiple
-//       accept={"image/*"}
-//     />
-//     <label htmlFor="photos" id="photos">
-//       Drop photos in the box!
-//     </label>
-
-//     <div className="h-full w-full flex items-center gap-2 flex-wrap object-contain">
-//       {previewEls}
-//     </div>
-//   </div>
-//   <button type="submit" className="bg-blue-600 px-4 py-2 rounded-md m-2">
-//     Upload
-//   </button>
-// </form>
