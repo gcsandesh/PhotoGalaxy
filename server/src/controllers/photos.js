@@ -1,5 +1,4 @@
 const cloudinary = require('../utils/cloudinary')
-const streamifier = require('streamifier')
 
 ////////////    UPLOAD ONE OR MANY PHOTOS    /////////////
 function uploadPhotos(req, res) {
@@ -35,7 +34,6 @@ function uploadPhotoFromBuffer(photo) {
         }
       )
       .end(photo)
-    // streamifier.createReadStream(photo).pipe(cld_upload_stream)
   })
 }
 
