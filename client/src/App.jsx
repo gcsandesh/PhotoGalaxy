@@ -24,7 +24,8 @@ function App() {
 
   return (
     <Router>
-      <div className=" container flex flex-col justify-between p-0 h-screen">
+      <div className=" grid grid-cols-1 h-screen">
+        {/* <div className=" container flex flex-col justify-between p-0 h-screen"> */}
         <div className="p-0 mb-4">
           <Header />
           <div>
