@@ -1,5 +1,12 @@
 import React from "react"
-import { FaHeart, FaRegHeart, FaShareAlt } from "react-icons/fa"
+import {
+  FaAngleDown,
+  FaArrowDown,
+  FaCaretDown,
+  FaHeart,
+  FaRegHeart,
+  FaShareAlt,
+} from "react-icons/fa"
 import { useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
 
@@ -67,78 +74,85 @@ export default function Photo() {
   }
 
   return (
-    <div className="container p-4 mx-auto grid grid-cols-3 gap-4">
-      {/* PHOTO CONTAINER */}
-      <div className="h-full border-2 col-start-1 col-end-3 rounded-lg">
-        <img
-          src={img.src}
-          className="rounded-lg h-full object-contain"
-          data-aos="fade-in"
-          alt={img.alt}
-        />
+    <div className="container p-4 mx-auto ">
+      <div className="grid grid-cols-3 gap-4">
+        {/* PHOTO CONTAINER */}
+        <div className="h-full col-start-1 col-end-3 rounded-lg">
+          <img
+            src={img.src}
+            className="rounded-lg h-full object-contain"
+            data-aos="fade-in"
+            alt={img.alt}
+          />
+        </div>
+        {/* RIGHT SIDE CONTAINING DETAILS ABOUT PHOTO */}
+        <div className="col-start-3 col-end-4 text-sm h-full flex flex-col gap-4">
+          <h1 className="text-2xl font-semibold">{img.title}</h1>
+          <div className="flex items-center gap-4">
+            {/* LIKE AND SHARE ICONS  */}
+            <span className="flex items-center gap-2">
+              {img.likedBy.find(
+                (eachUser) => eachUser.email === currentUser.email
+              ) ? (
+                <FaHeart className="cursor-pointer" />
+              ) : (
+                <FaRegHeart className="cursor-pointer" />
+              )}{" "}
+              {img.likes}
+            </span>
+            <FaShareAlt onClick={copyPhotoURL} className="cursor-pointer" />
+          </div>
+          {/* DOWNLOAD BUTTON */}
+          <button className=" py-4 rounded bg-green-500 text-white font-bold text-lg">
+            <a href="https://picsum.photos/id/1/5000/3333" download={true}>
+              DOWNLOAD
+            </a>
+          </button>
+          {/* PHOTO DETAILS */}
+          <div className="flex flex-col gap-2">
+            <span>
+              <span className="font-semibold">Uploaded on:</span>{" "}
+              {img.uploadedOn}
+            </span>
+            <span>
+              <span className="font-semibold">File size:</span> {img.fileSize}
+            </span>
+            <span>
+              <span className="font-semibold">Dimensions:</span> {img.width} x{" "}
+              {img.height}
+            </span>
+            <span>
+              <span className="font-semibold">Tags:</span>
+              <span className="flex flex-wrap gap-1">
+                {img.tags.map((tag, index) => (
+                  <span key={index}>"{tag}" </span>
+                ))}
+              </span>
+            </span>
+          </div>
+          {/* AUTHOR DETAILS */}
+          <div className="">
+            <h3>Uploaded by:</h3>
+            <h2 className="font-bold">
+              <Link
+                to={`/profile/${img.author.firstName}${img.author.lastName}`}
+                state={img.author}
+              >
+                {img.author.firstName} {img.author.lastName}
+              </Link>
+            </h2>
+            <p>400 Likes</p>
+          </div>
+        </div>
       </div>
 
-      {/* RIGHT SIDE CONTAINING DETAILS ABOUT PHOTO */}
-      <div className="col-start-3 col-end-4 text-sm h-full flex flex-col gap-4">
-        <h1 className="text-2xl font-semibold">{img.title}</h1>
-        <div className="flex items-center gap-4">
-          {/* LIKE AND SHARE ICONS  */}
-
-          <span className="flex items-center gap-2">
-            {img.likedBy.find(
-              (eachUser) => eachUser.email === currentUser.email
-            ) ? (
-              <FaHeart className="cursor-pointer" />
-            ) : (
-              <FaRegHeart className="cursor-pointer" />
-            )}{" "}
-            {img.likes}
-          </span>
-          <FaShareAlt onClick={copyPhotoURL} className="cursor-pointer" />
-        </div>
-
-        {/* DOWNLOAD BUTTON */}
-        <button className=" py-4 rounded-md bg-green-500 text-white font-bold text-lg">
-          <a href="https://picsum.photos/id/1/5000/3333" download={true}>
-            DOWNLOAD
-          </a>
+      {/* SHOW SIMILAR IMAGES BUTTON */}
+      <div className="flex items-center">
+        <hr className="w-[40%] border-dark opacity-25 bg-dark" />
+        <button className="rounded-full w-64 mx-auto my-4 text-sm border-2 border-dark font-bold opacity-50 hover:opacity-90 transition-all duration-300 px-8 flex flex-col items-center gap-0">
+          <span>Similar Images</span> <FaAngleDown />
         </button>
-
-        {/* PHOTO DETAILS */}
-        <div className="flex flex-col gap-2">
-          <span>
-            <span className="font-semibold">Uploaded on:</span> {img.uploadedOn}
-          </span>
-          <span>
-            <span className="font-semibold">File size:</span> {img.fileSize}
-          </span>
-          <span>
-            <span className="font-semibold">Dimensions:</span> {img.width} x{" "}
-            {img.height}
-          </span>
-          <span>
-            <span className="font-semibold">Tags:</span>
-            <span className="flex flex-wrap gap-1">
-              {img.tags.map((tag, index) => (
-                <span key={index}>"{tag}" </span>
-              ))}
-            </span>
-          </span>
-        </div>
-
-        {/* AUTHOR DETAILS */}
-        <div className="">
-          <h3>Uploaded by:</h3>
-          <h2 className="font-bold">
-            <Link
-              to={`/profile/${img.author.firstName}${img.author.lastName}`}
-              state={img.author}
-            >
-              {img.author.firstName} {img.author.lastName}
-            </Link>
-          </h2>
-          <p>400 Likes</p>
-        </div>
+        <hr className="w-[40%] border-dark opacity-25 bg-dark" />
       </div>
     </div>
   )
