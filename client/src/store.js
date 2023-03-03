@@ -7,4 +7,8 @@ const store = configureStore({
   },
 })
 
+<<<<<<< HEAD
 export default store
+=======
+export default store
+>>>>>>> server
