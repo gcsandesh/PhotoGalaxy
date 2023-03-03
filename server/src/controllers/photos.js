@@ -3,23 +3,31 @@ const cloudinary = require('../utils/cloudinary')
 ////////////    UPLOAD ONE OR MANY PHOTOS    /////////////
 function uploadPhotos(req, res) {
   const photos = req.body
-  const photoBuffers = []
 
+  // info about the access
+  // const accessInfo = req.accessInfo
+  const photoBuffers = []
   if (photos) {
     for (const photo of Object.keys(photos)) {
       // console.log(photo, Buffer.from(photos[photo]))
       photoBuffers.push(Buffer.from(photos[photo]))
     }
-    console.log(photoBuffers)
+    console.log('buffers:', photoBuffers)
 
     /////  uploading to cloudinary  /////
-    photoBuffers.forEach((photo) => {
-      console.log(photo)
-      uploadPhotoFromBuffer(photo)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
-    })
+    if (photoBuffers.length) {
+      photoBuffers.forEach((photo) => {
+        console.log('photo', photo)
+        uploadPhotoFromBuffer(photo)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err))
+      })
+    }
   }
+  // get file url after upload
+  // create photo document in photos collection in mongodb
+  // add author email, upload time from 'accessInfo'
+  // add photo url from upload result
   return res.send({ message: 'uploaded' })
 }
 

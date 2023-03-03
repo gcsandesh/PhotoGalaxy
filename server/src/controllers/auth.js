@@ -1,15 +1,44 @@
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
-const { User } = require("../models/users")
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const _ = require('lodash')
+const { User } = require('../models/users')
+
+const JWT_SECRET = process.env.JWT_SECRET
 
 async function handleLogin(req, res) {
   const email = req.body.email
   const password = req.body.password
-  // check email & password in database
-  // if email & password match, send a json web token as response
-  const user = { email: email }
-  const token = jwt.sign(user)
-  res.send(token)
+  let user
+
+  // looking for user in database //
+  await User.findOne({ email })
+    .then((data) => (user = data))
+    .catch((error) => console.log(error))
+
+  // if email does not exist //
+  if (!user) return res.status(404).json({ message: 'User not found!' })
+
+  // check password //
+  const passwordIsCorrect = await bcrypt.compare(password, user.password)
+  if (!passwordIsCorrect)
+    return res.status(401).json({ message: 'Invalid Password!' })
+
+  // send token to user //
+  user = _.pick(user, ['email', 'firstName', 'lastName'])
+  jwt.sign(
+    { user },
+    JWT_SECRET,
+    { expiresIn: 5 * 60 },
+    (error, accessToken) => {
+      if (error) {
+        console.log('Error logging in!\nError:', error)
+        return res.json({ message: 'Could not generate token' })
+      }
+      return res.send(accessToken)
+    }
+  )
+
+  // return res.json({ message: 'Could not log in!' })
 }
 
 async function handleSignup(req, res) {

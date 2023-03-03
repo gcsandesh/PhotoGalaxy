@@ -1,13 +1,13 @@
-const router = require("express").Router()
+const router = require('express').Router()
 const {
   getUser,
   getAllUsers,
   deleteUser,
   updateUser,
-} = require("../controllers/users")
+} = require('../controllers/users')
 
-router.route("/id/:id").get(getUser).delete(deleteUser).patch(updateUser)
-router.get("/", getAllUsers)
+router.route('/id/:id').get(getUser).delete(deleteUser).patch(updateUser)
+router.get('/', getAllUsers)
 
 // ADD USER is handled in auth
 
