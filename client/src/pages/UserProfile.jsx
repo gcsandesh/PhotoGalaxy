@@ -6,6 +6,17 @@ export default function UserProfile() {
   const params = useParams()
   const navigate = useNavigate()
   console.log(params.username)
+
+  // fetch user by using id that is passed to this component when user profile is clicked
+  // {user:{ firstName: "", lastName:"", email:" " }}
+
+  const user = {
+    firstName: "Johnny",
+    lastName: "Little",
+    email: "littlejohnny@gmail.com",
+    bio: "Hello I am Little Johnny. I like taking photos. I have uploaded some photos on PhotoGalaxy. My website: www.littlejohnny.org",
+  }
+
   const [userUploads, setUserUploads] = useState([
     {
       _id: "123",
@@ -23,13 +34,19 @@ export default function UserProfile() {
       _id: "222",
       src: "https://fastly.picsum.photos/id/52/350/350.jpg?hmac=Q3V4GgnpXq3S-pwb99ATu6mk3zGJqzdErVGc2wJ6vRY",
       width: 1920,
-      height: 80,
+      height: 800,
     },
     {
       _id: "333",
       src: "https://fastly.picsum.photos/id/354/350/350.jpg?hmac=HhYdM2mII9asa3KjiazJD73aGn9hUICREn_Gykn9CPM",
       width: 850,
       height: 350,
+    },
+    {
+      _id: "333",
+      src: "https://fastly.picsum.photos/id/354/350/350.jpg?hmac=HhYdM2mII9asa3KjiazJD73aGn9hUICREn_Gykn9CPM",
+      width: 850,
+      height: 850,
     },
     // "https://fastly.picsum.photos/id/157/350/350.jpg?hmac=gN2xTuBJNpOIVuaONznS68vPBxSqzjEgfhQIm98DwVg",
     // "https://fastly.picsum.photos/id/508/350/350.jpg?hmac=X236OAe_2017MlLZY04X8oKeGFVbUYczLpjxay60ng8",
@@ -49,7 +66,7 @@ export default function UserProfile() {
   }
 
   return (
-    <div>
+    <div className="container mx-auto">
       <div className="flex flex-col items-center w-full">
         <div className="my-2">
           <img
@@ -59,17 +76,19 @@ export default function UserProfile() {
           />
         </div>
         <div className="my-4 text-center">
-          <h1 className="font-bold text-xl"> Subek Adhikary </h1>
-          <div>
-            <p className="text-center">
-              Hello there, I love clicking pictures. This is my hobby.
-            </p>
-          </div>
+          <h1 className="font-bold text-xl">
+            {user.firstName + " " + user.lastName}
+          </h1>
+          <h1 className="font-bold text-sm">{user.email}</h1>
+          <p className="text-center w-1/2 mx-auto my-2">{user.bio}</p>
         </div>
       </div>
+      <hr className="border-2 border-dark mt-6 mb-2" />
+
+      {/* USER UPLOADS SECTION */}
       <div className="mt-4">
         <h3 className="font-bold my-2 text-xl underline underline-offset-4 text-center">
-          Photos by Subek Adhikary
+          Photos by {user.firstName + " " + user.lastName}
         </h3>
         <div className="my-2">
           <Gallery
