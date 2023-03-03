@@ -63,7 +63,9 @@ function App() {
             </Route>
           </Routes>
         </div>
-        <Footer />
+        <div className="mt-auto">
+          <Footer />
+        </div>
       </div>
     </Router>
   )

@@ -3,7 +3,7 @@ import { SiteLogo } from "../common"
 
 export default function Footer() {
   return (
-    <div className="bg-dark text-gray-300 mt-auto p-4 ">
+    <div className="bg-dark text-gray-300 mt-4 p-4 ">
       <div className="container mx-auto w-full grid grid-cols-1 text-center md:text-left gap-4">
         <div className="m-auto my-4">
           <SiteLogo logoColor={"light"} />

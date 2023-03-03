@@ -49,7 +49,7 @@ export default function Header() {
 
   // console.log(isNotificationOn)
   return (
-    <div className="shadow-md py-4 px-2 text-dark bg-[#d4a373] z-50 fixed top-0 left-0 right-0">
+    <div className=" shadow-md py-4 px-2 text-dark bg-[#d4a373] z-50 fixed top-0 left-0 right-0">
       <div className="container mx-auto flex items-center sm:justify-between justify-center">
         {/* HAMBURGER MENU */}
         <div title="Menu" className="sm:hidden">
