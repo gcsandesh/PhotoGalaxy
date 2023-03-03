@@ -11,7 +11,7 @@ export default function SearchBar() {
           placeholder="Search quality photos..."
         />
         <button className="bg-secondaryGreen p-2 rounded-sm">
-          <FaSearch />
+          <FaSearch color="white" />
         </button>
       </form>
     </div>

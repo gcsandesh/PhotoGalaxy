@@ -4,6 +4,10 @@ const JWT_SECRET = process.env.JWT_SECRET
 // verifies token and adds access time to body
 async function verifyToken(req, res, next) {
   const header = req.headers
+  console.log(header['authorization'])
+  if (!header['authorization']) {
+    return res.status(400).json({ message: 'No Headers Sent!' })
+  }
   const bearer = header['authorization'].split(' ')
   const token = bearer[1]
 

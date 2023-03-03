@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
-import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
-import './App.css'
-import { Header } from './components'
-import { Footer } from './components/'
+import React, { useEffect } from "react"
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
+import "./App.css"
+import { Footer } from "./components/"
 import {
   Home,
   Login,
@@ -13,9 +12,10 @@ import {
   ResetPassword,
   Photo,
   ChangePassword,
-} from './pages'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+} from "./pages"
+import AOS from "aos"
+import "aos/dist/aos.css"
+import Layout from "./pages/Utilities/Layout"
 
 function App() {
   useEffect(() => {
@@ -26,45 +26,46 @@ function App() {
     <Router>
       <div className=" grid grid-cols-1 h-screen">
         {/* <div className=" container flex flex-col justify-between p-0 h-screen"> */}
-        <div className="p-0 mb-4">
-          <Header />
-          <div>
-            <Routes>
-              <Route path="/" element={<Home />} />
-
-              {/* log in */}
-              <Route path="/login" element={<Login />} />
-
-              {/* sign up */}
-              <Route path="/signup" element={<Signup />} />
-
-              <Route path="/password">
-                {/* reset password */}
-                <Route path="reset" element={<ResetPassword />} />
-
-                {/* change password */}
-                <Route
-                  // path={"change/some-unique-random-link"}
-                  path={'change'}
-                  element={<ChangePassword />}
-                />
-              </Route>
+        <div className="mt-16 sm:mt-20">
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
 
               {/* User dashboard */}
-              <Route path="/dashboard" element={<UserDash />} />
+              <Route path="dashboard" element={<UserDash />} />
 
               {/* public profile of each user */}
-              <Route path="/profile/:username" element={<UserProfile />} />
+              <Route path="profile/:username" element={<UserProfile />} />
 
               {/* each photo page when any photo is clicked or the route is matched*/}
-              <Route path="/photo/:id" element={<Photo />} />
+              <Route path="photo/:id" element={<Photo />} />
 
               {/* photo uploading page */}
-              <Route path="/upload" element={<PhotoUploadPage />} />
-            </Routes>
-          </div>
+              <Route path="upload" element={<PhotoUploadPage />} />
+            </Route>
+            {/* log in */}
+            <Route path="/login" element={<Login />} />
+
+            {/* sign up */}
+            <Route path="/signup" element={<Signup />} />
+
+            {/* PASSWORD, LOGIN AND SIGNUP PAGES ARE DIFFERENT FROM OTHERS */}
+            <Route path="/password">
+              {/* reset password */}
+              <Route path="reset" element={<ResetPassword />} />
+
+              {/* change password */}
+              <Route
+                // path={"change/some-unique-random-link"}
+                path={"change"}
+                element={<ChangePassword />}
+              />
+            </Route>
+          </Routes>
         </div>
-        <Footer />
+        <div className="mt-auto">
+          <Footer />
+        </div>
       </div>
     </Router>
   )

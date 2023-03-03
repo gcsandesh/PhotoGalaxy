@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import { Link, NavLink } from "react-router-dom"
-import { FaRegBell, FaRegUserCircle } from "react-icons/fa"
+import { FaBars, FaRegBell, FaRegUserCircle, FaUpload } from "react-icons/fa"
 import { SiteLogo } from "../common"
+import UserOptions from "./UserOptions"
 
 export default function Header() {
-  const isLoggedIn = false
+  const isLoggedIn = true
   // const [isNotificationOn, setIsNotificationOn] = useState(false)
   const [notifications, setNotifications] = useState([
     {
@@ -48,65 +49,60 @@ export default function Header() {
 
   // console.log(isNotificationOn)
   return (
-    <div className="shadow-md mb-4 py-2 bg-highlightOrange">
-      <div className="flex justify-between">
+    <div className=" shadow-md py-4 px-2 text-dark bg-[#d4a373] z-50 fixed top-0 left-0 right-0">
+      <div className="container mx-auto flex items-center sm:justify-between justify-center">
+        {/* HAMBURGER MENU */}
+        <div title="Menu" className="sm:hidden">
+          <FaBars color="white" />
+        </div>
+
         {/* LOGO */}
-        <SiteLogo logoColor={"light"} />
+        <div className="mx-auto sm:mx-2">
+          <SiteLogo logoColor={"light"} />
+        </div>
 
         {/* NAV */}
-        <div className="flex gap-2 items-center">
+        <div className="hidden sm:flex gap-2 items-center ml-auto">
           {/* UPLOAD button */}
           <div>
             <Link to="/upload">
-              <button>Upload</button>
+              <button
+                type="button"
+                className="flex gap-2 items-center justify-around text-white bg-blue-500 hover:bg-blue-700 font-bold px-2 py-2 sm:py-1 rounded focus:outline-none"
+              >
+                <FaUpload /> <span className="hidden sm:inline">Upload</span>
+              </button>
             </Link>
           </div>
 
           {/* EXPLORE menu */}
-          {/* <div>
-            <div title="Explore">
-              <NavLink as={Link} to="/categories/top">
+          <div>
+            <div title="Explore" className={"relative"}>
+              Explore
+              <NavLink
+                as={Link}
+                to="/categories/top"
+                className={"hidden absolute"}
+              >
                 Top Downloaded
               </NavLink>
             </div>
-          </div> */}
+          </div>
 
           {/* if user is logged in, show notification icon and option to visit dashboard */}
-          {isLoggedIn ? (
-            <>
-              {/* NOTIFICATION */}
-              <div onClick={toggleNotification}>
-                <div>
-                  {<FaRegBell size={24} />}
-                  {notificationEls}
-                </div>
-              </div>
-
-              {/* USER menu */}
-              <div>
-                <div>
-                  <FaRegUserCircle size={24} />
-                  <div as={Link} to="/dashboard">
-                    Dashboard
-                  </div>
-                  <div>Log Out</div>
-                </div>
-              </div>
-            </>
-          ) : (
-            <div>
-              {/* if user is not logged in, show option to login/signup */}
-              <div>
-                <FaRegUserCircle size={24} />
-                <NavLink as={Link} to="/login">
-                  Log In
-                </NavLink>
-                <NavLink as={Link} to="/signup">
-                  Sign Up
-                </NavLink>
-              </div>
+          {/* NOTIFICATION */}
+          {isLoggedIn && (
+            <div onClick={toggleNotification} className="relative">
+              {<FaRegBell size={24} />}
+              <div className="hidden absolute">{notificationEls}</div>
             </div>
           )}
+
+          {/* USER menu */}
+          <div className="relative">
+            <FaRegUserCircle size={24} />
+            {/* <UserOptions /> */}
+          </div>
         </div>
       </div>
     </div>
