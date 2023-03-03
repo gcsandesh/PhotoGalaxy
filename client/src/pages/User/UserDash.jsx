@@ -4,9 +4,10 @@ import { NavLink } from "react-router-dom"
 import { PhotoGallery } from "../../components"
 
 export default function UserDash() {
-  const { name, email } = useSelector((store) => store.user)
+  const { name, email, bio } = useSelector((store) => store.user)
   const [currentView, setCurrentView] = useState("Likes")
 
+  const [dmail, setdmail] = useState("googoogaga")
   return (
     <div className="container mx-auto p-4 grid grid-cols-1 gap-8">
       <h1 className="font-bold text-4xl text-center underline underline-offset-4">
@@ -14,7 +15,7 @@ export default function UserDash() {
       </h1>
 
       {/* USER INFO */}
-      <div className="flex flex-col items-center justify-between">
+      <div className="flex flex-col items-center justify-between gap-4">
         <img
           src={"https://via.placeholder.com/350x350"}
           alt="user profile picture"
@@ -23,17 +24,24 @@ export default function UserDash() {
           className={"rounded-full my-3"}
         />
         {/* <input type={"file"} /> */}
-        <label htmlFor="name" className="font-semibold text-lg">
-          {name}
-        </label>
-        {/* <input type="text" value={name} onChange={handleNameChange} /> */}
-        <label htmlFor="email" className="font-semibold text-lg">
-          {email}
-        </label>
+        <div className="flex flex-col items-center">
+          <label htmlFor="name" className="font-semibold text-lg">
+            {name}
+          </label>
+          {/* <input type="text" value={name} onChange={handleNameChange} /> */}
+          <label htmlFor="email" className="font-semibold text-lg">
+            {email}
+          </label>
+          <p className=" text-sm">{bio}</p>
+        </div>
         {/* <input type="text" value={email} onChange={handleEmailChange} /> */}
-        <div>
-          <button>Change Password</button>
-          <button>Delete Account</button>
+        <div className="flex flex-col gap-2">
+          <button className="text-white bg-green-500 hover:bg-green-700 font-bold px-2 py-2 sm:py-1 rounded focus:outline-none">
+            Change Password
+          </button>
+          <button className="text-white bg-red-500 hover:bg-red-700 font-bold px-2 py-2 sm:py-1 rounded focus:outline-none">
+            Delete Account
+          </button>
         </div>
       </div>
       <hr className="border-2 border-dark mt-6 mb-2" />

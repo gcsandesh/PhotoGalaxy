@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
   name: "John Doe",
   email: "johndoe@gmail.com",
+  bio: "Welcome to my PhotoGalaxy Profile!",
   isLoggedIn: true,
   accessToken: "",
   isLoading: true,
