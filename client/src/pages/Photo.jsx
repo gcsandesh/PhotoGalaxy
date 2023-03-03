@@ -30,7 +30,7 @@ export default function Photo() {
       firstName: "Laxman",
       lastName: "Thapa",
       email: "thapalaxman@gamaile.com",
-      bio: "Hello I am Little Johnny. I like taking photos. I have uploaded some photos on PhotoGalaxy. My website: www.littlejohnny.org",
+      bio: "Namaskar! mero nam laxman ho ra malai photo khichna ma sanai dekhi ruchi xa",
     },
     uploadedOn: "12-03-2023",
     fileSize: "2.77 MB",
@@ -147,9 +147,9 @@ export default function Photo() {
       </div>
 
       {/* SHOW SIMILAR IMAGES BUTTON */}
-      <div className="flex items-center">
+      <div className="flex items-center mt-10">
         <hr className="w-[40%] border-dark opacity-25 bg-dark" />
-        <button className="rounded-full w-64 mx-auto my-4 text-sm border-2 border-dark font-bold opacity-50 hover:opacity-90 transition-all duration-300 px-8 flex flex-col items-center gap-0">
+        <button className="rounded-full w-64 mx-auto text-sm border-2 border-dark font-bold opacity-50 hover:opacity-90 transition-all duration-300 px-8 flex flex-col items-center gap-0">
           <span>Similar Images</span> <FaAngleDown />
         </button>
         <hr className="w-[40%] border-dark opacity-25 bg-dark" />

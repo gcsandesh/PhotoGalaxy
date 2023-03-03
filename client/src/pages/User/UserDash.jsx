@@ -8,7 +8,7 @@ export default function UserDash() {
   const [currentView, setCurrentView] = useState("Likes")
 
   return (
-    <div className="container mx-auto grid grid-cols-1 gap-8">
+    <div className="container mx-auto p-4 grid grid-cols-1 gap-8">
       <h1 className="font-bold text-4xl text-center underline underline-offset-4">
         User Dashboard
       </h1>

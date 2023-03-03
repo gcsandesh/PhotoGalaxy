@@ -4,7 +4,7 @@ import { SearchBar } from "../../components/common"
 
 export default function Home() {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto p-4">
       <SearchBar />
       <PhotoGallery />
     </div>
