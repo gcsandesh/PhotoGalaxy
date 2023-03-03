@@ -37,9 +37,9 @@ export default function Home() {
 
   return (
     <div>
-      <Helmet>
+      {/* <Helmet>
         <title>PhotoGalaxy - Best Free Images</title>
-      </Helmet>
+      </Helmet> */}
       <div>
         <SearchBar />
         <Gallery

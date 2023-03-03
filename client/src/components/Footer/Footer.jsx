@@ -56,8 +56,8 @@ export default function Footer() {
 
         {/* TERMS AND CONDITIONS */}
         <div className="text-center lg:text-right text-gray-400 text-sm uppercase font-bold">
-          <div>Terms of Service</div>
-          <div>Privacy Policy</div>
+          <p className=' tracking-wider'>Terms of Service</p>
+          <p className=' tracking-wider'>Privacy Policy</p>
         </div>
       </div>
       <span className="text-sm">

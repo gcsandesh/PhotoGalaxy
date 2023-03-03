@@ -28,7 +28,7 @@ async function handleLogin(req, res) {
   jwt.sign(
     { user },
     JWT_SECRET,
-    { expiresIn: 5 * 60 },
+    { expiresIn: 60 * 60 },
     (error, accessToken) => {
       if (error) {
         console.log('Error logging in!\nError:', error)
