@@ -1,19 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  name: '',
-  email: '',
+  name: "John Doe",
+  email: "johndoe@gmail.com",
   isLoggedIn: true,
-  accessToken: '',
+  accessToken: "",
   isLoading: true,
 }
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     login: (state, action) => {
       state.isLoggedIn = true
-      console.log('login reducer')
+      console.log("login reducer")
       console.log(state)
     },
   },

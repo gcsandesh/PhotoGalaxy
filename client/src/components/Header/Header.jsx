@@ -101,7 +101,7 @@ export default function Header() {
           {/* USER menu */}
           <div className="relative">
             <FaRegUserCircle size={24} />
-            <UserOptions />
+            {/* <UserOptions /> */}
           </div>
         </div>
       </div>
