@@ -1,16 +1,11 @@
 import React, { useState } from "react"
 import { Link, NavLink } from "react-router-dom"
-import {
-  FaBars,
-  FaHamburger,
-  FaRegBell,
-  FaRegUserCircle,
-  FaUpload,
-} from "react-icons/fa"
+import { FaBars, FaRegBell, FaRegUserCircle, FaUpload } from "react-icons/fa"
 import { SiteLogo } from "../common"
+import UserOptions from "./UserOptions"
 
 export default function Header() {
-  const isLoggedIn = false
+  const isLoggedIn = true
   // const [isNotificationOn, setIsNotificationOn] = useState(false)
   const [notifications, setNotifications] = useState([
     {
@@ -95,45 +90,19 @@ export default function Header() {
           </div>
 
           {/* if user is logged in, show notification icon and option to visit dashboard */}
-          {isLoggedIn ? (
-            <>
-              {/* NOTIFICATION */}
-              <div onClick={toggleNotification}>
-                <div>
-                  {<FaRegBell size={24} />}
-                  {notificationEls}
-                </div>
-              </div>
-
-              {/* USER menu */}
-              <div>
-                <div className="relative">
-                  <FaRegUserCircle size={24} />
-                  <div className="absolute hidden">
-                    <div as={Link} to="/dashboard">
-                      Dashboard
-                    </div>
-                    <div>Log Out</div>
-                  </div>
-                </div>
-              </div>
-            </>
-          ) : (
-            <div>
-              {/* if user is not logged in, show option to login/signup */}
-              <div className="relative">
-                <FaRegUserCircle size={24} />
-                <div className="hidden absolute">
-                  <NavLink as={Link} to="/login">
-                    Log In
-                  </NavLink>
-                  <NavLink as={Link} to="/signup">
-                    Sign Up
-                  </NavLink>
-                </div>
-              </div>
+          {/* NOTIFICATION */}
+          {isLoggedIn && (
+            <div onClick={toggleNotification} className="relative">
+              {<FaRegBell size={24} />}
+              <div className="hidden absolute">{notificationEls}</div>
             </div>
           )}
+
+          {/* USER menu */}
+          <div className="relative">
+            <FaRegUserCircle size={24} />
+            <UserOptions />
+          </div>
         </div>
       </div>
     </div>

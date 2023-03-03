@@ -14,13 +14,18 @@ export default function UserDash() {
     email = "jondoe@gmail.com"
   return (
     <div className="container mx-auto">
-      <h1>Dashboard</h1>
-      <div>
+      <h1 className="font-bold text-4xl mb-4 text-center underline underline-offset-4">
+        User Dashboard
+      </h1>
+
+      {/* USER INFO */}
+      <div className="flex flex-col items-center justify-between">
         <img
-          src={"https://via.placeholder.com/350x150"}
+          src={"https://via.placeholder.com/350x350"}
           alt="user profile picture"
-          width={200}
-          height={200}
+          width={100}
+          height={100}
+          className={"rounded-full"}
         />
         {/* <input type={"file"} /> */}
         <label htmlFor="name">Name: {name}</label>
