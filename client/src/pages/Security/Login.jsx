@@ -1,5 +1,5 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Login() {
   return (
@@ -49,7 +49,7 @@ export default function Login() {
       <div className="mt-4">
         Don't have an account?
         <Link
-          to={"/signup"}
+          to={'/signup'}
           className="font-bold text-blue-500 hover:text-blue-800"
         >
           Sign up
