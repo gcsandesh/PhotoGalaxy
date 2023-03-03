@@ -1,13 +1,13 @@
-import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Signup() {
   const emptyForm = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    cpassword: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    cpassword: '',
   }
   const [formData, setFormData] = useState(emptyForm)
 
@@ -20,10 +20,10 @@ export default function Signup() {
   function handleSignup(event) {
     event.preventDefault()
     // console.log(JSON.stringify(formData))
-    fetch("http://localhost:9988/api/auth/signup", {
-      method: "POST",
+    fetch('http://localhost:9988/api/auth/signup', {
+      method: 'POST',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
       body: JSON.stringify(formData),
     })
@@ -77,7 +77,7 @@ export default function Signup() {
         </Link>
       </form>
       <div className="mt-4">
-        Don't have an account?{" "}
+        Don't have an account?{' '}
         <Link
           to="/signup"
           className="font-bold text-blue-500 hover:text-blue-800"

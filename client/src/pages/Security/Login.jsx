@@ -1,10 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-
+import React from "react"
+import { Link } from "react-router-dom"
+import { SiteLogo } from "../../components/common"
 export default function Login() {
   return (
     <div className="max-w-md mx-auto">
-      <h2 className="text-3xl font-bold mb-6">Login</h2>
+      <h2 className="text-3xl font-bold mb-6">
+        <SiteLogo />
+      </h2>
       <form>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
@@ -49,8 +51,8 @@ export default function Login() {
       <div className="mt-4">
         Don't have an account?
         <Link
-          to={'/signup'}
-          className="font-bold text-blue-500 hover:text-blue-800"
+          to={"/signup"}
+          className="font-bold ml-2 text-blue-500 hover:text-blue-800"
         >
           Sign up
         </Link>

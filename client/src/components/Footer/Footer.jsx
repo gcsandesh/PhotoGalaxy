@@ -1,12 +1,12 @@
-import React from 'react'
-import { SiteLogo } from '../common'
+import React from "react"
+import { SiteLogo } from "../common"
 
 export default function Footer() {
   return (
-    <div className="bg-[#001219] text-gray-300 mt-auto p-4 ">
+    <div className="bg-dark text-gray-300 mt-auto p-4 ">
       <div className="container mx-auto w-full grid grid-cols-1 text-center md:text-left gap-4">
         <div className="m-auto my-4">
-          <SiteLogo logoColor={'light'} />
+          <SiteLogo logoColor={"light"} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 items-start justify-around gap-2">
@@ -56,13 +56,13 @@ export default function Footer() {
 
         {/* TERMS AND CONDITIONS */}
         <div className="text-center lg:text-right text-gray-400 text-sm uppercase font-bold">
-          <p className=' tracking-wider'>Terms of Service</p>
-          <p className=' tracking-wider'>Privacy Policy</p>
+          <p className=" tracking-wider">Terms of Service</p>
+          <p className=" tracking-wider">Privacy Policy</p>
         </div>
+        <span className="text-sm">
+          &copy;PhotoGalaxy 2023 - All Rights Reserved
+        </span>
       </div>
-      <span className="text-sm">
-        &copy;PhotoGalaxy 2023 - All Rights Reserved
-      </span>
     </div>
   )
 }
