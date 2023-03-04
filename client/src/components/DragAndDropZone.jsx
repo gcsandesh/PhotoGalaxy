@@ -1,11 +1,44 @@
 import { Buffer } from "buffer"
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useMemo } from "react"
 import { useDropzone } from "react-dropzone"
 
+// ////// STYLES ////// //
+
+const baseStyle = {
+  flex: 1,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  padding: "20px",
+  borderWidth: 2,
+  borderRadius: 2,
+  borderColor: "#000",
+  // borderColor: "#eeeeee",
+  borderStyle: "dashed",
+  backgroundColor: "#fafafa",
+  color: "#bdbdbd",
+  outline: "none",
+  transition: "border .24s ease-in-out",
+}
+
+const focusedStyle = {
+  borderColor: "#2196f3",
+}
+
+const acceptStyle = {
+  borderColor: "#00e676",
+}
+
+const rejectStyle = {
+  borderColor: "#ff1744",
+}
+
 export default function DragAndDropZone() {
+  console.log()
   const [files, setFiles] = useState([])
   let url = `http://localhost:9999/api/photos/`
 
+  /////////////   WHEN FILES ARE DROPPED    //////////////
   const onDrop = useCallback((acceptedFiles) => {
     console.log("dropped", acceptedFiles)
     acceptedFiles.forEach((file) => {
@@ -22,7 +55,24 @@ export default function DragAndDropZone() {
     })
   }, [])
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isFocused,
+    isDragAccept,
+    isDragReject,
+  } = useDropzone({ onDrop, accept: { "image/*": [] }, maxFiles: 10 })
+
+  const style = useMemo(
+    () => ({
+      ...baseStyle,
+      ...(isFocused ? focusedStyle : {}),
+      ...(isDragAccept ? acceptStyle : {}),
+      ...(isDragReject ? rejectStyle : {}),
+    }),
+    [isFocused, isDragAccept, isDragReject]
+  )
 
   ////////////////    UPLOAD FILES AT LAST    //////////////////
   async function handlePhotosUpload(event) {
@@ -37,6 +87,11 @@ export default function DragAndDropZone() {
     await fetch(url, {
       method: "POST",
       body: photos,
+      headers: {
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoicnVwZXNoZ2hpbWlyZTdAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiUnVwZXNoIiwibGFzdE5hbWUiOiJHaGltaXJlIn0sImlhdCI6MTY3NzkwNjk4NCwiZXhwIjoxNjc3OTEwNTg0fQ.DilkLYbs68iY_nV4Ow8k6tacxVN1q1VukOG8920Y4Iw",
+      },
     })
       .then(() => console.log("sent"))
       .catch(() => console.log("error"))
@@ -47,32 +102,36 @@ export default function DragAndDropZone() {
   ))
 
   return (
-    <form
-      method="POST"
-      onSubmit={handlePhotosUpload}
-      encType={"multipart/form-data"}
-      className="flex flex-col gap2 items-start justify-between w-2/3 mx-auto"
-    >
-      <div
-        className=" my-5 w-full mx-auto flex flex-col gap-2 items-start justify-between border-dashed border-2 border-dark p-4"
-        {...getRootProps()}
-      >
-        <label htmlFor="photo">Photo</label>
-        <input name={"photo"} id={"photo"} {...getRootProps()} />
+    <div>
+      {/* <form
+        method="POST"
+        onSubmit={handlePhotosUpload}
+        encType={"multipart/form-data"}
+        className="flex flex-col gap2 items-start justify-between w-2/3 mx-auto"
+      > */}
+      <div {...getRootProps({ style })}>
+        {/* <label htmlFor="photo">Photo</label> */}
+        <input name={"photo"} id={"photo"} {...getRootProps()} hidden />
         {isDragActive ? (
-          <p>Drop the files here...</p>
+          <p className="text-green-500">
+            Drag 'n' drop up to 10 files here, or click to select files
+          </p>
         ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
+          <p>Drag 'n' drop up to 10 files here, or click to select files</p>
         )}
       </div>
-      {previews}
-      <button
-        type="submit"
-        className="mx-auto text-white bg-blue-500 hover:bg-blue-700 font-bold px-2 py-2 sm:py-1 rounded focus:outline-none"
-      >
-        UPLOAD
-      </button>
-    </form>
+
+      {/* </form> */}
+      <div>
+        {previews}
+        <button
+          type="submit"
+          className="mx-auto text-white bg-blue-500 hover:bg-blue-700 font-bold px-2 py-2 sm:py-1 rounded focus:outline-none"
+        >
+          UPLOAD
+        </button>
+      </div>
+    </div>
   )
 }
 
