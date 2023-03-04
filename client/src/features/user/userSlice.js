@@ -1,13 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+
+const AUTH_URL = "http://localhost:9999/api/auth"
 
 const initialState = {
-  name: "John Doe",
-  email: "johndoe@gmail.com",
-  bio: "Welcome to my PhotoGalaxy Profile!",
-  isLoggedIn: true,
+  username: "",
+  email: "",
+  bio: "",
+  profilePicture: "",
+  isLoggedIn: false,
   accessToken: "",
-  isLoading: true,
+  isLoading: false,
+  message: "",
 }
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -18,7 +23,56 @@ const userSlice = createSlice({
       console.log(state)
     },
   },
+  extraReducers: {
+    [signUp.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [signUp.rejected]: (state, action) => {
+      state.isLoading = false
+      state.message = action.payload.message
+    },
+    [signUp.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.email = action.payload.email
+      state.username = action.payload.username
+    },
+  },
 })
+
+// functions that go in extra reducers
+
+export const signUp = createAsyncThunk(
+  "user/signUp",
+  async ({ username, email, password }, thunkAPI) => {
+    try {
+      const response = await fetch(AUTH_URL + "/signup", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        data: {
+          username: username,
+          email: email,
+          password: password,
+        },
+      })
+
+      const data = response.json()
+      console.log("data after signup: ", data)
+
+      if (response.status === 200) {
+        console.log("token: ", data.token)
+        return { ...data, username: firstName + " " + lastName, email: email }
+      } else {
+        return thunkAPI.rejectWithValue(data)
+      }
+    } catch (error) {
+      console.log("Error: ", error.response.data)
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
 
 export const { login } = userSlice.actions
 export default userSlice.reducer

@@ -88,9 +88,7 @@ export default function DragAndDropZone() {
       method: "POST",
       body: photos,
       headers: {
-        Authorization:
-          "Bearer " +
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoicnVwZXNoZ2hpbWlyZTdAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiUnVwZXNoIiwibGFzdE5hbWUiOiJHaGltaXJlIn0sImlhdCI6MTY3NzkwNjk4NCwiZXhwIjoxNjc3OTEwNTg0fQ.DilkLYbs68iY_nV4Ow8k6tacxVN1q1VukOG8920Y4Iw",
+        Authorization: "Bearer " + "",
       },
     })
       .then(() => console.log("sent"))
