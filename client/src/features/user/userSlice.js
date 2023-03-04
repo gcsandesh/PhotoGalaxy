@@ -13,32 +13,6 @@ const initialState = {
   message: "",
 }
 
-const userSlice = createSlice({
-  name: "user",
-  initialState,
-  reducers: {
-    login: (state, action) => {
-      state.isLoggedIn = true
-      console.log("login reducer")
-      console.log(state)
-    },
-  },
-  extraReducers: {
-    [signUp.pending]: (state, action) => {
-      state.isLoading = true
-    },
-    [signUp.rejected]: (state, action) => {
-      state.isLoading = false
-      state.message = action.payload.message
-    },
-    [signUp.fulfilled]: (state, action) => {
-      state.isLoading = false
-      state.email = action.payload.email
-      state.username = action.payload.username
-    },
-  },
-})
-
 // functions that go in extra reducers
 
 export const signUp = createAsyncThunk(
@@ -73,6 +47,33 @@ export const signUp = createAsyncThunk(
     }
   }
 )
+
+/********** USER SLICE ***********/
+const userSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {
+    login: (state, action) => {
+      state.isLoggedIn = true
+      console.log("login reducer")
+      console.log(state)
+    },
+  },
+  extraReducers: {
+    [signUp.pending]: (state, action) => {
+      state.isLoading = true
+    },
+    [signUp.rejected]: (state, action) => {
+      state.isLoading = false
+      state.message = action.payload.message
+    },
+    [signUp.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.email = action.payload.email
+      state.username = action.payload.username
+    },
+  },
+})
 
 export const { login } = userSlice.actions
 export default userSlice.reducer

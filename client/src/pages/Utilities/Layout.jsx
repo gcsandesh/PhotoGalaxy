@@ -4,12 +4,14 @@ import { Header, Footer } from "../../components"
 
 export default function Layout() {
   return (
-    <div className=" grid grid-cols-1 h-screen">
-      <Header />
-      <Outlet />
-      <div className="mt-auto">
-        <Footer />
-      </div>{" "}
+    <div className="mt-16 sm:mt-20">
+      <div className=" grid grid-cols-1 h-screen">
+        <Header />
+        <Outlet />
+        <div className="mt-auto">
+          <Footer />
+        </div>{" "}
+      </div>
     </div>
   )
 }

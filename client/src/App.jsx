@@ -25,43 +25,43 @@ function App() {
   return (
     <Router>
       {/* <div className=" container flex flex-col justify-between p-0 h-screen"> */}
-      <div className="mt-16 sm:mt-20">
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
 
-            {/* User dashboard */}
-            <Route path="dashboard" element={<UserDash />} />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
 
-            {/* public profile of each user */}
-            <Route path="profile/:username" element={<UserProfile />} />
+          {/* User dashboard */}
+          <Route path="dashboard" element={<UserDash />} />
 
-            {/* each photo page when any photo is clicked or the route is matched*/}
-            <Route path="photo/:id" element={<Photo />} />
+          {/* public profile of each user */}
+          <Route path="profile/:username" element={<UserProfile />} />
 
-            {/* photo uploading page */}
-            <Route path="upload" element={<PhotoUploadPage />} />
-          </Route>
-          {/* log in */}
-          <Route path="/login" element={<Login />} />
+          {/* each photo page when any photo is clicked or the route is matched*/}
+          <Route path="photo/:id" element={<Photo />} />
 
-          {/* sign up */}
-          <Route path="/signup" element={<Signup />} />
+          {/* photo uploading page */}
+          <Route path="upload" element={<PhotoUploadPage />} />
+        </Route>
 
-          {/* PASSWORD, LOGIN AND SIGNUP PAGES ARE DIFFERENT FROM OTHERS */}
-          <Route path="/password">
-            {/* reset password */}
-            <Route path="reset" element={<ResetPassword />} />
+        {/* log in */}
+        <Route path="/login" element={<Login />} />
 
-            {/* change password */}
-            <Route
-              // path={"change/some-unique-random-link"}
-              path={"change"}
-              element={<ChangePassword />}
-            />
-          </Route>
-        </Routes>
-      </div>
+        {/* sign up */}
+        <Route path="/signup" element={<Signup />} />
+
+        {/* PASSWORD, LOGIN AND SIGNUP PAGES ARE DIFFERENT FROM OTHERS */}
+        <Route path="/password">
+          {/* reset password */}
+          <Route path="reset" element={<ResetPassword />} />
+
+          {/* change password */}
+          <Route
+            // path={"change/some-unique-random-link"}
+            path={"change"}
+            element={<ChangePassword />}
+          />
+        </Route>
+      </Routes>
     </Router>
   )
 }
