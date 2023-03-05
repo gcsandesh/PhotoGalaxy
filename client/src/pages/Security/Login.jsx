@@ -1,9 +1,32 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { SiteLogo } from "../../components/common"
 import gradientBg from "../../assets/gradient-bg.svg"
+import { useDispatch } from "react-redux"
+import { login } from "../../features/user/userSlice"
 
 export default function Login() {
+  const dispatch = useDispatch()
+
+  const emptyFormData = { email: "", password: "" }
+  const [formData, setFormData] = useState(emptyFormData)
+  const [errors, setErrors] = useState([])
+  let errorList = errors.map((error, index) => <li key={index}>{error}</li>)
+
+  // SUBMIT THE FORM //
+  function handleLogin(event) {
+    event.preventDefault()
+    validateForm(formData)
+    dispatch(login)
+  }
+
+  // TRACK FORM INPUT //
+  function handleFormInput(event) {
+    const name = event.target.name
+    const value = event.target.value.trim()
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }))
+  }
+
   return (
     <main
       style={{
@@ -29,6 +52,9 @@ export default function Login() {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleFormInput}
               placeholder="Enter email"
               required
             />
@@ -41,11 +67,15 @@ export default function Login() {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleFormInput}
               placeholder="Enter password"
               required
             />
           </div>
           <button
+            onSubmit={handleLogin}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >

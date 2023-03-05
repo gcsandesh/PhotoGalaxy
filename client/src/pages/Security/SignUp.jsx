@@ -27,7 +27,7 @@ export default function Signup() {
         <div className="mt-2 text-sm text-center">
           Already have an account?{" "}
           <Link
-            to="/signup"
+            to="/login"
             className="font-bold text-blue-500 hover:text-blue-800"
           >
             Log in

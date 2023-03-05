@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
 import "./App.css"
-import { Footer } from "./components/"
+import toast, { Toaster } from "react-hot-toast"
 import {
   Home,
   Login,
@@ -25,6 +25,9 @@ function App() {
   return (
     <Router>
       {/* <div className=" container flex flex-col justify-between p-0 h-screen"> */}
+      <div>
+        <Toaster />
+      </div>
 
       <Routes>
         <Route path="/" element={<Layout />}>

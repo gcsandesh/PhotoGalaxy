@@ -1,10 +1,11 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { signUp } from "../features/user/userSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { signup } from "../features/user/userSlice"
 
 export default function SignUpForm() {
   const dispatch = useDispatch()
+  const { message } = useSelector((store) => store.user)
 
   const emptyForm = {
     firstName: "",
@@ -29,19 +30,24 @@ export default function SignUpForm() {
   //   VALIDATE FORM   //
   function validateForm() {
     let isValid = true
-    if (
-      !formData.password ||
-      !formData.cpassword ||
-      formData.password !== formData.cpassword
-    ) {
+
+    if (!formData.email) {
       isValid = false
-      setErrors((errs) => [...errs, "*Passwords do not match!"])
+      setErrors((errs) => [...errs, "* Email is required!"])
+    }
+    if (!formData.password || !formData.cpassword) {
+      isValid = false
+      setErrors((errs) => [...errs, "* Please enter passwords!"])
+    }
+    if (formData.password !== formData.cpassword) {
+      isValid = false
+      setErrors((errs) => [...errs, "* Passwords do not match!"])
     }
     if (!isChecked) {
       isValid = false
       setErrors((errs) => [
         ...errs,
-        "*You must agree with Terms and Conditions to proceed!",
+        "* You must agree with Terms and Conditions to proceed!",
       ])
     }
 
@@ -54,17 +60,18 @@ export default function SignUpForm() {
     event.preventDefault()
     if (!validateForm()) return
     dispatch(
-      signUp({
+      signup({
         username: formData.firstName.trim() + " " + formData.lastName.trim(),
         email: formData.email,
         password: formData.password,
       })
     )
-    console.log("now submitting...")
+    setFormData(emptyForm)
+    event.target.reset()
   }
 
   return (
-    <form className="grid grid-cols-1">
+    <form className="grid grid-cols-1" onSubmit={handleSignup}>
       <div className="mb-4">
         <div className="flex justify-between gap-3 items-center">
           {/* FIRST NAME */}
@@ -178,7 +185,7 @@ export default function SignUpForm() {
       <button
         className="mx-auto mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         type="submit"
-        onClick={handleSignup}
+        // onClick={handleSignup}
       >
         Sign Up
       </button>

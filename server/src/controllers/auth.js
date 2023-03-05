@@ -64,10 +64,10 @@ async function handleSignup(req, res) {
 
     //   add user to users collection
     const result = await user.save()
-    res.send(result)
+    res.send(_.pick(result, ["email", "username"]))
   } catch (ex) {
     console.error(new Error(ex))
-    res.json({ message: new Error(ex) })
+    res.status(500).json({ message: new Error(ex) })
   }
 }
 
