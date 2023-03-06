@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import toast from "react-hot-toast"
 
 const AUTH_URL = "http://localhost:9999/api/auth"
 
@@ -7,9 +8,10 @@ const initialState = {
   email: "",
   bio: "",
   profilePicture: "",
-  isLoggedIn: false,
+  isFetching: false,
+  isSuccess: false,
+  isError: false,
   accessToken: "",
-  isLoading: false,
   message: "",
 }
 
@@ -38,7 +40,7 @@ export const signup = createAsyncThunk(
       // console.log("data after signup: ", data)
 
       if (response.status === 200) {
-        return { ...data, username: username, email: email }
+        return { ...data }
       } else {
         return thunkAPI.rejectWithValue(data)
       }
@@ -87,28 +89,47 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: {
     [signup.pending]: (state, action) => {
-      state.isLoading = true
+      state.isFetching = true
+      state.isSuccess = false
+      state.isError = false
+      state.message = "Signing up..."
     },
     [signup.rejected]: (state, action) => {
-      state.isLoading = false
-      // create toast here
+      state.isFetching = false
+      state.isSuccess = false
+      state.isError = true
+      const email = action.payload.email
+      state.message = `Error creating account '${email}'!.`
     },
     [signup.fulfilled]: (state, action) => {
-      state.isLoading = false
-      // create toast here
+      state.isFetching = false
+      state.isSuccess = true
+      state.isError = false
+      const email = action.payload.email
+      state.message = `Created account '${email}' successfully!.`
     },
     [login.pending]: (state, action) => {
-      state.isLoading = true
+      state.isFetching = true
+      state.isSuccess = false
+      state.isError = false
+      state.message = "Logging in..."
     },
     [login.rejected]: (state, action) => {
-      state.isLoading = false
-      state.message = action.payload.message
+      state.isFetching = false
+      state.isSuccess = false
+      state.isError = true
+      const email = action.payload.email
+      state.message = `Login failed for ${email}!`
     },
     [login.fulfilled]: (state, action) => {
-      state.isLoading = false
-      state.email = action.payload.email
-      state.username = action.payload.username
-      state.accessToken = action.payload.accessToken
+      state.isFetching = false
+      state.isSuccess = true
+      state.isError = false
+      const { email, username, accessToken } = action.payload
+      state.email = email
+      state.username = username
+      state.accessToken = accessToken
+      state.message = `Successfully logged in as ${email}!`
     },
   },
 })

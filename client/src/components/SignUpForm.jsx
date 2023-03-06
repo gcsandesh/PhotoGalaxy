@@ -1,11 +1,16 @@
 import React from "react"
 import { useState } from "react"
+import { toast } from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { signup } from "../features/user/userSlice"
 
 export default function SignUpForm() {
   const dispatch = useDispatch()
-  const { message } = useSelector((store) => store.user)
+  const navigate = useNavigate()
+  const { email, isSuccess, isError, message } = useSelector(
+    (store) => store.user
+  )
 
   const emptyForm = {
     firstName: "",
@@ -30,35 +35,49 @@ export default function SignUpForm() {
   //   VALIDATE FORM   //
   function validateForm() {
     let isValid = true
+    const { email, firstName, lastName, password, cpassword } = formData
+    if (!firstName.trim()) {
+      setErrors((errs) => [...errs, "* First Name is required!"])
+      isValid = false
+    }
 
-    if (!formData.email) {
+    if (!lastName.trim()) {
+      setErrors((errs) => [...errs, "* Last Name is required!"])
       isValid = false
+    }
+
+    if (!email.trim()) {
       setErrors((errs) => [...errs, "* Email is required!"])
-    }
-    if (!formData.password || !formData.cpassword) {
       isValid = false
-      setErrors((errs) => [...errs, "* Please enter passwords!"])
     }
-    if (formData.password !== formData.cpassword) {
+    if (!password.trim() || !cpassword.trim()) {
+      setErrors((errs) => [...errs, "* Please enter password!"])
       isValid = false
+    }
+
+    if (password.trim() !== cpassword.trim()) {
       setErrors((errs) => [...errs, "* Passwords do not match!"])
-    }
-    if (!isChecked) {
       isValid = false
+    }
+
+    if (!isChecked) {
       setErrors((errs) => [
         ...errs,
         "* You must agree with Terms and Conditions to proceed!",
       ])
+      isValid = false
     }
 
     return isValid
   }
 
   //   SUBMITTING FORM   //
-  function handleSignup(event) {
-    setErrors([])
+  async function handleSignup(event) {
     event.preventDefault()
+    setErrors([])
+
     if (!validateForm()) return
+
     dispatch(
       signup({
         username: formData.firstName.trim() + " " + formData.lastName.trim(),
@@ -66,8 +85,17 @@ export default function SignUpForm() {
         password: formData.password,
       })
     )
-    setFormData(emptyForm)
-    event.target.reset()
+
+    if (isSuccess) {
+      setFormData(emptyForm)
+      event.target.reset()
+      toast.success(message)
+      setTimeout(() => navigate("/login"), 3000)
+    }
+
+    if (isError) {
+      toast.error(message)
+    }
   }
 
   return (
