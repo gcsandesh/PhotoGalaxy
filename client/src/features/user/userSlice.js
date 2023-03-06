@@ -13,7 +13,9 @@ const initialState = {
   message: "",
 }
 
-// functions that go in extra reducers
+//////////////////////////////////////
+/////////////  SIGN UP  //////////////
+//////////////////////////////////////
 
 export const signUp = createAsyncThunk(
   "user/signUp",
@@ -25,19 +27,18 @@ export const signUp = createAsyncThunk(
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        data: {
+        body: JSON.stringify({
           username: username,
           email: email,
           password: password,
-        },
+        }),
       })
 
-      const data = response.json()
-      console.log("data after signup: ", data)
+      const data = await response.json()
+      // console.log("data after signup: ", data)
 
       if (response.status === 200) {
-        console.log("token: ", data.token)
-        return { ...data, username: firstName + " " + lastName, email: email }
+        return { ...data, username: username, email: email }
       } else {
         return thunkAPI.rejectWithValue(data)
       }

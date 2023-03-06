@@ -1,7 +1,11 @@
 import React, { useEffect } from "react"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { signUp } from "../features/user/userSlice"
 
 export default function SignUpForm() {
+  const dispatch = useDispatch()
+
   const emptyForm = {
     firstName: "",
     lastName: "",
@@ -49,6 +53,13 @@ export default function SignUpForm() {
     setErrors([])
     event.preventDefault()
     if (!validateForm()) return
+    dispatch(
+      signUp({
+        username: formData.firstName.trim() + " " + formData.lastName.trim(),
+        email: formData.email,
+        password: formData.password,
+      })
+    )
     console.log("now submitting...")
   }
 
