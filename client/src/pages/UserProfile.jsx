@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom"
 import { Gallery } from "react-grid-gallery"
 
 export default function UserProfile() {
@@ -50,6 +50,8 @@ export default function UserProfile() {
     navigate(`/photo/${image._id}`)
   }
 
+  if (!propsData) return <Navigate to={"/"} />
+
   return (
     <div className="container mx-auto p-4">
       <div className="flex flex-col items-center w-full">
@@ -65,14 +67,16 @@ export default function UserProfile() {
             {author.firstName + " " + author.lastName}
           </h1>
           <h1 className="font-bold text-sm">{author.email}</h1>
-          <p className="text-center w-1/2 mx-auto my-2">{author.bio}</p>
+          <p className="text-center w-full sm:w-1/2 mx-auto my-2 text-xs md:text-sm md:leading-none leading-none">
+            {author.bio}
+          </p>
         </div>
       </div>
       <hr className="border-2 border-dark mt-6 mb-2" />
 
       {/* USER UPLOADS SECTION */}
       <div className="mt-4">
-        <h3 className="font-bold my-2 text-xl underline underline-offset-4 text-center">
+        <h3 className="font-bold my-4 text-xl underline underline-offset-4 text-center">
           Photos by {author.firstName + " " + author.lastName}
         </h3>
         <div className="my-2">
