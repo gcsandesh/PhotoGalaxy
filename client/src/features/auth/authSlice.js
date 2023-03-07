@@ -86,7 +86,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      if (localStorage.getItem("user")) {
+      if (localStorage.getItem("user") && localStorage.getItem("accessToken")) {
         state.user = JSON.parse(localStorage.getItem("user"))
         state.user.accessToken = JSON.parse(localStorage.getItem("accessToken"))
         state.user.isLoggedIn = true
