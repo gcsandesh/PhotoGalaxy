@@ -19,7 +19,7 @@ const initialState = {
 //////////////////////////////////////
 
 export const signupUser = createAsyncThunk(
-  "user/signup",
+  "auth/signup",
   async ({ username, email, password }, thunkAPI) => {
     try {
       const response = await fetch(AUTH_URL + "/signup", {
@@ -54,7 +54,7 @@ export const signupUser = createAsyncThunk(
 /////////////////////////////
 
 export const loginUser = createAsyncThunk(
-  "user/login",
+  "auth/login",
   async ({ email, password }, thunkAPI) => {
     try {
       const response = await fetch(AUTH_URL + "/login", {
@@ -81,15 +81,16 @@ export const loginUser = createAsyncThunk(
 )
 
 /********** USER SLICE ***********/
-const userSlice = createSlice({
-  name: "user",
+const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      state.user.email = localStorage.getItem("user").email
-    },
-    setToken: (state, action) => {
-      state.accessToken = localStorage.getItem("accessToken")
+    setCredentials: (state, action) => {
+      if (localStorage.getItem("user")) {
+        state.user = JSON.parse(localStorage.getItem("user"))
+        state.user.accessToken = JSON.parse(localStorage.getItem("accessToken"))
+        state.user.isLoggedIn = true
+      }
     },
     logoutUser: (state, action) => {
       state.user.isLoggedIn = false
@@ -124,11 +125,14 @@ const userSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.isLoading = false
       localStorage.setItem("user", JSON.stringify(action.payload.user))
-      localStorage.setItem("token", JSON.stringify(action.payload.accessToken))
+      localStorage.setItem(
+        "accessToken",
+        JSON.stringify(action.payload.accessToken)
+      )
       state.user.isLoggedIn = true
     })
   },
 })
 
-export const { setUser, setToken } = userSlice.actions
-export default userSlice.reducer
+export const { setCredentials } = authSlice.actions
+export default authSlice.reducer

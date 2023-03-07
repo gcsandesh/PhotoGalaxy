@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { loginUser, setUser, setToken } from "../features/user/userSlice"
+import { loginUser, setCredentials } from "../features/auth/authSlice"
 import { toast } from "react-hot-toast"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 
@@ -20,9 +20,15 @@ export default function LoginForm() {
     event.preventDefault()
     if (!validateForm(formData)) return
     try {
-      const payload = await dispatch(loginUser(formData)).unwrap()
-      await dispatch(setToken())
-      await dispatch(setUser())
+      const payload = await dispatch(
+        loginUser({
+          email: formData.email.toLowerCase(),
+          password: formData.password,
+        })
+      ).unwrap()
+
+      dispatch(setCredentials())
+
       toast.success(`Successfully logged in as '${payload.user.email}'!`, {
         style: {
           borderRadius: "10px",
@@ -34,7 +40,7 @@ export default function LoginForm() {
 
       navigate("/")
     } catch (error) {
-      console.log(error)
+      // console.log(error)
 
       toast.error(error.message, {
         style: {

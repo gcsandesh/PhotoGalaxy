@@ -16,12 +16,20 @@ import {
 import AOS from "aos"
 import "aos/dist/aos.css"
 import Layout from "./pages/Utilities/Layout"
+import Protected from "./pages/Utilities/Protected"
+import { useDispatch } from "react-redux"
+import { setCredentials } from "./features/auth/authSlice"
 
 function App() {
+  const dispatch = useDispatch()
+
   useEffect(() => {
     AOS.init()
   }, [])
 
+  useEffect(() => {
+    dispatch(setCredentials())
+  }, [])
   return (
     <Router>
       {/* <div className=" container flex flex-col justify-between p-0 h-screen"> */}
@@ -42,8 +50,14 @@ function App() {
           {/* each photo page when any photo is clicked or the route is matched*/}
           <Route path="photo/:id" element={<Photo />} />
 
-          {/* photo uploading page */}
-          <Route path="upload" element={<PhotoUploadPage />} />
+          <Route
+            path="upload"
+            element={
+              <Protected>
+                <PhotoUploadPage />
+              </Protected>
+            }
+          />
         </Route>
 
         {/* log in */}

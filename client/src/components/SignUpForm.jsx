@@ -3,7 +3,7 @@ import { useState } from "react"
 import { toast } from "react-hot-toast"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { signupUser } from "../features/user/userSlice"
+import { signupUser } from "../features/auth/authSlice"
 
 export default function SignUpForm() {
   const dispatch = useDispatch()
