@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { SiteLogo } from "../../components/common"
 import gradientBg from "../../assets/gradient-bg.svg"
 import { useDispatch } from "react-redux"
-import { login } from "../../features/user/userSlice"
+import { loginUser } from "../../features/user/userSlice"
 
 export default function Login() {
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ export default function Login() {
   function handleLogin(event) {
     event.preventDefault()
     validateForm(formData)
-    dispatch(login)
+    dispatch(loginUser)
   }
 
   // TRACK FORM INPUT //
@@ -45,7 +45,7 @@ export default function Login() {
         </h2>
         <form>
           <div className="mb-4">
-            <label className="block font-bold mb-2" htmlFor="email">
+            <label className="block mb-2" htmlFor="email">
               Email:
             </label>
             <input
@@ -76,7 +76,7 @@ export default function Login() {
           </div>
           <button
             onSubmit={handleLogin}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Login
@@ -92,7 +92,7 @@ export default function Login() {
           Don't have an account?
           <Link
             to={"/signup"}
-            className="font-bold ml-2 text-blue-500 hover:text-blue-800"
+            className="font-semibold ml-2 text-blue-500 hover:text-blue-800"
           >
             Sign up
           </Link>

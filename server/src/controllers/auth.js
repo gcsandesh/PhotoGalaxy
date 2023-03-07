@@ -34,7 +34,7 @@ async function handleLogin(req, res) {
         console.log("Error logging in!\nError:", error)
         return res.json({ message: "Could not generate token" })
       }
-      return res.send(accessToken)
+      return res.json({ user, accessToken })
     }
   )
 
@@ -64,10 +64,10 @@ async function handleSignup(req, res) {
 
     //   add user to users collection
     const result = await user.save()
-    res.send(_.pick(result, ["email", "username"]))
+    return res.status(201).json(_.pick(result, ["email", "username"]))
   } catch (ex) {
     console.error(new Error(ex))
-    res.status(500).json({ message: new Error(ex) })
+    return res.status(500).json({ message: new Error(ex) })
   }
 }
 

@@ -14,13 +14,13 @@ export default function Signup() {
       }}
       className="h-screen flex justify-center items-center text-gray-100"
     >
-      <div className="max-w-md mx-auto">
+      <div className="container text-sm md:text-base max-w-md my-6 mx-auto">
         <h2 className="text-3xl font-bold mb-6 flex items-center justify-center">
           <SiteLogo logoColor={"light"} />
         </h2>
-        <h2 className="text-3xl font-bold mb-6 uppercase tracking-wider underline underline-offset-4 text-center">
+        {/* <h2 className="text-3xl font-bold mb-6 uppercase tracking-wider underline underline-offset-4 text-center">
           Sign Up
-        </h2>
+        </h2> */}
         <SignUpForm />
 
         {/* BELOW FORM */}
@@ -28,7 +28,7 @@ export default function Signup() {
           Already have an account?{" "}
           <Link
             to="/login"
-            className="font-bold text-blue-500 hover:text-blue-800"
+            className="font-semibold text-blue-500 hover:text-blue-800"
           >
             Log in
           </Link>

@@ -1,16 +1,13 @@
 import React from "react"
 import { useState } from "react"
 import { toast } from "react-hot-toast"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { signup } from "../features/user/userSlice"
+import { signupUser } from "../features/user/userSlice"
 
 export default function SignUpForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { email, isSuccess, isError, message } = useSelector(
-    (store) => store.user
-  )
 
   const emptyForm = {
     firstName: "",
@@ -29,7 +26,7 @@ export default function SignUpForm() {
     const name = event.target.name
     const value = event.target.value
     setErrors([])
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }))
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value.trim() }))
   }
 
   //   VALIDATE FORM   //
@@ -78,34 +75,51 @@ export default function SignUpForm() {
 
     if (!validateForm()) return
 
-    dispatch(
-      signup({
-        username: formData.firstName.trim() + " " + formData.lastName.trim(),
-        email: formData.email,
-        password: formData.password,
-      })
-    )
+    try {
+      const payload = await dispatch(
+        signupUser({
+          username: formData.firstName + " " + formData.lastName,
+          email: formData.email,
+          password: formData.password,
+        })
+      ).unwrap()
 
-    if (isSuccess) {
+      toast.success(`Created account '${payload.email}' successfully!.`, {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+        duration: 4000,
+      })
+
       setFormData(emptyForm)
       event.target.reset()
-      toast.success(message)
-      setTimeout(() => navigate("/login"), 3000)
-    }
 
-    if (isError) {
-      toast.error(message)
+      setTimeout(() => navigate("/login"), 3000)
+    } catch (error) {
+      // console.log("Error creating account: ", error.message)
+      toast.error("Error creating account!", {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      })
     }
   }
 
   return (
-    <form className="grid grid-cols-1" onSubmit={handleSignup}>
+    <form
+      className="grid grid-cols-1  text-sm md:text-base p-3"
+      onSubmit={handleSignup}
+    >
       <div className="mb-4">
         <div className="flex justify-between gap-3 items-center">
           {/* FIRST NAME */}
-          <div>
-            <label className="block font-bold mb-2 w-1/2" htmlFor="firstName">
-              First name
+          <div className="w-1/2">
+            <label className="block mb-2" htmlFor="firstName">
+              First Name
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -120,9 +134,9 @@ export default function SignUpForm() {
           </div>
 
           {/* LAST NAME */}
-          <div>
-            <label className="block font-bold mb-2" htmlFor="lastName">
-              Last name
+          <div className="w-1/2">
+            <label className="block mb-2" htmlFor="lastName">
+              Last Name
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -140,7 +154,7 @@ export default function SignUpForm() {
 
       {/* EMAIL */}
       <div className="mb-4">
-        <label className="block font-bold mb-2" htmlFor="email">
+        <label className="block mb-2" htmlFor="email">
           Email:
         </label>
         <input
@@ -157,7 +171,7 @@ export default function SignUpForm() {
 
       {/* PASSWORD */}
       <div className="mb-4">
-        <label className="block font-bold mb-2" htmlFor="password">
+        <label className="block mb-2" htmlFor="password">
           Password:
         </label>
         <input
@@ -174,7 +188,7 @@ export default function SignUpForm() {
 
       {/* CONFIRM PASSWORD */}
       <div className="mb-4">
-        <label className="block font-bold mb-2" htmlFor="cpassword">
+        <label className="block mb-2" htmlFor="cpassword">
           Confirm Password:
         </label>
         <input
@@ -190,7 +204,7 @@ export default function SignUpForm() {
       </div>
 
       {/* TERMS AND CONDITIONS */}
-      <label htmlFor="agreement" className="text-sm">
+      <label htmlFor="agreement" className="text-xs md:text-sm">
         <input
           type={"checkbox"}
           name={"agreement"}
@@ -211,9 +225,8 @@ export default function SignUpForm() {
 
       {/* SIGN UP BUTTON */}
       <button
-        className="mx-auto mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        className="mx-auto md:mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         type="submit"
-        // onClick={handleSignup}
       >
         Sign Up
       </button>
