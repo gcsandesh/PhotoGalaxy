@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { SiteLogo } from "../../components/common"
 import gradientBg from "../../assets/gradient-bg.svg"
-import SignUpForm from "../../components/SignUpForm"
+import SignupForm from "../../components/SignupForm"
 
 export default function Signup() {
   return (
@@ -21,7 +21,7 @@ export default function Signup() {
         {/* <h2 className="text-3xl font-bold mb-6 uppercase tracking-wider underline underline-offset-4 text-center">
           Sign Up
         </h2> */}
-        <SignUpForm />
+        <SignupForm />
 
         {/* BELOW FORM */}
         <div className="mt-2 text-sm text-center">

@@ -9,6 +9,7 @@ const initialState = {
     bio: "",
     profilePicture: "",
     accessToken: "",
+    isLoggedIn: false,
   },
   isLoading: false,
 }
@@ -86,7 +87,13 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user.email = localStorage.getItem("user").email
+    },
+    setToken: (state, action) => {
       state.accessToken = localStorage.getItem("accessToken")
+    },
+    logoutUser: (state, action) => {
+      state.user.isLoggedIn = false
+      localStorage.clear()
     },
   },
   extraReducers: (builder) => {
@@ -118,9 +125,10 @@ const userSlice = createSlice({
       state.isLoading = false
       localStorage.setItem("user", JSON.stringify(action.payload.user))
       localStorage.setItem("token", JSON.stringify(action.payload.accessToken))
+      state.user.isLoggedIn = true
     })
   },
 })
 
-// export const { } = userSlice.actions
+export const { setUser, setToken } = userSlice.actions
 export default userSlice.reducer

@@ -24,9 +24,9 @@ export default function SignUpForm() {
   //   TRACK INPUT   //
   function handleFormInput(event) {
     const name = event.target.name
-    const value = event.target.value
+    const value = event.target.value.trim()
     setErrors([])
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value.trim() }))
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }))
   }
 
   //   VALIDATE FORM   //
