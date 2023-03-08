@@ -4,10 +4,14 @@ import { FaRegBell, FaRegUserCircle, FaUpload } from "react-icons/fa"
 import { SiteLogo } from "../common"
 import UserOptions from "./UserOptions"
 import MobileNavigation from "./MobileNavigation"
+import { useSelector } from "react-redux"
 
 export default function Header() {
-  const isLoggedIn = true
-  // const [isNotificationOn, setIsNotificationOn] = useState(false)
+  const [openMenu, setOpenMenu] = useState("")
+  const {
+    user: { isLoggedIn },
+  } = useSelector((store) => store.auth)
+
   const [notifications, setNotifications] = useState([
     {
       notificationID: "somerandomid1",
@@ -29,28 +33,18 @@ export default function Header() {
     },
   ])
 
-  const notificationEls = notifications.map((notif, index, originalArray) => {
-    if (index === originalArray.length - 1) {
-      return <div key={notif.notificationID}>{notif.message}</div>
-    }
+  const notificationEls = notifications.map((notif) => {
     return (
-      <div key={notif.notificationID}>
+      <div
+        key={notif.notificationID}
+        className="border-b-2 border-b-amber-800 border-opacity-25 p-2"
+      >
         {notif.message}
-
-        <div />
       </div>
     )
   })
 
-  function toggleNotification() {
-    // here we should fetch notifications for that user
-    //setNotification("the fetched notification")
-    // setIsNotificationOn((prevState) => !prevState)
-  }
-
-  function toggleMobileNavigation() {}
-
-  // console.log(isNotificationOn)
+  console.log(openMenu)
   return (
     <div className=" shadow-md text-dark bg-[#d4a373] z-50 fixed top-0 left-0 right-0">
       <div className="container mx-auto p-4 flex items-center sm:justify-between justify-center">
@@ -80,31 +74,61 @@ export default function Header() {
 
           {/* EXPLORE menu */}
           <div>
-            <div title="Explore" className={"relative"}>
+            <div
+              title="Explore"
+              className={"relative"}
+              onClick={() =>
+                setOpenMenu((prevOpenMenu) =>
+                  prevOpenMenu === "explore" ? "" : "explore"
+                )
+              }
+            >
               Explore
-              <NavLink
-                as={Link}
-                to="/categories/top"
-                className={"hidden absolute"}
-              >
-                Top Downloaded
-              </NavLink>
+              {openMenu === "explore" && (
+                <ul
+                  className={
+                    "whitespace-nowrap absolute right-0 top-12 shadow-md flex flex-col gap-2 bg-[#d4a373] text-white rounded p-3"
+                  }
+                >
+                  <li className="border-b-2 border-b-amber-800 border-opacity-25 p-2">
+                    <NavLink as={Link} to="/categories/top">
+                      Top Downloaded
+                    </NavLink>
+                  </li>
+                </ul>
+              )}
             </div>
           </div>
 
           {/* if user is logged in, show notification icon and option to visit dashboard */}
           {/* NOTIFICATION */}
           {isLoggedIn && (
-            <div onClick={toggleNotification} className="relative">
+            <div
+              onClick={() =>
+                setOpenMenu((prevOpenMenu) =>
+                  prevOpenMenu === "notifications" ? "" : "notifications"
+                )
+              }
+              className="relative"
+            >
               {<FaRegBell size={24} />}
-              <div className="hidden absolute">{notificationEls}</div>
+              {openMenu === "notifications" && (
+                <div className="text-sm w-64 absolute right-0 top-12 shadow-md flex flex-col gap-2 bg-[#d4a373] text-white rounded p-3">
+                  {notificationEls}
+                </div>
+              )}
             </div>
           )}
 
           {/* USER menu */}
           <div className="relative">
-            <FaRegUserCircle size={24} />
-            {/* <UserOptions /> */}
+            <FaRegUserCircle
+              size={24}
+              onClick={() =>
+                setOpenMenu((prevState) => (prevState === "user" ? "" : "user"))
+              }
+            />
+            {openMenu === "user" && <UserOptions />}
           </div>
         </div>
       </div>

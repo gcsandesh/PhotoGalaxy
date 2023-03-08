@@ -1,27 +1,50 @@
-import React from "react"
-import { useSelector } from "react-redux"
+import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink } from "react-router-dom"
+import { logoutUser } from "../../features/auth/authSlice"
+import toast from "react-hot-toast"
 
 export default function UserOptions() {
-  const { isLoggedIn } = useSelector((store) => store.user)
-  if (isLoggedIn)
-    return (
-      <div className="absolute flex flex-col gap-2 bg-[#fefae0] p-3">
-        <NavLink as={Link} to="/dashboard">
-          Dashboard
-        </NavLink>
-        <NavLink>Log Out</NavLink>
-      </div>
-    )
-  else
-    return (
-      <div className="absolute flex flex-col gap-2 bg-[#d4a373] p-3">
-        <NavLink as={Link} to="/login">
-          Log In
-        </NavLink>
-        <NavLink as={Link} to="/signup">
-          Sign Up
-        </NavLink>
-      </div>
-    )
+  const dispatch = useDispatch()
+
+  const {
+    user: { isLoggedIn },
+  } = useSelector((store) => store.auth)
+
+  async function handleLogout() {
+    try {
+      await dispatch(logoutUser())
+    } catch (error) {
+      toast.error("Error logging out!")
+    }
+  }
+  return (
+    <div className="absolute right-0 top-12 shadow-md flex flex-col gap-2 bg-[#d4a373] text-white rounded p-2">
+      {isLoggedIn ? (
+        <ul>
+          <li className="border-b-amber-800 border-opacity-25 border-b-2 px-3 py-2">
+            <NavLink as={Link} to="/dashboard">
+              Dashboard
+            </NavLink>
+          </li>
+          <li className="border-b-amber-800 border-opacity-25 border-b-2 px-3 py-2">
+            <NavLink onClick={handleLogout}>Log Out</NavLink>
+          </li>
+        </ul>
+      ) : (
+        <ul>
+          <li className="border-b-amber-800 border-opacity-25 border-b-2 px-3 py-2 whitespace-nowrap">
+            <NavLink as={Link} to="/login">
+              Log In
+            </NavLink>
+          </li>
+          <li className="border-b-amber-800 border-opacity-25 border-b-2 px-3 py-2 whitespace-nowrap">
+            <NavLink as={Link} to="/signup">
+              Sign Up
+            </NavLink>
+          </li>
+        </ul>
+      )}
+    </div>
+  )
 }
