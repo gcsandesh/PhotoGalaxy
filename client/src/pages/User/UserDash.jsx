@@ -4,10 +4,11 @@ import { NavLink } from "react-router-dom"
 import { PhotoGallery } from "../../components"
 
 export default function UserDash() {
-  const { name, email, bio } = useSelector((store) => store.user)
+  const {
+    user: { username, email, bio },
+  } = useSelector((store) => store.auth)
   const [currentView, setCurrentView] = useState("Likes")
 
-  const [dmail, setdmail] = useState("googoogaga")
   return (
     <div className="container mx-auto p-4 grid grid-cols-1 gap-8">
       <h1 className="font-bold text-4xl text-center underline underline-offset-4">
@@ -26,7 +27,7 @@ export default function UserDash() {
         {/* <input type={"file"} /> */}
         <div className="flex flex-col items-center">
           <label htmlFor="name" className="font-semibold text-lg">
-            {name}
+            {username}
           </label>
           {/* <input type="text" value={name} onChange={handleNameChange} /> */}
           <label htmlFor="email" className="font-semibold text-lg">

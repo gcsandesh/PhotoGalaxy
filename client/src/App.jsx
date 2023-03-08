@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
 import "./App.css"
-import toast, { Toaster } from "react-hot-toast"
+import { Toaster } from "react-hot-toast"
 import {
   Home,
   Login,
@@ -17,7 +17,7 @@ import AOS from "aos"
 import "aos/dist/aos.css"
 import Layout from "./pages/Utilities/Layout"
 import Protected from "./pages/Utilities/Protected"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { setCredentials } from "./features/auth/authSlice"
 
 function App() {
@@ -27,10 +27,6 @@ function App() {
   useEffect(() => {
     AOS.init()
   }, [])
-
-  const {
-    user: { isLoggedIn },
-  } = useSelector((store) => store.auth)
 
   return (
     <Router>
@@ -42,9 +38,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-
-          {/* User dashboard */}
-          <Route path="dashboard" element={<UserDash />} />
 
           {/* public profile of each user */}
           <Route path="profile/:username" element={<UserProfile />} />
@@ -58,6 +51,16 @@ function App() {
             element={
               <Protected>
                 <PhotoUploadPage />
+              </Protected>
+            }
+          />
+
+          {/* User dashboard */}
+          <Route
+            path="dashboard"
+            element={
+              <Protected>
+                <UserDash />
               </Protected>
             }
           />
