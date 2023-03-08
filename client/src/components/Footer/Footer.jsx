@@ -1,4 +1,6 @@
 import React from "react"
+import { Link } from "react-router-dom"
+
 import { SiteLogo } from "../common"
 
 export default function Footer() {
@@ -16,12 +18,14 @@ export default function Footer() {
               Explore
             </h5>
             <ul>
-              <li className=" hover:text-gray-50 cursor-pointer">Most Liked</li>
               <li className=" hover:text-gray-50 cursor-pointer">
-                Latest Uploads
+                <Link to={"/categories/most-liked"}>Most Liked</Link>
               </li>
               <li className=" hover:text-gray-50 cursor-pointer">
-                Most Downloaded
+                <Link to="/categories/latest"> Latest Uploads</Link>
+              </li>
+              <li className=" hover:text-gray-50 cursor-pointer">
+                <Link to="/categories/most-downloaded">Most Downloaded</Link>
               </li>
             </ul>
           </div>
@@ -32,9 +36,15 @@ export default function Footer() {
               Quick Links
             </h5>
             <ul>
-              <li className=" hover:text-gray-50 cursor-pointer">Home</li>
-              <li className=" hover:text-gray-50 cursor-pointer">Categories</li>
-              <li className=" hover:text-gray-50 cursor-pointer">Upload</li>
+              <li className=" hover:text-gray-50 cursor-pointer">
+                <Link to={"/"}>Home</Link>
+              </li>
+              <li className=" hover:text-gray-50 cursor-pointer">
+                <Link to={"/categories"}>Categories</Link>
+              </li>
+              <li className=" hover:text-gray-50 cursor-pointer">
+                <Link to={"/upload"}>Upload</Link>
+              </li>
             </ul>
           </div>
 
@@ -48,7 +58,9 @@ export default function Footer() {
                 PhotoGalaxy Inc.
               </li>
               <li className=" hover:text-gray-50 cursor-pointer">
-                info.photogalaxy.com.np
+                <a href="mailto:info@photogalaxy.com.np">
+                  info@photogalaxy.com.np
+                </a>
               </li>
             </ul>
           </div>
@@ -60,7 +72,9 @@ export default function Footer() {
           <p className=" tracking-wider">Privacy Policy</p>
         </div>
         <span className="text-sm">
-          &copy;PhotoGalaxy 2023 - All Rights Reserved
+          <a href="https://github.com/SandeshGC">
+            &copy;PhotoGalaxy 2023 - All Rights Reserved
+          </a>
         </span>
       </div>
     </div>
