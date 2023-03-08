@@ -2,12 +2,15 @@ const express = require("express")
 const morgan = require("morgan")
 const cors = require("cors")
 const app = express()
-// const connectDB = require("./db")
+const xss = require("xss-clean")
+const helmet = require("helmet")
 
 // finding node environment
 require("dotenv").config({ path: "../.env" })
 
-// setup
+// setup middlewares
+app.use(xss())
+app.use(helmet())
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
