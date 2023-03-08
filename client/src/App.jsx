@@ -21,8 +21,13 @@ import { useDispatch } from "react-redux"
 import { setCredentials } from "./features/auth/authSlice"
 
 function App() {
+
   const dispatch = useDispatch()
+  useEffect(() => {
   dispatch(setCredentials())
+  }, [window.location.pathname])
+  
+  
 
   useEffect(() => {
     AOS.init()

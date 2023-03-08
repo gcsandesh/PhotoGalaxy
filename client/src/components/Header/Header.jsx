@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import { Link, NavLink } from "react-router-dom"
-import { FaBars, FaRegBell, FaRegUserCircle, FaUpload } from "react-icons/fa"
+import { FaRegBell, FaRegUserCircle, FaUpload } from "react-icons/fa"
 import { SiteLogo } from "../common"
 import UserOptions from "./UserOptions"
+import MobileNavigation from "./MobileNavigation"
 
 export default function Header() {
   const isLoggedIn = true
@@ -47,13 +48,15 @@ export default function Header() {
     // setIsNotificationOn((prevState) => !prevState)
   }
 
+  function toggleMobileNavigation() {}
+
   // console.log(isNotificationOn)
   return (
     <div className=" shadow-md text-dark bg-[#d4a373] z-50 fixed top-0 left-0 right-0">
       <div className="container mx-auto p-4 flex items-center sm:justify-between justify-center">
         {/* HAMBURGER MENU */}
         <div title="Menu" className="sm:hidden">
-          <FaBars color="white" />
+          <MobileNavigation />
         </div>
 
         {/* LOGO */}
