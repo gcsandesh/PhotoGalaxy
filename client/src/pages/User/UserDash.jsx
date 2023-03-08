@@ -47,16 +47,24 @@ export default function UserDash() {
       </div>
       <hr className="border-2 border-dark mt-6 mb-2" />
       <div className="w-100 p-2 flex items-center justify-center">
-        <div className="flex items-center gap-2 border-b-2">
+        <div className="flex items-center gap-2 ">
           <NavLink
             onClick={() => setCurrentView("Likes")}
-            className={(isActive) => isActive && "border-b-2 border-dark"}
+            className={() =>
+              currentView === "Likes"
+                ? "border-b-2 border-b-dark"
+                : " border-b-2"
+            }
           >
             Likes
           </NavLink>
           <NavLink
             onClick={() => setCurrentView("Uploads")}
-            className={(isActive) => isActive && "border-b-2 border-dark"}
+            className={() =>
+              currentView === "Uploads"
+                ? "border-b-2 border-b-dark"
+                : " border-b-2"
+            }
           >
             Uploads
           </NavLink>
