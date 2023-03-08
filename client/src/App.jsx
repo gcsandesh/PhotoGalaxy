@@ -30,7 +30,9 @@ function App() {
   
 
   useEffect(() => {
-    AOS.init()
+    AOS.init({
+      easing: "ease-in-out"
+    })
   }, [])
 
   return (

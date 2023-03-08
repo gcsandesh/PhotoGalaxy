@@ -44,7 +44,7 @@ export default function Header() {
     )
   })
 
-  console.log(openMenu)
+  // console.log(openMenu)
   return (
     <div className=" shadow-md text-dark bg-[#d4a373] z-50 fixed top-0 left-0 right-0">
       <div className="container mx-auto p-4 flex items-center sm:justify-between justify-center">
@@ -86,6 +86,7 @@ export default function Header() {
               Explore
               {openMenu === "explore" && (
                 <ul
+                  data-aos="fade-in"
                   className={
                     "whitespace-nowrap absolute right-0 top-12 shadow-md flex flex-col gap-2 bg-[#d4a373] text-white rounded p-3"
                   }
@@ -113,7 +114,10 @@ export default function Header() {
             >
               {<FaRegBell size={24} />}
               {openMenu === "notifications" && (
-                <div className="text-sm w-64 absolute right-0 top-12 shadow-md flex flex-col gap-2 bg-[#d4a373] text-white rounded p-3">
+                <div
+                  data-aos="fade-in"
+                  className="text-sm w-64 absolute right-0 top-12 shadow-md flex flex-col gap-2 bg-[#d4a373] text-white rounded p-3"
+                >
                   {notificationEls}
                 </div>
               )}

@@ -19,7 +19,10 @@ export default function UserOptions() {
     }
   }
   return (
-    <div className="absolute right-0 top-12 shadow-md flex flex-col gap-2 bg-[#d4a373] text-white rounded p-2">
+    <div
+      data-aos="fade-in"
+      className="absolute right-0 top-12 shadow-md flex flex-col gap-2 bg-[#d4a373] text-white rounded p-2"
+    >
       {isLoggedIn ? (
         <ul>
           <li className="border-b-amber-800 border-opacity-25 border-b-2 px-3 py-2">
