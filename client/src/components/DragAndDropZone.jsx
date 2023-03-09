@@ -36,63 +36,79 @@ const rejectStyle = {
 }
 
 export default function DragAndDropZone() {
+  let url = `http://localhost:9999/api/photos/`
+
+  const [files, setFiles] = useState([])
+
   const {
     user: { accessToken },
   } = useSelector((store) => store.auth)
-
-  const [files, setFiles] = useState([])
 
   function removeFile(fileID) {
     setFiles((prevFiles) => prevFiles.filter((file, index) => index !== fileID))
   }
 
-  // let url = `http://localhost:9999/api/photos/`
-
   ////////////////    UPLOAD FILES AT LAST    //////////////////
   async function handlePhotosUpload(event) {
     event.preventDefault()
-
     console.log(
-      "Buffer: ",
-      files.map((file) => JSON.stringify(Buffer.from(file)))
+      "files:",
+      files,
+      "files length:",
+      files.length,
+      "first file:",
+      files[0]
     )
+
+    const reqBody = { photos: files }
+    console.log("body:", reqBody)
 
     // // uploading image on clicking submit button
     await fetch(url, {
       method: "POST",
-      body: files,
+      body: JSON.stringify({ photos: files }),
       headers: {
         Authorization: "Bearer " + accessToken,
+        "Content-Type": "application/json",
       },
     })
       .then(() => console.log("sent"))
       .catch(() => console.log("error"))
   }
 
+  console.log("files", files)
   const previews = files.map((file, index) => (
-    <Preview
-      id={index}
-      key={index}
-      b64={Buffer.from(file).toString("base64")}
-      handleRemove={removeFile}
-    />
+    <Preview id={index} key={index} b64={file} handleRemove={removeFile} />
   ))
 
   /////////////   WHEN FILES ARE DROPPED    //////////////
   const onDrop = useCallback((acceptedFiles) => {
-    console.log("dropped", acceptedFiles)
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader()
-      reader.readAsArrayBuffer(file)
-      reader.onabort = () => console.log("file reading was aborted")
-      reader.onerror = () => console.log("file reading has failed")
-      reader.onload = () => {
-        const binaryStr = reader.result
+    Promise.all(
+      acceptedFiles.map(
+        (file) =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
 
-        // photos are saved as array buffer after being read
-        setFiles((prevFiles) => [...prevFiles, binaryStr])
-      }
-    })
+            reader.onabort = (msg) => reject(msg)
+            reader.onerror = (error) => reject(error)
+            reader.onload = (data) => {
+              resolve(data.target.result)
+              // const binaryStr = data.target.result
+
+              // // photos are saved as binary String buffer after being read
+              // setFiles((prevFiles) => [
+              //   ...prevFiles,
+              //   Buffer.from(binaryStr).toString("base64"),
+              // ])
+            }
+          })
+      )
+    ).then((base64images) =>
+      base64images.forEach((b64img) => {
+        setFiles((prevFiles) => [...prevFiles, b64img])
+      })
+    )
   }, [])
 
   const {
@@ -148,6 +164,7 @@ export default function DragAndDropZone() {
 }
 
 const Preview = ({ handleRemove, id, b64 }) => {
+  console.log(b64)
   return (
     <div className="rounded relative group flex items-center flex-col border-2 hover:border-rose-400 transition-all border-green-400">
       <FaRegTimesCircle
@@ -156,10 +173,7 @@ const Preview = ({ handleRemove, id, b64 }) => {
         className="text-rose-500 absolute right-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:visible opacity-0 invisible"
         // color=""
       />
-      <img
-        className="w-64 h-64 object-contain pt-6 p-2"
-        src={`data:image/png;base64,${b64}`}
-      />
+      <img className="w-64 h-64 object-contain pt-6 p-2" src={b64} />
     </div>
   )
 }

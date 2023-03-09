@@ -24,7 +24,7 @@ async function handleLogin(req, res) {
     return res.status(401).json({ message: "Invalid Password!" })
 
   // send token and user details to user //
-  user = _.pick(user, ["email", "username", "bio", "profilePicture"])
+  user = _.pick(user, ["email"])
   jwt.sign(
     { user },
     JWT_SECRET,
