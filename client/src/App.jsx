@@ -21,17 +21,14 @@ import { useDispatch } from "react-redux"
 import { setCredentials } from "./features/auth/authSlice"
 
 function App() {
-
   const dispatch = useDispatch()
-  useEffect(() => {
+  // useEffect(() => {
   dispatch(setCredentials())
-  }, [window.location.pathname])
-  
-  
+  // }, [window.location.pathname])
 
   useEffect(() => {
     AOS.init({
-      easing: "ease-in-out"
+      easing: "ease-in-out",
     })
   }, [])
 

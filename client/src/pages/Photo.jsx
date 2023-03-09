@@ -12,10 +12,11 @@ import { Link, useParams } from "react-router-dom"
 
 export default function Photo() {
   const { id } = useParams()
+
   //   console.log(id)
   //   search for this id in database and get photo details
 
-  const currentUser = useSelector((store) => store.user)
+  const { user } = useSelector((store) => store.auth)
   // console.log(currentUser)
   const img = {
     id: id,
@@ -92,7 +93,7 @@ export default function Photo() {
             {/* LIKE AND SHARE ICONS  */}
             <span className="flex items-center gap-2">
               {img.likedBy.find(
-                (eachUser) => eachUser.email === currentUser.email
+                (eachUser) => eachUser.email === user.email
               ) ? (
                 <FaHeart className="cursor-pointer" />
               ) : (

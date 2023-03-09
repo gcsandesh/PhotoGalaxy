@@ -45,3 +45,7 @@ A stock photo platform to find and download beautiful photos of your need.
 
 -  [Sandesh GC](https://www.gcsandesh.com.np)
 -  [Subek Sharma](https://)
+
+
+<!-- pip install requests -->
+<!-- pip install DeepImageSearch -->
