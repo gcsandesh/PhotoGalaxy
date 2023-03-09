@@ -1,6 +1,8 @@
 import { Buffer } from "buffer"
 import React, { useState, useCallback, useMemo } from "react"
 import { useDropzone } from "react-dropzone"
+import { FaRegTimesCircle, FaTimesCircle } from "react-icons/fa"
+import { useSelector } from "react-redux"
 
 // ////// STYLES ////// //
 
@@ -34,9 +36,47 @@ const rejectStyle = {
 }
 
 export default function DragAndDropZone() {
-  console.log()
+  const {
+    user: { accessToken },
+  } = useSelector((store) => store.auth)
+
   const [files, setFiles] = useState([])
-  let url = `http://localhost:9999/api/photos/`
+
+  function removeFile(fileID) {
+    setFiles((prevFiles) => prevFiles.filter((file, index) => index !== fileID))
+  }
+
+  // let url = `http://localhost:9999/api/photos/`
+
+  ////////////////    UPLOAD FILES AT LAST    //////////////////
+  async function handlePhotosUpload(event) {
+    event.preventDefault()
+
+    console.log(
+      "Buffer: ",
+      files.map((file) => JSON.stringify(Buffer.from(file)))
+    )
+
+    // // uploading image on clicking submit button
+    await fetch(url, {
+      method: "POST",
+      body: files,
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+      .then(() => console.log("sent"))
+      .catch(() => console.log("error"))
+  }
+
+  const previews = files.map((file, index) => (
+    <Preview
+      id={index}
+      key={index}
+      b64={Buffer.from(file).toString("base64")}
+      handleRemove={removeFile}
+    />
+  ))
 
   /////////////   WHEN FILES ARE DROPPED    //////////////
   const onDrop = useCallback((acceptedFiles) => {
@@ -74,69 +114,52 @@ export default function DragAndDropZone() {
     [isFocused, isDragAccept, isDragReject]
   )
 
-  ////////////////    UPLOAD FILES AT LAST    //////////////////
-  async function handlePhotosUpload(event) {
-    event.preventDefault()
-
-    const photos = new FormData()
-    // console.log('sending', photos)
-    files.forEach((file, index) => {
-      photos.append(`photo_${index}`, Buffer.from(file).toString("base64"))
-    })
-
-    await fetch(url, {
-      method: "POST",
-      body: photos,
-      headers: {
-        Authorization: "Bearer " + "",
-      },
-    })
-      .then(() => console.log("sent"))
-      .catch(() => console.log("error"))
-  }
-
-  const previews = files.map((file, index) => (
-    <Preview key={index} b64={Buffer.from(file).toString("base64")} />
-  ))
-
   return (
-    <div>
-      {/* <form
-        method="POST"
-        onSubmit={handlePhotosUpload}
-        encType={"multipart/form-data"}
-        className="flex flex-col gap2 items-start justify-between w-2/3 mx-auto"
-      > */}
-      <div {...getRootProps({ style })}>
-        {/* <label htmlFor="photo">Photo</label> */}
-        <input name={"photo"} id={"photo"} {...getRootProps()} hidden />
-        {isDragActive ? (
-          <p className="text-green-500">
-            Drag 'n' drop up to 10 files here, or click to select files
-          </p>
-        ) : (
-          <p>Drag 'n' drop up to 10 files here, or click to select files</p>
-        )}
-      </div>
-
-      {/* </form> */}
-      <div>
-        {previews}
-        <button
-          type="submit"
-          className="mx-auto text-white bg-blue-500 hover:bg-blue-700 font-bold px-2 py-2 sm:py-1 rounded focus:outline-none"
+    <div className="flex flex-col items-center w-full">
+      <form className="w-full h-44 md:w-2/3 mx-auto my-4">
+        <div
+          {...getRootProps({ style })}
+          className="mx-auto flex items-center justify-center w-full h-44"
         >
-          UPLOAD
-        </button>
+          {/* <label htmlFor="photo">Photo</label> */}
+          <input name={"photo"} id={"photo"} {...getRootProps()} hidden />
+          {isDragActive ? (
+            <p>Drop it like it's hot</p>
+          ) : (
+            <p>Drag 'n' drop up to 10 files here, or click to select files</p>
+          )}
+        </div>
+      </form>
+
+      {/* ***** UPLOAD BUTTON ***** */}
+      <button
+        onClick={handlePhotosUpload}
+        className="mx-auto text-white bg-blue-500 hover:bg-blue-700 font-bold px-2 py-2 sm:py-1 rounded focus:outline-none"
+      >
+        UPLOAD
+      </button>
+
+      {/* ***** ** PREVIEWS ** ***** */}
+      <div className="w-full flex-wrap my-4 flex items-start justify-between gap-4 overflow-x-auto">
+        {previews}
       </div>
     </div>
   )
 }
 
-const Preview = ({ b64 }) => {
+const Preview = ({ handleRemove, id, b64 }) => {
   return (
-    <div>
-      <img className=" w-36" src={`data:image/png;base64,${b64}`} />
+    <div className="rounded relative group flex items-center flex-col border-2 hover:border-rose-400 transition-all border-green-400">
+      <FaRegTimesCircle
+        size={24}
+        onClick={() => handleRemove(id)}
+        className="text-rose-500 absolute right-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:visible opacity-0 invisible"
+        // color=""
+      />
+      <img
+        className="w-64 h-64 object-contain pt-6 p-2"
+        src={`data:image/png;base64,${b64}`}
+      />
     </div>
   )
 }

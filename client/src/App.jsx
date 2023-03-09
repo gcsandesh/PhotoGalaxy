@@ -26,11 +26,11 @@ function App() {
   dispatch(setCredentials())
   // }, [window.location.pathname])
 
-  useEffect(() => {
-    AOS.init({
-      easing: "ease-in-out",
-    })
-  }, [])
+  // useEffect(() => {
+  AOS.init({
+    easing: "ease-in-out",
+  })
+  // }, [])
 
   return (
     <Router>
