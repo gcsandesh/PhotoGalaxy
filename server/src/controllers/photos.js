@@ -6,8 +6,6 @@ function uploadPhotos(req, res) {
   const photos = req.body.photos
   console.log(photos.length)
 
-  return res.render("pages/index")
-
   // info about the access
   // const accessInfo = req.accessInfo
   // console.log("Accessed: ", accessInfo)
@@ -35,10 +33,10 @@ function uploadPhotos(req, res) {
   // create photo document in photos collection in mongodb
   // add author email, upload time from 'accessInfo'
   // add photo url from upload result
-  // return res.send({ message: "uploaded" })
+  return res.send({ message: "uploaded" })
 }
 
-function uploadPhotoFromBuffer(photo) {
+function uploadPhotoAsDataURI(photo) {
   return new Promise((resolve, reject) => {
     cloudinary.uploader
       .upload_stream(
