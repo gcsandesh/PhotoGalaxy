@@ -103,7 +103,7 @@ export default function LoginForm() {
         />
       </div>
       <div className="mb-4 relative">
-        <span className="border-2 absolute bottom-1 right-1">
+        <span className="absolute bottom-1 right-1">
           {showPassword ? (
             <FaEyeSlash
               className="text-dark"
