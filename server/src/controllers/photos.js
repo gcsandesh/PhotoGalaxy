@@ -2,52 +2,34 @@ const cloudinary = require("../utils/cloudinary")
 
 ////////////    UPLOAD ONE OR MANY PHOTOS    /////////////
 function uploadPhotos(req, res) {
-  // console.log(req.body)
+  const accessInfo = req.accessInfo
   const photos = req.body.photos
   console.log(photos.length)
+  console.log(accessInfo)
 
-  // info about the access
-  // const accessInfo = req.accessInfo
-  // console.log("Accessed: ", accessInfo)
+  if (!photos.length) {
+    return res.status(400).send({ message: "No photos to upload!" })
+  }
 
-  // const photoBuffers = []
-  // if (photos) {
-  //   for (const photo of Object.keys(photos)) {
-  //     // console.log(photo, Buffer.from(photos[photo]))
-  //     photoBuffers.push(Buffer.from(photos[photo]))
-  //   }
-  //   console.log("buffers:", photoBuffers)
+  photos.forEach((photo, index) => {
+    console.log("uploading photo", index)
+    const response = cloudinary.uploader.upload(photo, {
+      folder: `PhotoGalaxy/${accessInfo.user.email}`,
+    })
 
-  /////  uploading to cloudinary  /////
-  //   if (photoBuffers.length) {
-  //     photoBuffers.forEach((photo) => {
-  //       console.log("photo", photo)
-  //       uploadPhotoFromBuffer(photo)
-  //         .then((res) => console.log(res))
-  //         .catch((err) => console.log(err))
-  //     })
-  //   }
-  // }
+    response
+      .then((data) => {
+        console.log(data)
+        console.log(data.secure_url)
+      })
+      .catch((error) => console.log(error))
+  })
 
   // get file url after upload
   // create photo document in photos collection in mongodb
   // add author email, upload time from 'accessInfo'
   // add photo url from upload result
   return res.send({ message: "uploaded" })
-}
-
-function uploadPhotoAsDataURI(photo) {
-  return new Promise((resolve, reject) => {
-    cloudinary.uploader
-      .upload_stream(
-        { folder: "test", resource_type: "raw", format: "jpg" },
-        (error, result) => {
-          if (error) reject(error)
-          if (result) resolve(result)
-        }
-      )
-      .end(photo)
-  })
 }
 
 ////////////    GET PHOTO    /////////////

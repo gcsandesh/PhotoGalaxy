@@ -28,7 +28,7 @@ async function handleLogin(req, res) {
   jwt.sign(
     { user },
     JWT_SECRET,
-    { expiresIn: 60 * 60 },
+    { expiresIn: 24 * 60 * 60 },
     (error, accessToken) => {
       if (error) {
         console.log("Error logging in!\nError:", error)
@@ -55,16 +55,32 @@ async function handleSignup(req, res) {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    //   creating user object
+    // creating user first
     const user = new User({
+      _id: authorResult._id,
       username: username,
       email: email,
       password: hashedPassword,
     })
 
-    //   add user to users collection
-    const result = await user.save()
-    return res.status(201).json(_.pick(result, ["email", "username"]))
+    // add author to authors collection
+    const authorResult = await author.save()
+
+    if (authorResult) {
+      //   creating user object
+
+      //   add user to users collection
+      userResult = await user.save()
+    }
+
+    return res.status(201).json({
+      author: authorResult,
+      user: userResult,
+    })
+    // return res.status(201).json({
+    //   user: _.pick(userResult, ["email", "username"]),
+    //   author: _.pick(authorResult, ["email", "username"]),
+    // })
   } catch (ex) {
     console.error(new Error(ex))
     return res.status(500).json({ message: new Error(ex) })
