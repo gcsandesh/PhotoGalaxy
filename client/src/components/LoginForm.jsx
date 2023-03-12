@@ -27,7 +27,7 @@ export default function LoginForm() {
         })
       ).unwrap()
 
-      dispatch(setCredentials())
+      await dispatch(setCredentials())
 
       toast.success(`Successfully logged in as '${payload.user.email}'!`, {
         style: {
@@ -98,11 +98,12 @@ export default function LoginForm() {
           value={formData.email}
           onChange={handleFormInput}
           placeholder="Enter email"
+          autoComplete="on"
           required
         />
       </div>
       <div className="mb-4 relative">
-        <span className="border-2 absolute bottom-1 right-1">
+        <span className="absolute bottom-1 right-1">
           {showPassword ? (
             <FaEyeSlash
               className="text-dark"

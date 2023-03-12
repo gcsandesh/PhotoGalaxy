@@ -1,35 +1,52 @@
 const cloudinary = require("../utils/cloudinary")
+const { Photo } = require("../models/photos")
 
 ////////////    UPLOAD ONE OR MANY PHOTOS    /////////////
-function uploadPhotos(req, res) {
+async function uploadPhotos(req, res) {
   const accessInfo = req.accessInfo
   const photos = req.body.photos
-  console.log(photos.length)
-  console.log(accessInfo)
+
+  // console.log(accessInfo)
 
   if (!photos.length) {
     return res.status(400).send({ message: "No photos to upload!" })
   }
 
-  photos.forEach((photo, index) => {
-    console.log("uploading photo", index)
-    const response = cloudinary.uploader.upload(photo, {
-      folder: `PhotoGalaxy/${accessInfo.user.email}`,
-    })
+  // either all or no photos should be saved
+  try {
+    const photoUploadResponse = []
 
-    response
-      .then((data) => {
-        console.log(data)
-        console.log(data.secure_url)
+    // Promise.all(
+    photos.forEach(async (eachPhoto, index) => {
+      const data = await cloudinary.uploader.upload(eachPhoto, {
+        folder: `projects/PhotoGalaxy`,
       })
-      .catch((error) => console.log(error))
-  })
 
-  // get file url after upload
-  // create photo document in photos collection in mongodb
-  // add author email, upload time from 'accessInfo'
-  // add photo url from upload result
-  return res.send({ message: "uploaded" })
+      const photo = new Photo({
+        url: data.secure_url,
+        format: data.format,
+        resource_type: data.resource_type,
+        dimensions: {
+          height: data.height,
+          width: data.width,
+        },
+        bytes: data.bytes,
+        uploaded_by: accessInfo.user._id,
+      })
+
+      await photo.save().then((data) => {
+        // console.log(data)
+        photoUploadResponse.push(data)
+      })
+      // console.log(response)
+      // photoUploadResponse.push(response)
+    })
+    // ).then((result) => console.log(result, photoUploadResponse))
+
+    return res.status(201).json({ message: photoUploadResponse })
+  } catch (error) {
+    return res.status(500).json({ message: "Error uploading photos!" })
+  }
 }
 
 ////////////    GET PHOTO    /////////////

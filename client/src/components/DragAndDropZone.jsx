@@ -1,7 +1,7 @@
-import { Buffer } from "buffer"
 import React, { useState, useCallback, useMemo } from "react"
 import { useDropzone } from "react-dropzone"
-import { FaRegTimesCircle, FaTimesCircle } from "react-icons/fa"
+import { toast } from "react-hot-toast"
+import { FaRegTimesCircle } from "react-icons/fa"
 import { useSelector } from "react-redux"
 
 // ////// STYLES ////// //
@@ -51,14 +51,6 @@ export default function DragAndDropZone() {
   ////////////////    UPLOAD FILES AT LAST    //////////////////
   async function handlePhotosUpload(event) {
     event.preventDefault()
-    console.log(
-      "files:",
-      files,
-      "files length:",
-      files.length,
-      "first file:",
-      files[0]
-    )
 
     const reqBody = { photos: files }
     console.log("body:", reqBody)
@@ -72,11 +64,16 @@ export default function DragAndDropZone() {
         "Content-Type": "application/json",
       },
     })
-      .then(() => console.log("sent"))
-      .catch(() => console.log("error"))
+      .then(() => {
+        toast.success("Uploaded Successfully!")
+        // console.log("uploaded")
+      })
+      .catch(() => {
+        toast.error("Error uploading!")
+        // console.log("error")
+      })
   }
 
-  console.log("files", files)
   const previews = files.map((file, index) => (
     <Preview id={index} key={index} b64={file} handleRemove={removeFile} />
   ))
@@ -94,13 +91,6 @@ export default function DragAndDropZone() {
             reader.onerror = (error) => reject(error)
             reader.onload = (data) => {
               resolve(data.target.result)
-              // const binaryStr = data.target.result
-
-              // // photos are saved as binary String buffer after being read
-              // setFiles((prevFiles) => [
-              //   ...prevFiles,
-              //   Buffer.from(binaryStr).toString("base64"),
-              // ])
             }
           })
       )
@@ -137,12 +127,13 @@ export default function DragAndDropZone() {
           {...getRootProps({ style })}
           className="mx-auto flex items-center justify-center w-full h-44"
         >
-          {/* <label htmlFor="photo">Photo</label> */}
           <input name={"photo"} id={"photo"} {...getRootProps()} hidden />
           {isDragActive ? (
-            <p>Drop it like it's hot</p>
+            <p>Drop it like it's hot🥵</p>
           ) : (
-            <p>Drag 'n' drop up to 10 files here, or click to select files</p>
+            <p>
+              Drag 'n' drop up to 10 files here, or click to select files...
+            </p>
           )}
         </div>
       </form>
@@ -164,14 +155,12 @@ export default function DragAndDropZone() {
 }
 
 const Preview = ({ handleRemove, id, b64 }) => {
-  console.log(b64)
   return (
     <div className="rounded relative group flex items-center flex-col border-2 hover:border-rose-400 transition-all border-green-400">
       <FaRegTimesCircle
         size={24}
         onClick={() => handleRemove(id)}
         className="text-rose-500 absolute right-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:visible opacity-0 invisible"
-        // color=""
       />
       <img className="w-64 h-64 object-contain pt-6 p-2" src={b64} />
     </div>
