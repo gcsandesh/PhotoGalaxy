@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useMemo } from "react"
 import { useDropzone } from "react-dropzone"
+import { toast } from "react-hot-toast"
 import { FaRegTimesCircle } from "react-icons/fa"
 import { useSelector } from "react-redux"
 
@@ -50,14 +51,6 @@ export default function DragAndDropZone() {
   ////////////////    UPLOAD FILES AT LAST    //////////////////
   async function handlePhotosUpload(event) {
     event.preventDefault()
-    // console.log(
-    //   "files:",
-    //   files,
-    //   "files length:",
-    //   files.length,
-    //   "first file:",
-    //   files[0]
-    // )
 
     const reqBody = { photos: files }
     console.log("body:", reqBody)
@@ -71,8 +64,14 @@ export default function DragAndDropZone() {
         "Content-Type": "application/json",
       },
     })
-      .then(() => console.log("sent"))
-      .catch(() => console.log("error"))
+      .then(() => {
+        toast.success("Uploaded Successfully!")
+        // console.log("uploaded")
+      })
+      .catch(() => {
+        toast.error("Error uploading!")
+        // console.log("error")
+      })
   }
 
   const previews = files.map((file, index) => (
@@ -130,9 +129,11 @@ export default function DragAndDropZone() {
         >
           <input name={"photo"} id={"photo"} {...getRootProps()} hidden />
           {isDragActive ? (
-            <p>Drop it like it's hot</p>
+            <p>Drop it like it's hot🥵</p>
           ) : (
-            <p>Drag 'n' drop up to 10 files here, or click to select files</p>
+            <p>
+              Drag 'n' drop up to 10 files here, or click to select files...
+            </p>
           )}
         </div>
       </form>
@@ -154,14 +155,12 @@ export default function DragAndDropZone() {
 }
 
 const Preview = ({ handleRemove, id, b64 }) => {
-  // console.log(b64)
   return (
     <div className="rounded relative group flex items-center flex-col border-2 hover:border-rose-400 transition-all border-green-400">
       <FaRegTimesCircle
         size={24}
         onClick={() => handleRemove(id)}
         className="text-rose-500 absolute right-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:visible opacity-0 invisible"
-        // color=""
       />
       <img className="w-64 h-64 object-contain pt-6 p-2" src={b64} />
     </div>
