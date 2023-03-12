@@ -4,7 +4,8 @@ const cloudinary = require("../utils/cloudinary")
 function uploadPhotos(req, res) {
   const accessInfo = req.accessInfo
   const photos = req.body.photos
-  console.log(photos.length)
+
+  const photoUploadResponse = []
   console.log(accessInfo)
 
   if (!photos.length) {
@@ -12,15 +13,15 @@ function uploadPhotos(req, res) {
   }
 
   photos.forEach((photo, index) => {
-    console.log("uploading photo", index)
     const response = cloudinary.uploader.upload(photo, {
-      folder: `PhotoGalaxy/${accessInfo.user.email}`,
+      folder: `projects/PhotoGalaxy`,
     })
 
     response
       .then((data) => {
+        photoUploadResponse.push(data)
         console.log(data)
-        console.log(data.secure_url)
+        // console.log(data.secure_url)
       })
       .catch((error) => console.log(error))
   })
