@@ -12,7 +12,14 @@ const photoSchema = new mongoose.Schema(
     format: {
       type: String,
       required: true,
+      default: "png",
       // enum: imageFormats
+    },
+
+    resource_type: {
+      type: String,
+      required: true,
+      default: "image",
     },
 
     dimensions: {
@@ -20,7 +27,7 @@ const photoSchema = new mongoose.Schema(
       width: { type: Number, required: true },
     },
 
-    file_size: {
+    bytes: {
       type: Number,
       required: true,
     },

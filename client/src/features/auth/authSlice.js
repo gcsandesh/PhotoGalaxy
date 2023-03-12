@@ -4,6 +4,7 @@ const USER_AUTH_URL = "http://localhost:9999/api/auth/user"
 
 const initialState = {
   user: {
+    id: "",
     firstName: "",
     lastName: "",
     email: "",

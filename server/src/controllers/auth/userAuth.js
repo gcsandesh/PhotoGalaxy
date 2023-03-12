@@ -28,12 +28,7 @@ const handleUserLogin = async (req, res) => {
       return res.status(401).json({ message: "Invalid Password!" })
 
     // send token and user details to user //
-    const user = _.pick(existingUser, [
-      "email",
-      "first_name",
-      "last_name",
-      "profile_picture",
-    ])
+    const user = _.pick(existingUser, ["_id", "email"])
 
     jwt.sign(
       { user },
@@ -44,7 +39,15 @@ const handleUserLogin = async (req, res) => {
           console.log("Error logging in!\nError:", error)
           return res.status(500).json({ message: "Could not generate token" })
         }
-        return res.json({ user, accessToken })
+        return res.json({
+          user: _.pick(existingUser, [
+            "_id",
+            "first_name",
+            "last_name",
+            "email",
+          ]),
+          accessToken,
+        })
       }
     )
   } catch (error) {
@@ -85,7 +88,7 @@ const handleUserSignup = async (req, res) => {
     const userResult = await user.save()
 
     return res.status(201).json({
-      user: _.pick(userResult, ["email", "first_name", "last_name"]),
+      user: _.pick(userResult, ["_id", "email", "first_name", "last_name"]),
     })
   } catch (error) {
     return res.status(500).json({ message: error.message })
