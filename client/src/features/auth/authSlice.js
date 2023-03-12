@@ -66,7 +66,7 @@ export const loginUser = createAsyncThunk(
         },
         body: JSON.stringify({ email, password }),
       })
-      
+
       const data = await response.json()
 
       if (response.status !== 200) {

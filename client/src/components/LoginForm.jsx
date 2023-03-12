@@ -27,7 +27,7 @@ export default function LoginForm() {
         })
       ).unwrap()
 
-      dispatch(setCredentials())
+      await dispatch(setCredentials())
 
       toast.success(`Successfully logged in as '${payload.user.email}'!`, {
         style: {

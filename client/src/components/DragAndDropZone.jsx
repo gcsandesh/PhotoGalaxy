@@ -1,7 +1,6 @@
-import { Buffer } from "buffer"
 import React, { useState, useCallback, useMemo } from "react"
 import { useDropzone } from "react-dropzone"
-import { FaRegTimesCircle, FaTimesCircle } from "react-icons/fa"
+import { FaRegTimesCircle } from "react-icons/fa"
 import { useSelector } from "react-redux"
 
 // ////// STYLES ////// //

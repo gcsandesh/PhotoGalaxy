@@ -1,11 +1,11 @@
-import React from "react"
-import { useState } from "react"
+import React, { useState } from "react"
 import { toast } from "react-hot-toast"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { signupUser } from "../features/auth/authSlice"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
 
-export default function SignUpForm() {
+export default function SignupForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -16,7 +16,10 @@ export default function SignUpForm() {
     password: "",
     cpassword: "",
   }
+
   const [isChecked, setIsChecked] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [formData, setFormData] = useState(emptyForm)
   const [errors, setErrors] = useState([])
   let errorList = errors.map((error, index) => <li key={index}>{error}</li>)
@@ -179,14 +182,30 @@ export default function SignUpForm() {
       </div>
 
       {/* PASSWORD */}
-      <div className="mb-4">
+      <div className="mb-4 relative">
+        <span className="absolute bottom-1 right-1">
+          {showPassword ? (
+            <FaEyeSlash
+              className="text-dark"
+              size={24}
+              onClick={() => setShowPassword((prevState) => !prevState)}
+            />
+          ) : (
+            <FaEye
+              className="text-dark"
+              size={24}
+              onClick={() => setShowPassword((prevState) => !prevState)}
+            />
+          )}
+        </span>
+
         <label className="block mb-2" htmlFor="password">
           Password:
         </label>
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           name="password"
           onChange={handleFormInput}
           value={formData.password}
@@ -197,14 +216,29 @@ export default function SignUpForm() {
       </div>
 
       {/* CONFIRM PASSWORD */}
-      <div className="mb-4">
+      <div className="mb-4 relative">
+        <span className="absolute bottom-1 right-1">
+          {showConfirmPassword ? (
+            <FaEyeSlash
+              className="text-dark"
+              size={24}
+              onClick={() => setShowConfirmPassword((prevState) => !prevState)}
+            />
+          ) : (
+            <FaEye
+              className="text-dark"
+              size={24}
+              onClick={() => setShowConfirmPassword((prevState) => !prevState)}
+            />
+          )}
+        </span>
         <label className="block mb-2" htmlFor="cpassword">
           Confirm Password:
         </label>
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="cpassword"
-          type="password"
+          type={showConfirmPassword ? "text" : "password"}
           name="cpassword"
           onChange={handleFormInput}
           value={formData.cpassword}
