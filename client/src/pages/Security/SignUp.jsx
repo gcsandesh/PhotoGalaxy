@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
 import { SiteLogo } from "../../components/common"
 import gradientBg from "../../assets/gradient-bg.svg"

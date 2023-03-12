@@ -78,7 +78,8 @@ export default function SignUpForm() {
     try {
       const payload = await dispatch(
         signupUser({
-          username: formData.firstName + " " + formData.lastName,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
           email: formData.email,
           password: formData.password,
         })
