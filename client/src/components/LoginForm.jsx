@@ -98,6 +98,7 @@ export default function LoginForm() {
           value={formData.email}
           onChange={handleFormInput}
           placeholder="Enter email"
+          autoComplete="on"
           required
         />
       </div>

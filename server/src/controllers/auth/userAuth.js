@@ -12,24 +12,29 @@ const JWT_SECRET = process.env.JWT_SECRET
 const handleUserLogin = async (req, res) => {
   const email = req.body.email
   const password = req.body.password
-  let user
 
   try {
     // looking for user in database //
-    await User.findOne({ email })
-      .then((data) => (user = data))
-      .catch((error) => console.log(error))
-
-    // if email does not exist //
-    if (!user) return res.status(404).json({ message: "User not found!" })
+    const existingUser = await User.findOne({ email })
+    if (!existingUser)
+      return res.status(400).json({ message: `Account does not exist!` })
 
     // check password //
-    const passwordIsCorrect = await bcrypt.compare(password, user.password)
+    const passwordIsCorrect = await bcrypt.compare(
+      password,
+      existingUser.password
+    )
     if (!passwordIsCorrect)
       return res.status(401).json({ message: "Invalid Password!" })
 
     // send token and user details to user //
-    user = _.pick(user, ["email"])
+    const user = _.pick(existingUser, [
+      "email",
+      "first_name",
+      "last_name",
+      "profile_picture",
+    ])
+
     jwt.sign(
       { user },
       JWT_SECRET,
@@ -37,13 +42,14 @@ const handleUserLogin = async (req, res) => {
       (error, accessToken) => {
         if (error) {
           console.log("Error logging in!\nError:", error)
-          return res.json({ message: "Could not generate token" })
+          return res.status(500).json({ message: "Could not generate token" })
         }
         return res.json({ user, accessToken })
       }
     )
   } catch (error) {
-    return res.json({ message: error })
+    console.log(error)
+    return res.status(500).json({ message: error })
   }
 }
 
@@ -58,25 +64,31 @@ const handleUserSignup = async (req, res) => {
     return res.status(400).json({ message: "Missing Credentials!" })
 
   try {
+    const existingUser = await User.findOne({ email })
+    if (existingUser)
+      return res
+        .status(400)
+        .json({ message: `Account with email '${email}' already exists!` })
+
     //   hashing the password
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
     // creating user
     const user = new User({
-      firstName,
-      lastName,
-      email,
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
       password: hashedPassword,
     })
 
     const userResult = await user.save()
 
     return res.status(201).json({
-      user: _.pick(userResult, ["email", "firstName", "lastName"]),
+      user: _.pick(userResult, ["email", "first_name", "last_name"]),
     })
-  } catch (ex) {
-    return res.status(500).json({ message: new Error(ex) })
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
   }
 }
 

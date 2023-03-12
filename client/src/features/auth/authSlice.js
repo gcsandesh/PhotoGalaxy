@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-const AUTH_URL = "http://localhost:9999/api/auth"
+const USER_AUTH_URL = "http://localhost:9999/api/auth/user"
 
 const initialState = {
   user: {
-    username: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    bio: "",
     profilePicture: "",
     accessToken: "",
     isLoggedIn: false,
@@ -20,18 +20,19 @@ const initialState = {
 
 export const signupUser = createAsyncThunk(
   "auth/signup",
-  async ({ username, email, password }, thunkAPI) => {
+  async ({ firstName, lastName, email, password }, thunkAPI) => {
     try {
-      const response = await fetch(AUTH_URL + "/signup", {
+      const response = await fetch(USER_AUTH_URL + "/signup", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: username,
-          email: email,
-          password: password,
+          firstName,
+          lastName,
+          email,
+          password,
         }),
       })
 
@@ -57,7 +58,7 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async ({ email, password }, thunkAPI) => {
     try {
-      const response = await fetch(AUTH_URL + "/login", {
+      const response = await fetch(USER_AUTH_URL + "/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -65,6 +66,7 @@ export const loginUser = createAsyncThunk(
         },
         body: JSON.stringify({ email, password }),
       })
+      
       const data = await response.json()
 
       if (response.status !== 200) {

@@ -30,7 +30,7 @@ export default function SignUpForm() {
   }
 
   //   VALIDATE FORM   //
-  function validateForm() {
+  function validateForm(formData) {
     let isValid = true
     const { email, firstName, lastName, password, cpassword } = formData
     if (!firstName.trim()) {
@@ -57,6 +57,14 @@ export default function SignUpForm() {
       isValid = false
     }
 
+    if (password.trim() && password.trim().length < 8) {
+      setErrors((errs) => [
+        ...errs,
+        "* Password must be at least 8 characters!",
+      ])
+      isValid = false
+    }
+
     if (!isChecked) {
       setErrors((errs) => [
         ...errs,
@@ -73,7 +81,7 @@ export default function SignUpForm() {
     event.preventDefault()
     setErrors([])
 
-    if (!validateForm()) return
+    if (!validateForm(formData)) return
 
     try {
       const payload = await dispatch(
@@ -85,7 +93,7 @@ export default function SignUpForm() {
         })
       ).unwrap()
 
-      toast.success(`Created account '${payload.email}' successfully!.`, {
+      toast.success(`Created account '${payload.user.email}' successfully!.`, {
         style: {
           borderRadius: "10px",
           background: "#333",
@@ -183,6 +191,7 @@ export default function SignUpForm() {
           onChange={handleFormInput}
           value={formData.password}
           placeholder="Enter password"
+          minLength={8}
           required
         />
       </div>
@@ -200,6 +209,7 @@ export default function SignUpForm() {
           onChange={handleFormInput}
           value={formData.cpassword}
           placeholder="Re-enter password"
+          minLength={8}
           required
         />
       </div>
