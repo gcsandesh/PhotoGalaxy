@@ -51,32 +51,31 @@ const handleUserLogin = async (req, res) => {
 ///////////////  SIGN UP  /////////////////
 ///////////////////////////////////////////
 
-async function handleUserSignup(req, res) {
-  const { email, password, username } = req.body
+const handleUserSignup = async (req, res) => {
+  const { email, password, firstName, lastName } = req.body
 
-  if (!email || !password || !username)
+  if (!email || !password || !firstName || !lastName)
     return res.status(400).json({ message: "Missing Credentials!" })
+
   try {
     //   hashing the password
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    // creating user first
+    // creating user
     const user = new User({
-      _id: authorResult._id,
-      username: username,
-      email: email,
+      firstName,
+      lastName,
+      email,
       password: hashedPassword,
     })
 
-    userResult = await user.save()
+    const userResult = await user.save()
 
     return res.status(201).json({
-      user: _.pick(userResult, ["email", "username"]),
-      author: _.pick(authorResult, ["email", "username"]),
+      user: _.pick(userResult, ["email", "firstName", "lastName"]),
     })
   } catch (ex) {
-    // console.error(new Error(ex))
     return res.status(500).json({ message: new Error(ex) })
   }
 }
