@@ -50,14 +50,14 @@ export default function DragAndDropZone() {
   ////////////////    UPLOAD FILES AT LAST    //////////////////
   async function handlePhotosUpload(event) {
     event.preventDefault()
-    console.log(
-      "files:",
-      files,
-      "files length:",
-      files.length,
-      "first file:",
-      files[0]
-    )
+    // console.log(
+    //   "files:",
+    //   files,
+    //   "files length:",
+    //   files.length,
+    //   "first file:",
+    //   files[0]
+    // )
 
     const reqBody = { photos: files }
     console.log("body:", reqBody)
@@ -75,7 +75,6 @@ export default function DragAndDropZone() {
       .catch(() => console.log("error"))
   }
 
-  console.log("files", files)
   const previews = files.map((file, index) => (
     <Preview id={index} key={index} b64={file} handleRemove={removeFile} />
   ))
@@ -93,13 +92,6 @@ export default function DragAndDropZone() {
             reader.onerror = (error) => reject(error)
             reader.onload = (data) => {
               resolve(data.target.result)
-              // const binaryStr = data.target.result
-
-              // // photos are saved as binary String buffer after being read
-              // setFiles((prevFiles) => [
-              //   ...prevFiles,
-              //   Buffer.from(binaryStr).toString("base64"),
-              // ])
             }
           })
       )
@@ -136,7 +128,6 @@ export default function DragAndDropZone() {
           {...getRootProps({ style })}
           className="mx-auto flex items-center justify-center w-full h-44"
         >
-          {/* <label htmlFor="photo">Photo</label> */}
           <input name={"photo"} id={"photo"} {...getRootProps()} hidden />
           {isDragActive ? (
             <p>Drop it like it's hot</p>
@@ -163,7 +154,7 @@ export default function DragAndDropZone() {
 }
 
 const Preview = ({ handleRemove, id, b64 }) => {
-  console.log(b64)
+  // console.log(b64)
   return (
     <div className="rounded relative group flex items-center flex-col border-2 hover:border-rose-400 transition-all border-green-400">
       <FaRegTimesCircle
