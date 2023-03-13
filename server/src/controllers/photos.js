@@ -12,8 +12,8 @@ async function uploadPhotos(req, res) {
     return res.status(400).send({ message: "No photos to upload!" })
   }
 
-  // either all or no photos should be saved
   try {
+    // either all or no photos should be saved
     const photoUploadResponse = []
 
     // Promise.all(
@@ -21,6 +21,9 @@ async function uploadPhotos(req, res) {
       const data = await cloudinary.uploader.upload(eachPhoto, {
         folder: `projects/PhotoGalaxy`,
       })
+
+      console.log("pushing:", data)
+      photoUploadResponse.push()
 
       const photo = new Photo({
         url: data.secure_url,
@@ -34,14 +37,14 @@ async function uploadPhotos(req, res) {
         uploaded_by: accessInfo.user._id,
       })
 
-      await photo.save().then((data) => {
-        // console.log(data)
-        photoUploadResponse.push(data)
-      })
+      await photo.save()
+      // console.log(data)
+      // photoUploadResponse.push(data)
       // console.log(response)
       // photoUploadResponse.push(response)
     })
     // ).then((result) => console.log(result, photoUploadResponse))
+    console.log(photoUploadResponse)
 
     return res.status(201).json({ message: photoUploadResponse })
   } catch (error) {
