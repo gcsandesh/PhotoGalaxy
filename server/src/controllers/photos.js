@@ -53,8 +53,10 @@ async function uploadPhotos(req, res) {
 }
 
 ////////////    GET PHOTO    /////////////
-function getPhoto() {
-  console.log("a photo is sent")
+const getPhoto = async (req, res) => {
+  const photoID = req.params.id
+
+  const photo = console.log("a photo is sent")
   return
 }
 
