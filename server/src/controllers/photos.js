@@ -52,7 +52,7 @@ async function uploadPhotos(req, res) {
   }
 }
 
-////////////    GET PHOTO    /////////////
+////////////    GET A PHOTO    /////////////
 const getPhoto = async (req, res) => {
   const photoID = req.params.id
 
@@ -61,8 +61,10 @@ const getPhoto = async (req, res) => {
 }
 
 ////////////    GET ALL PHOTOS    /////////////
-function getAllPhotos() {
-  console.log("All photos are sent!")
+const getAllPhotos = async (req, res) => {
+  const allPhotos = await Photo.find({})
+  console.log({ photos: allPhotos })
+  res.json({ photos: allPhotos })
 }
 
 ////////////    GET ALL PHOTOS FROM A CATEGORY    /////////////

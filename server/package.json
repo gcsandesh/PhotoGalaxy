@@ -4,7 +4,8 @@
   "description": "A stock photo website",
   "main": "index.js",
   "scripts": {
-    "serve": "nodemon index"
+    "serve": "nodemon index",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
