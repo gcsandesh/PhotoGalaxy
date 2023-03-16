@@ -49,7 +49,9 @@ async function uploadPhotos(req, res) {
 
     return res.status(201).json({ message: photoUploadResponse })
   } catch (error) {
-    return res.status(500).json({ message: "Error uploading photos!" })
+    return res
+      .status(500)
+      .json({ message: "Error uploading photos!", error: error.message })
   }
 }
 
@@ -67,16 +69,28 @@ const getPhoto = async (req, res) => {
 
     return res.json({ photo })
   } catch (error) {
-    return res.status(500).json({ message: "Error getting photo!" })
+    return res
+      .status(500)
+      .json({ message: "Error getting photo!", error: error.message })
   }
 }
 
 ////////////    GET ALL PHOTOS    /////////////
 
 const getAllPhotos = async (req, res) => {
-  const allPhotos = await Photo.find({})
-  // console.log({ photos: allPhotos })
-  res.json({ photos: allPhotos })
+  try {
+    const allPhotos = await Photo.find({})
+    // console.log({ photos: allPhotos })
+    if (!allPhotos.length) {
+      return res.status(404).json({ message: "No photos found!" })
+    }
+
+    return res.json({ photos: allPhotos })
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Error getting photos!", error: error.message })
+  }
 }
 
 ////////////    GET ALL PHOTOS FROM A CATEGORY    /////////////
