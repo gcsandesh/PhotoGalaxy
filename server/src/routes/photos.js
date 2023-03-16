@@ -10,13 +10,9 @@ const {
 } = require("../controllers/photos")
 const { verifyToken } = require("../middlewares/auth")
 
-// const upload = multer({ dest: path.resolve(__dirname, '../../photos') })
-
-router.route("/").get(getAllPhotos)
-router.post("/", verifyToken, uploadPhotos)
+router.route("/").get(getAllPhotos).post(verifyToken, uploadPhotos)
 router.get("/id/:id", getPhoto)
 router.get("/category/:category", getPhotosFromCategory)
 router.post("/similar", getSimilarPhotos)
-// router.post('/', upload.single('photo'), uploadPhotos)
 
 module.exports = router

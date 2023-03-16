@@ -2,6 +2,7 @@ const cloudinary = require("../utils/cloudinary")
 const { Photo } = require("../models/photos")
 
 ////////////    UPLOAD ONE OR MANY PHOTOS    /////////////
+
 async function uploadPhotos(req, res) {
   const accessInfo = req.accessInfo
   const photos = req.body.photos
@@ -53,21 +54,33 @@ async function uploadPhotos(req, res) {
 }
 
 ////////////    GET A PHOTO    /////////////
+
 const getPhoto = async (req, res) => {
   const photoID = req.params.id
 
-  const photo = console.log("a photo is sent")
-  return
+  try {
+    const photo = await Photo.findOne({ _id: photoID })
+
+    if (!photo) {
+      return res.status(404).json({ message: "Photo not found!" })
+    }
+
+    return res.json({ photo })
+  } catch (error) {
+    return res.status(500).json({ message: "Error getting photo!" })
+  }
 }
 
 ////////////    GET ALL PHOTOS    /////////////
+
 const getAllPhotos = async (req, res) => {
   const allPhotos = await Photo.find({})
-  console.log({ photos: allPhotos })
+  // console.log({ photos: allPhotos })
   res.json({ photos: allPhotos })
 }
 
 ////////////    GET ALL PHOTOS FROM A CATEGORY    /////////////
+
 function getPhotosFromCategory(req, res) {
   console.log("Send photos of specific category")
 }
