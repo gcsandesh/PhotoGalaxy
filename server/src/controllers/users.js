@@ -30,8 +30,8 @@ async function deleteUser(req, res) {
     return res
       .status(404)
       .json({ message: "User with given id was not found!" })
-  console.log("deleted user", result.firstName, result.lastName)
-  res.send(_.pick(result, ["_id", "firstName", "lastName"]))
+  console.log("deleted user", result.first_name, result.last_name)
+  res.send(_.pick(result, ["_id", "first_name", "last_name"]))
 }
 
 /*********  UPDATE USER  **********/

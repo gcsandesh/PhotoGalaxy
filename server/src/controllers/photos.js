@@ -1,5 +1,6 @@
 const cloudinary = require("../utils/cloudinary")
 const { Photo } = require("../models/photos")
+const { User } = require("../models/users")
 
 ////////////    UPLOAD ONE OR MANY PHOTOS    /////////////
 
@@ -23,9 +24,6 @@ async function uploadPhotos(req, res) {
         folder: `projects/PhotoGalaxy`,
       })
 
-      console.log("pushing:", data)
-      photoUploadResponse.push()
-
       const photo = new Photo({
         url: data.secure_url,
         format: data.format,
@@ -38,14 +36,28 @@ async function uploadPhotos(req, res) {
         uploaded_by: accessInfo.user._id,
       })
 
-      await photo.save()
-      // console.log(data)
-      // photoUploadResponse.push(data)
-      // console.log(response)
-      // photoUploadResponse.push(response)
+      const savedPhoto = await photo.save()
+
+      const userFilter = { _id: accessInfo.user._id }
+      const updateData = {
+        uploaded_photos: savedPhoto._id,
+      }
+      const user = await User.findOneAndUpdate(
+        userFilter,
+        { $push: updateData },
+        {
+          new: true,
+        }
+      )
+
+      // console.log("saved photo id:", savedPhoto.id)
+      console.log("user", user)
+
+      console.log("savedphoto:", savedPhoto)
+      photoUploadResponse.push(savedPhoto)
     })
     // ).then((result) => console.log(result, photoUploadResponse))
-    console.log(photoUploadResponse)
+    console.log("arrayofresponses", photoUploadResponse)
 
     return res.status(201).json({ message: photoUploadResponse })
   } catch (error) {
