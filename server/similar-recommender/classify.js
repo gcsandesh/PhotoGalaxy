@@ -1,3 +1,4 @@
+// initiating the child process
 const spawn = require("child_process").spawn;
 
 let image_path = 'https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg?w=400&h=300&c=crop'
