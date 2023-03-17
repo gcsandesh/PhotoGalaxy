@@ -147,7 +147,7 @@ export default function DragAndDropZone() {
       </button>
 
       {/* ***** ** PREVIEWS ** ***** */}
-      <div className="w-full flex-wrap my-4 flex items-start justify-between gap-4 overflow-x-auto">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 my-4 gap-4 overflow-x-auto">
         {previews}
       </div>
     </div>
@@ -162,7 +162,7 @@ const Preview = ({ handleRemove, id, b64 }) => {
         onClick={() => handleRemove(id)}
         className="text-rose-500 absolute right-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:visible opacity-0 invisible"
       />
-      <img className="w-64 h-64 object-contain pt-6 p-2" src={b64} />
+      <img className="w-64 h-64 object-contain pt-4 p-2" src={b64} />
     </div>
   )
 }
