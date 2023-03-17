@@ -31,13 +31,73 @@ export default function Header() {
       time: "15:45:00",
       message: "Upload complete!",
     },
+    {
+      notificationID: "somerandomid3",
+      date: "2023-02-21",
+      time: "15:45:00",
+      message: "Upload complete!",
+    },
+    {
+      notificationID: "somerandomid3",
+      date: "2023-02-21",
+      time: "15:45:00",
+      message: "Upload complete!",
+    },
+    {
+      notificationID: "somerandomid3",
+      date: "2023-02-21",
+      time: "15:45:00",
+      message: "Upload complete!",
+    },
+    {
+      notificationID: "somerandomid3",
+      date: "2023-02-21",
+      time: "15:45:00",
+      message: "Upload complete!",
+    },
+    {
+      notificationID: "somerandomid3",
+      date: "2023-02-21",
+      time: "15:45:00",
+      message: "Upload complete!",
+    },
+    {
+      notificationID: "somerandomid3",
+      date: "2023-02-21",
+      time: "15:45:00",
+      message: "Upload complete!",
+    },
+    {
+      notificationID: "somerandomid3",
+      date: "2023-02-21",
+      time: "15:45:00",
+      message: "Upload complete!",
+    },
+    {
+      notificationID: "somerandomid3",
+      date: "2023-02-21",
+      time: "15:45:00",
+      message: "Upload complete!",
+    },
+    {
+      notificationID: "somerandomid3",
+      date: "2023-02-21",
+      time: "15:45:00",
+      message: "Upload complete!",
+    },
+    {
+      notificationID: "somerandomid3",
+      date: "2023-02-21",
+      time: "15:45:00",
+      message: "Upload complete!",
+    },
   ])
 
   const notificationEls = notifications.map((notif) => {
     return (
       <div
         key={notif.notificationID}
-        className="border-b-2 border-b-amber-800 border-opacity-25 p-2"
+        className="border-b-2 border-b-amber-800 border-opacity-40 p-2 hover:border-b-amber-800 duration-300 hover:cursor-pointer"
       >
         {notif.message}
       </div>
@@ -59,7 +119,7 @@ export default function Header() {
         </div>
 
         {/* NAV */}
-        <div className="hidden sm:flex gap-2 items-center ml-auto">
+        <div className="hidden sm:flex gap-8 items-center ml-auto">
           {/* UPLOAD button */}
           <div>
             <Link to="/upload">
@@ -76,7 +136,9 @@ export default function Header() {
           <div>
             <div
               title="Explore"
-              className={"relative"}
+              className={
+                "relative hover:cursor-pointer border-b-2 border-b-transparent hover:border-b-dark transition-all duration-300"
+              }
               onClick={() =>
                 setOpenMenu((prevOpenMenu) =>
                   prevOpenMenu === "explore" ? "" : "explore"
@@ -112,11 +174,11 @@ export default function Header() {
               }
               className="relative"
             >
-              {<FaRegBell size={24} />}
+              {<FaRegBell size={24} className="hover:cursor-pointer" />}
               {openMenu === "notifications" && (
                 <div
                   data-aos="fade-in"
-                  className="text-sm w-64 absolute right-0 top-12 shadow-md flex flex-col gap-2 bg-[#d4a373] text-white rounded p-3"
+                  className="text-sm w-72 max-h-96 overflow-y-auto absolute right-0 top-12 shadow-md flex flex-col gap-2 bg-[#d4a373] text-white rounded p-3"
                 >
                   {notificationEls}
                 </div>
@@ -131,6 +193,7 @@ export default function Header() {
               onClick={() =>
                 setOpenMenu((prevState) => (prevState === "user" ? "" : "user"))
               }
+              className="hover:cursor-pointer"
             />
             {openMenu === "user" && <UserOptions />}
           </div>
