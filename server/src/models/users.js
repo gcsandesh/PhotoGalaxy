@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema(
 
     profile_picture: {
       type: String,
-      default: "https://picsum.photos/200/300",
+      default: "https://picsum.photos/300/300",
     },
 
     website: {

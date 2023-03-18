@@ -27,7 +27,7 @@ const handleUserLogin = async (req, res) => {
     if (!passwordIsCorrect)
       return res.status(401).json({ message: "Invalid Password!" })
 
-    // send token and user details to user //
+    // send token, user id and email to user //
     const user = _.pick(existingUser, ["_id", "email"])
 
     jwt.sign(
@@ -40,12 +40,8 @@ const handleUserLogin = async (req, res) => {
           return res.status(500).json({ message: "Could not generate token" })
         }
         return res.json({
-          user: _.pick(existingUser, [
-            "_id",
-            "first_name",
-            "last_name",
-            "email",
-          ]),
+          // user: _.omit(user, ["_doc.password"]),
+          user,
           accessToken,
         })
       }
@@ -88,7 +84,7 @@ const handleUserSignup = async (req, res) => {
     const userResult = await user.save()
 
     return res.status(201).json({
-      user: _.pick(userResult, ["_id", "email", "first_name", "last_name"]),
+      user: _.omit(userResult, "_doc.password"),
     })
   } catch (error) {
     return res.status(500).json({ message: error.message })

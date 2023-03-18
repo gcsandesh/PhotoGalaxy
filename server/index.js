@@ -24,6 +24,7 @@ async function start() {
     })
   } catch (error) {
     console.log("Error connecting to database!", error)
+    return { message: "Error connecting to database!", error }
   }
 }
 

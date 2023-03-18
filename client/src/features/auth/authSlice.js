@@ -71,7 +71,9 @@ export const loginUser = createAsyncThunk(
       const data = await response.json()
 
       if (response.status !== 200) {
-        // data returned from server is sent to the signup.fulfilled action
+        // data returned from server is sent to the loginUser.fulfilled action
+        //
+        console.log(data)
         return thunkAPI.rejectWithValue(data)
       } else {
         return data

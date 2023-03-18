@@ -1,13 +1,36 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { toast } from "react-hot-toast"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 import { PhotoGallery } from "../../components"
 
+const GET_USER_BY_ID = "http://localhost:9999/api/users/id/"
+
 export default function UserDash() {
-  const {
-    user: { username, email, bio },
-  } = useSelector((store) => store.auth)
   const [currentView, setCurrentView] = useState("Likes")
+  const [currentUser, setCurrentUser] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    profile_picture: "",
+  })
+
+  const {
+    user: { _id },
+  } = useSelector((store) => store.auth)
+
+  useEffect(() => {
+    fetch(GET_USER_BY_ID + _id)
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrentUser(data)
+        // console.log(data)
+      })
+      .catch(() => {
+        toast("Error fetching user!")
+        console.log("Error fetching user!")
+      })
+  }, [])
 
   return (
     <div className="container mx-auto p-4 grid grid-cols-1 gap-8">
@@ -18,22 +41,22 @@ export default function UserDash() {
       {/* USER INFO */}
       <div className="flex flex-col items-center justify-between gap-4">
         <img
-          src={"https://via.placeholder.com/350x350"}
+          src={currentUser.profile_picture}
           alt="user profile picture"
           width={100}
           height={100}
-          className={"rounded-full my-3"}
+          className={"rounded-full my-3 object-contain aspect-square"}
         />
         {/* <input type={"file"} /> */}
         <div className="flex flex-col items-center">
           <label htmlFor="name" className="font-semibold text-lg">
-            {username}
+            {currentUser.first_name} {currentUser.last_name}
           </label>
           {/* <input type="text" value={name} onChange={handleNameChange} /> */}
           <label htmlFor="email" className="font-semibold text-lg">
-            {email}
+            {currentUser.email}
           </label>
-          <p className=" text-sm">{bio}</p>
+          <p className=" text-sm">{currentUser.bio}</p>
         </div>
         {/* <input type="text" value={email} onChange={handleEmailChange} /> */}
         <div className="flex flex-col gap-2">
