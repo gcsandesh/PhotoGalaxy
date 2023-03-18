@@ -11,3 +11,4 @@ matplotlib>=3.4.3
 mock==4.0.3
 deepimagesearch
 requests
+#the python version used is 3.9 
