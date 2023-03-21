@@ -110,8 +110,8 @@ export default function SignupForm() {
 
       setTimeout(() => navigate("/login"), 3000)
     } catch (error) {
-      // console.log("Error creating account: ", error.message)
-      toast.error("Error creating account!", {
+      console.log("Error creating account: ", error.message)
+      toast.error(`Error creating account!`, {
         style: {
           borderRadius: "10px",
           background: "#333",
