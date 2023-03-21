@@ -6,6 +6,10 @@ export default function PhotoGallery() {
   const [images, setImages] = React.useState([])
   const navigate = useNavigate()
 
+  function openEachPhotoPage(index, photo, event) {
+    navigate(`/photo/${photo._id}`)
+  }
+
   //getting dummy images
   React.useEffect(() => {
     async function receiveImages() {
@@ -29,9 +33,6 @@ export default function PhotoGallery() {
     height: 1080,
   }))
 
-  function openEachPhotoPage(index, photo, event) {
-    navigate(`/photo/${photo._id}`)
-  }
   return (
     <div>
       <Gallery

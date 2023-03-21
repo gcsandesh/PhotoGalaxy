@@ -21,13 +21,13 @@ app.use("/api", require("../routes"))
 // routes
 app.get("/", (req, res) => {
   if (process.env.SERVER_NODE_ENV === "production") {
-    return res.send("here goes index.html page")
+    return res.redirect("http://localhost:9999")
   }
-  res.status(404).send("You're in development mode")
+  res.status(404).json({ message: "You're in development mode" })
 })
 
 app.get("*", (req, res) => {
-  res.status(404).send("***Cricket noises***")
+  res.status(404).json({ message: "***Cricket noises***" })
 })
 
 // logging for development mode

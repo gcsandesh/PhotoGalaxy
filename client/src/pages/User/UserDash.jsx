@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 import { PhotoGallery } from "../../components"
+import UserUploads from "../../components/common/UserUploads"
 
 const GET_USER_BY_ID = "http://localhost:9999/api/users/id/"
 
@@ -20,6 +21,7 @@ export default function UserDash() {
   } = useSelector((store) => store.auth)
 
   useEffect(() => {
+    // console.log(GET_USER_BY_ID + _id)
     fetch(GET_USER_BY_ID + _id)
       .then((response) => response.json())
       .then((data) => {
@@ -30,7 +32,7 @@ export default function UserDash() {
         toast("Error fetching user!")
         console.log("Error fetching user!")
       })
-  }, [])
+  }, [_id])
 
   return (
     <div className="container mx-auto p-4 grid grid-cols-1 gap-8">
@@ -98,7 +100,7 @@ export default function UserDash() {
       </h2>
       <div>
         {currentView === "Likes" && <PhotoGallery />}
-        {currentView === "Uploads" && "No Uploads Yet!"}
+        {currentView === "Uploads" && <UserUploads userID={_id} />}
       </div>
     </div>
   )

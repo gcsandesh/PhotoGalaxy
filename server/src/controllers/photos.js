@@ -90,18 +90,39 @@ const getPhoto = async (req, res) => {
 ////////////    GET ALL PHOTOS    /////////////
 
 const getAllPhotos = async (req, res) => {
+  const query = req.query
+  // console.log(query)
+
+  // get all photos if no query params
+  if (!query) {
+    try {
+      const allPhotos = await Photo.find({})
+      // console.log({ photos: allPhotos })
+      if (!allPhotos.length) {
+        return res.status(404).json({ message: "No photos found!" })
+      }
+
+      return res.json({ photos: allPhotos })
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Error getting photos!", error: error.message })
+    }
+  }
+
+  // if there is query
   try {
-    const allPhotos = await Photo.find({})
-    // console.log({ photos: allPhotos })
-    if (!allPhotos.length) {
-      return res.status(404).json({ message: "No photos found!" })
+    const userID = query.user_id
+    const photos = await Photo.find({ uploaded_by: userID })
+
+    if (!photos || !photos.length) {
+      return res.status(404).json({ message: "No uploads yet!" })
     }
 
-    return res.json({ photos: allPhotos })
+    // if there are photos uploaded by user
+    return res.json({ uploads: photos })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error getting photos!", error: error.message })
+    return res.status(500).json({ message: "Error getting photos!" })
   }
 }
 
