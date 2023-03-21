@@ -13,15 +13,17 @@ export default function UserUploads({ userID }) {
     fetch(GET_PHOTOS_BY_USER_ID + userID)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.uploads)
+        // console.log(data.uploads)
         setImages(
-          data.uploads.map((eachPhoto) => ({
-            id: eachPhoto._id,
-            height: eachPhoto.dimensions.height,
-            width: eachPhoto.dimensions.width,
-            src: eachPhoto.url,
-            alt: "photo",
-          }))
+          data && data.length
+            ? data.uploads.map((eachPhoto) => ({
+                id: eachPhoto._id,
+                height: eachPhoto.dimensions.height,
+                width: eachPhoto.dimensions.width,
+                src: eachPhoto.url,
+                alt: "photo",
+              }))
+            : {}
         )
       })
 
