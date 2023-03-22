@@ -96,6 +96,7 @@ export default function SignupForm() {
         })
       ).unwrap()
 
+      // console.log("done")
       toast.success(`Created account '${payload.user.email}' successfully!.`, {
         style: {
           borderRadius: "10px",
@@ -110,8 +111,9 @@ export default function SignupForm() {
 
       setTimeout(() => navigate("/login"), 3000)
     } catch (error) {
-      console.log("Error creating account: ", error.message)
-      toast.error(`Error creating account!`, {
+      // console.log("Error creating account: ", error.message)
+      // console.log(error.message)
+      toast.error(error.message, {
         style: {
           borderRadius: "10px",
           background: "#333",
