@@ -1,10 +1,21 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { SiteLogo } from "../../components/common"
 import gradientBg from "../../assets/gradient-bg.svg"
 import LoginForm from "../../components/LoginForm"
+import { useSelector } from "react-redux"
+import { toast } from "react-hot-toast"
 
 export default function Login() {
+  const {
+    user: { isLoggedIn },
+  } = useSelector((store) => store.auth)
+
+  console.log(isLoggedIn)
+  if (isLoggedIn) {
+    // toast.error("Already Logged In!")
+    return <Navigate to={"/"} />
+  }
   return (
     <main
       style={{
