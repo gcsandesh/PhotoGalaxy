@@ -28,7 +28,7 @@ export default function UserUploads({ userID }) {
       })
 
       .catch((error) => {
-        console.log("Error getting user uploads:", error)
+        // console.log("Error getting user uploads:", error)
         toast("Error getting user uploads!")
       })
   }, [userID])

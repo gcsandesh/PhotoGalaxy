@@ -40,6 +40,13 @@ export default function PhotoGallery() {
         enableImageSelection={false}
         onClick={openEachPhotoPage}
         margin={3}
+        rowHeight={250}
+        tileViewportStyle={(o) => ({
+          objectFit: "contain",
+          height: o.item.scaledHeight,
+          width: o.item.viewportWidth,
+          overflow: "hidden",
+        })}
       />
     </div>
   )
