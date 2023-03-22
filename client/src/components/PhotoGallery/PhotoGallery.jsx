@@ -33,16 +33,6 @@ export default function PhotoGallery() {
     // return () => console.log("remove Effect")
   }, [GET_ALL_PHOTOS])
 
-  // const imgGallery =
-  //   images.length &&
-  //   images.map((eachImage) => ({
-  //     _id: "404",
-  //     src: eachImage.download_url,
-  //     alt: "PhotoGalaxy",
-  //     width: 1920,
-  //     height: 1080,
-  //   }))
-
   return (
     <div>
       <Gallery
