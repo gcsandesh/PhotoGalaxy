@@ -15,7 +15,7 @@ export default function UserUploads({ userID }) {
       .then((data) => {
         // console.log(data.uploads)
         setImages(
-          data && data.length
+          data.uploads?.length
             ? data.uploads.map((eachPhoto) => ({
                 id: eachPhoto._id,
                 height: eachPhoto.dimensions.height,

@@ -4,6 +4,8 @@ import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 import { PhotoGallery } from "../../components"
 import UserUploads from "../../components/common/UserUploads"
+import AOS from "aos"
+import "aos/dist/aos.css"
 
 const GET_USER_BY_ID = "http://localhost:9999/api/users/id/"
 
@@ -34,16 +36,30 @@ export default function UserDash() {
       })
   }, [_id])
 
+  useEffect(() => {
+    AOS.init({
+      easing: "ease-in-out",
+    })
+  }, [])
+
   return (
     <div className="container mx-auto p-4 grid grid-cols-1 gap-8">
-      <h1 className="font-bold text-4xl text-center underline underline-offset-4">
+      <h1
+        data-aos="fade-up"
+        className="font-bold text-4xl text-center underline underline-offset-4"
+      >
         User Dashboard
       </h1>
 
       {/* USER INFO */}
       <div className="flex flex-col items-center justify-between gap-4">
         <img
-          src={currentUser.profile_picture}
+          data-aos="fade-in"
+          src={
+            currentUser.profile_picture
+              ? currentUser.profile_picture
+              : "https://via.placeholder.com/350x350"
+          }
           alt="user profile picture"
           width={100}
           height={100}

@@ -13,8 +13,8 @@ import {
   Photo,
   ChangePassword,
 } from "./pages"
-import AOS from "aos"
-import "aos/dist/aos.css"
+// import AOS from "aos"
+// import "aos/dist/aos.css"
 import Layout from "./pages/Utilities/Layout"
 import Protected from "./pages/Utilities/Protected"
 import { useDispatch } from "react-redux"
@@ -27,9 +27,9 @@ function App() {
   // }, [window.location.pathname])
 
   // useEffect(() => {
-  AOS.init({
-    easing: "ease-in-out",
-  })
+  // AOS.init({
+  //   easing: "ease-in-out",
+  // })
   // }, [])
 
   return (
