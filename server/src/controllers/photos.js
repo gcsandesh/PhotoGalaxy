@@ -166,11 +166,16 @@ function getSimilarPhotos(req, res) {
 /  DELETE PHOTO
 *****/
 const deletePhoto = async (req, res) => {
-  console.log(req.accessInfo)
+  // console.log(req.accessInfo)
   const photoID = req.params.id
   try {
     const photo = await Photo.findById(photoID)
-    const response = await photo.delete()
+
+    if (!photo) {
+      return res.status(400).json({ message: "Photo does not exist!" })
+    }
+
+    const response = await Photo.findByIdAndDelete(photoID)
     return res.json({ deleted: response })
   } catch (error) {
     return res.status(500).json({ message: error })

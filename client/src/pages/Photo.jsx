@@ -10,8 +10,8 @@ import {
   FaShareAlt,
 } from "react-icons/fa"
 import { useSelector } from "react-redux"
-import { Link, useParams } from "react-router-dom"
-import { GET_PHOTO_BY_ID } from "../constants"
+import { Link, useNavigate, useParams } from "react-router-dom"
+import { DELETE_PHOTO, GET_PHOTO_BY_ID } from "../constants"
 
 export default function Photo() {
   const { user } = useSelector((store) => store.auth)
@@ -71,6 +71,24 @@ export default function Photo() {
     ],
   }
   const [photo, setPhoto] = useState(initialPhoto)
+  const navigate = useNavigate()
+
+  function deletePhoto() {
+    console.log(DELETE_PHOTO + photo._id)
+    fetch(DELETE_PHOTO + photo._id, { method: "DELETE" })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data)
+        toast.success("deleted successfully!")
+        setTimeout(() => {
+          navigate("/")
+        }, 100)
+      })
+      .catch((error) => {
+        // console.log("error", error)
+        toast.error("Error deleting photo!")
+      })
+  }
 
   useEffect(() => {
     fetch(GET_PHOTO_BY_ID + id)
@@ -149,7 +167,7 @@ export default function Photo() {
 
             {photo.uploaded_by._id === user._id && (
               <button
-                onClick={() => setEditMode(true)}
+                onClick={deletePhoto}
                 className="p-3 rounded transition-all duration-300 hover:bg-gray-50 bg-red-500 text-gray-50 hover:text-red-500 border-red-500 border-2 flex justify-center items-center gap-2"
               >
                 <FaRegTrashAlt size={20} />

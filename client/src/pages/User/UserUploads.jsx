@@ -12,7 +12,7 @@ export default function UserUploads({ userID }) {
     user: { _id },
   } = useSelector((store) => store.auth)
 
-  console.log(images)
+  // console.log(images)
 
   useEffect(() => {
     fetch(GET_USER_UPLOADS + userID)
