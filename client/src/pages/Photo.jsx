@@ -4,7 +4,9 @@ import {
   FaAngleDown,
   FaCloudDownloadAlt,
   FaHeart,
+  FaRegEdit,
   FaRegHeart,
+  FaRegTrashAlt,
   FaShareAlt,
 } from "react-icons/fa"
 import { useSelector } from "react-redux"
@@ -14,6 +16,8 @@ import { GET_PHOTO_BY_ID } from "../constants"
 export default function Photo() {
   const { user } = useSelector((store) => store.auth)
   const { id } = useParams() //   search this id in database and get photo details
+  const [editMode, setEditMode] = useState(false)
+
   const initialPhoto = {
     _id: id,
     url: "https://via.placeholder.com/500/333",
@@ -85,7 +89,7 @@ export default function Photo() {
     navigator.clipboard.writeText(currentURL)
   }
 
-  console.log(photo)
+  // console.log(photo)
 
   return (
     <div className="container p-4 mx-auto ">
@@ -115,12 +119,45 @@ export default function Photo() {
             </span>
             <FaShareAlt onClick={copyPhotoURL} className="cursor-pointer" />
           </div>
-          {/* DOWNLOAD BUTTON */}
-          <button className=" py-4 rounded bg-green-500 text-white font-bold text-lg">
-            <a href={photo.url} download={true}>
-              <FaCloudDownloadAlt /> DOWNLOAD
-            </a>
-          </button>
+
+          <div className="flex gap-2">
+            {/* DOWNLOAD BUTTON */}
+
+            <button className=" p-3 rounded bg-green-500 hover:bg-gray-50 border-2 transition-all duration-200 border-green-500 hover:text-green-500  w-full text-white font-bold text-lg">
+              <a
+                href={photo.url}
+                download={true}
+                className=" flex items-center justify-center gap-2"
+              >
+                <FaCloudDownloadAlt size={20} /> <span>DOWNLOAD</span>
+              </a>
+            </button>
+
+            {/* EDIT BUTTON */}
+
+            {photo.uploaded_by._id === user._id && (
+              <button
+                onClick={() => setEditMode(true)}
+                className="p-3 rounded border-blue-500 bg-blue-500 text-gray-50 transition-all duration-200 hover:text-blue-500 hover:bg-gray-50 border-2 flex justify-center items-center gap-2"
+              >
+                <FaRegEdit size={20} />
+                {/* <span>Edit</span> */}
+              </button>
+            )}
+
+            {/* DELETE BUTTON */}
+
+            {photo.uploaded_by._id === user._id && (
+              <button
+                onClick={() => setEditMode(true)}
+                className="p-3 rounded transition-all duration-300 hover:bg-gray-50 bg-red-500 text-gray-50 hover:text-red-500 border-red-500 border-2 flex justify-center items-center gap-2"
+              >
+                <FaRegTrashAlt size={20} />
+                {/* <span>Delete</span> */}
+              </button>
+            )}
+          </div>
+
           {/* PHOTO DETAILS */}
           <div className="flex flex-col gap-2">
             <span>
