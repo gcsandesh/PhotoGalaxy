@@ -140,10 +140,26 @@ function getSimilarPhotos(req, res) {
   console.log("similar photos are sent")
 }
 
+/*****
+/  DELETE PHOTO
+*****/
+const deletePhoto = async (req, res) => {
+  console.log(req.accessInfo)
+  const photoID = req.params.id
+  try {
+    const photo = await Photo.findById(photoID)
+    const response = await photo.delete()
+    return res.json({ deleted: response })
+  } catch (error) {
+    return res.status(500).json({ message: error })
+  }
+}
+
 module.exports = {
   getAllPhotos,
   getPhoto,
   getPhotosFromCategory,
   getSimilarPhotos,
   uploadPhotos,
+  deletePhoto,
 }

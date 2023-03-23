@@ -7,11 +7,12 @@ const {
   getPhotosFromCategory,
   getSimilarPhotos,
   uploadPhotos,
+  deletePhoto,
 } = require("../controllers/photos")
 const { verifyToken } = require("../middlewares/auth")
 
 router.route("/").get(getAllPhotos).post(verifyToken, uploadPhotos)
-router.get("/id/:id", getPhoto)
+router.route("/id/:id").get(getPhoto).delete(verifyToken, deletePhoto)
 router.get("/category/:category", getPhotosFromCategory)
 router.post("/similar", getSimilarPhotos)
 
