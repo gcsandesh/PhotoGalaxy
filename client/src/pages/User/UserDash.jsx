@@ -6,8 +6,7 @@ import { PhotoGallery } from "../../components"
 import UserUploads from "../../components/common/UserUploads"
 import AOS from "aos"
 import "aos/dist/aos.css"
-
-const GET_USER_BY_ID = "http://localhost:9999/api/users/id/"
+import { GET_USER_BY_ID } from "../../constants"
 
 export default function UserDash() {
   const [currentView, setCurrentView] = useState("Likes")

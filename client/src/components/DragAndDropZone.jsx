@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone"
 import { toast } from "react-hot-toast"
 import { FaRegTimesCircle } from "react-icons/fa"
 import { useSelector } from "react-redux"
+import { UPLOAD_PHOTOS } from "../constants"
 
 // ////// STYLES ////// //
 
@@ -36,8 +37,6 @@ const rejectStyle = {
 }
 
 export default function DragAndDropZone() {
-  let url = `http://localhost:9999/api/photos/`
-
   const [files, setFiles] = useState([])
 
   const {
@@ -56,7 +55,7 @@ export default function DragAndDropZone() {
     console.log("body:", reqBody)
 
     // // uploading image on clicking submit button
-    await fetch(url, {
+    await fetch(UPLOAD_PHOTOS, {
       method: "POST",
       body: JSON.stringify({ photos: files }),
       headers: {

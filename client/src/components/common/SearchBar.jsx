@@ -7,7 +7,7 @@ export default function SearchBar() {
       <form className="flex gap-2 items-center">
         <input
           type="text"
-          className="w-full md:max-w-25 px-2 py-1 rounded-sm"
+          className="w-full md:max-w-25 px-2 py-1 rounded-sm border-2"
           placeholder="Search quality photos..."
         />
         <button className="bg-secondaryGreen p-2 rounded-sm">

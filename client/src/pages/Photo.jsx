@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import {
   FaAngleDown,
-  FaArrowDown,
-  FaCaretDown,
   FaCloudDownloadAlt,
-  FaDownload,
   FaHeart,
   FaRegHeart,
   FaShareAlt,
@@ -18,19 +15,6 @@ export default function Photo() {
   const { user } = useSelector((store) => store.auth)
   const { id } = useParams() //   search this id in database and get photo details
   const initialPhoto = {
-    //     bytes:506210
-    // createdAt:"2023-03-17T16:07:02.806Z"
-    // dimensions:{height: 1568, width: 1584}
-    // format:"jpg"
-    // liked_by:[]
-    // likes_count:0
-    // resource_type:"image"
-    // updatedAt:"2023-03-17T16:07:02.806Z"
-    // uploaded_by:"64148f7ba3771e6aacdce28b"
-    // url:"https://res.cloudinary.com/dadbpnctj/image/upload/v1679069222/projects/PhotoGalaxy/urmpsuuwikbxd7q5ku1n.jpg"
-    // __v:0
-    // _id:"64149026a3771e6aacdce29d"
-
     _id: id,
     url: "https://picsum.photos/id/1/5000/3333",
     alt: "PhotoGalaxy",
@@ -82,6 +66,7 @@ export default function Photo() {
     ],
   }
   const [photo, setPhoto] = useState(initialPhoto)
+
   useEffect(() => {
     fetch(GET_PHOTO_BY_ID + id)
       .then((res) => res.json())

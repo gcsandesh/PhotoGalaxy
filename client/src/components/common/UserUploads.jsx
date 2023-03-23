@@ -5,7 +5,6 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { GET_PHOTOS_BY_USER_ID } from "../../constants"
 
-
 export default function UserUploads({ userID }) {
   const navigate = useNavigate()
   const [images, setImages] = useState([])

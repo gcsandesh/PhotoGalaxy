@@ -1,8 +1,7 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { Gallery } from "react-grid-gallery"
-
-const GET_ALL_PHOTOS = "http://localhost:9999/api/photos"
+import { GET_ALL_PHOTOS } from "../../constants"
 
 export default function PhotoGallery() {
   const [images, setImages] = React.useState([])
