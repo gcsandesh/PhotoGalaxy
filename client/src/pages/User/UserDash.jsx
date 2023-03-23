@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
-import { PhotoGallery } from "../../components"
-import UserUploads from "../../components/common/UserUploads"
+
+import UserUploads from "./UserUploads"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { GET_USER_BY_ID } from "../../constants"
@@ -114,7 +114,7 @@ export default function UserDash() {
         Your {currentView}
       </h2>
       <div>
-        {currentView === "Likes" && <PhotoGallery />}
+        {currentView === "Likes" && <UserLikes userID={_id} />}
         {currentView === "Uploads" && <UserUploads userID={_id} />}
       </div>
     </div>

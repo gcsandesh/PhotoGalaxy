@@ -2,8 +2,9 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import { Gallery } from "react-grid-gallery"
 import { GET_ALL_PHOTOS } from "../../constants"
+import { toast } from "react-hot-toast"
 
-export default function PhotoGallery() {
+export default function HomeGallery() {
   const [images, setImages] = React.useState([])
   const navigate = useNavigate()
 
@@ -15,22 +16,22 @@ export default function PhotoGallery() {
   React.useEffect(() => {
     async function receiveImages() {
       try {
-        
         const response = await fetch(GET_ALL_PHOTOS)
         if (!response.ok) throw new Error("Error while fetching!")
-        
+
         const data = await response.json()
         setImages(
-        data.photos?.map((eachPhoto) => ({
-          id: eachPhoto._id,
-          height: eachPhoto.dimensions.height,
-          width: eachPhoto.dimensions.width,
-          src: eachPhoto.url,
-          alt: "PhotoGalaxy",
-        }))
+          data.photos?.map((eachPhoto) => ({
+            id: eachPhoto._id,
+            height: eachPhoto.dimensions.height,
+            width: eachPhoto.dimensions.width,
+            src: eachPhoto.url,
+            alt: "PhotoGalaxy",
+          }))
         )
       } catch (error) {
         console.log(error)
+        toast.error("Error getting photos!")
       }
     }
     receiveImages()

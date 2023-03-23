@@ -1,8 +1,8 @@
 import React from "react"
 import { Link, Navigate } from "react-router-dom"
-import { SiteLogo } from "../../components/common"
-import gradientBg from "../../assets/gradient-bg.svg"
-import LoginForm from "../../components/LoginForm"
+import { SiteLogo } from "../../../components/common"
+import gradientBg from "../../../assets/gradient-bg.svg"
+import LoginForm from "./LoginForm"
 import { useSelector } from "react-redux"
 import { toast } from "react-hot-toast"
 
@@ -13,7 +13,9 @@ export default function Login() {
 
   console.log(isLoggedIn)
   if (isLoggedIn) {
-    // toast.error("Already Logged In!")
+    setTimeout(() => {
+      toast.error("Already Logged In!")
+    }, 1000)
     return <Navigate to={"/"} />
   }
   return (
