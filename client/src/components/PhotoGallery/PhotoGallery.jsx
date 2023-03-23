@@ -14,11 +14,13 @@ export default function PhotoGallery() {
   //getting photos
   React.useEffect(() => {
     async function receiveImages() {
-      const response = await fetch(GET_ALL_PHOTOS)
-      if (!response.ok) throw new Error("Error while fetching!")
-
-      const data = await response.json()
-      setImages(
+      try {
+        
+        const response = await fetch(GET_ALL_PHOTOS)
+        if (!response.ok) throw new Error("Error while fetching!")
+        
+        const data = await response.json()
+        setImages(
         data.photos?.map((eachPhoto) => ({
           id: eachPhoto._id,
           height: eachPhoto.dimensions.height,
@@ -26,7 +28,10 @@ export default function PhotoGallery() {
           src: eachPhoto.url,
           alt: "PhotoGalaxy",
         }))
-      )
+        )
+      } catch (error) {
+        console.log(error)
+      }
     }
     receiveImages()
     // return () => console.log("remove Effect")
