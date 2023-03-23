@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "A stock photo website",
   "main": "index.js",
+  "homepage": "https://photo-galaxy.vercel.app/",
+  "_homepage": "https://github.com/SandeshGC/PhotoGalaxy#readme",
   "scripts": {
     "serve": "nodemon index",
     "dev": "nodemon index.js"
@@ -21,7 +23,6 @@
   "bugs": {
     "url": "https://github.com/SandeshGC/PhotoGalaxy/issues"
   },
-  "homepage": "https://github.com/SandeshGC/PhotoGalaxy#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.34.0",
