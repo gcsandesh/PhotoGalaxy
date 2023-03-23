@@ -74,7 +74,10 @@ const getPhoto = async (req, res) => {
   const photoID = req.params.id
 
   try {
-    const photo = await Photo.findOne({ _id: photoID })
+    const photo = await Photo.findOne({ _id: photoID }).populate(
+      "uploaded_by",
+      "-password"
+    )
 
     if (!photo) {
       return res.status(404).json({ message: "Photo not found!" })

@@ -16,8 +16,9 @@ export default function Photo() {
   const { id } = useParams() //   search this id in database and get photo details
   const initialPhoto = {
     _id: id,
-    url: "https://picsum.photos/id/1/5000/3333",
+    url: "https://via.placeholder.com/500/333",
     alt: "PhotoGalaxy",
+    format: "jpg",
     // title: "Man typing on a MacBook Air sitting on a bench at a park",
     dimensions: { width: 1090, height: 800 },
     likes_count: 99,
@@ -83,6 +84,8 @@ export default function Photo() {
   function copyPhotoURL() {
     navigator.clipboard.writeText(currentURL)
   }
+
+  console.log(photo)
 
   return (
     <div className="container p-4 mx-auto ">
