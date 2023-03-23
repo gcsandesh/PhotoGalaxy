@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react"
 import { Gallery } from "react-grid-gallery"
 import { toast } from "react-hot-toast"
+import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { GET_PHOTOS_BY_USER_ID } from "../../constants"
 
-const GET_PHOTOS_BY_USER_ID = "http://localhost:9999/api/photos?user_id="
 
 export default function UserUploads({ userID }) {
   const navigate = useNavigate()
   const [images, setImages] = useState([])
+  const {
+    user: { _id },
+  } = useSelector((store) => store.auth)
+
+  console.log(images)
 
   useEffect(() => {
     fetch(GET_PHOTOS_BY_USER_ID + userID)
@@ -34,7 +40,8 @@ export default function UserUploads({ userID }) {
   }, [userID])
 
   const openEachPhotoPage = (index, photo, event) => {
-    navigate(`/photo/${photo._id}`)
+    // console.log(photo)
+    navigate(`/photo/${photo.id}`)
   }
 
   if (!images.length) {

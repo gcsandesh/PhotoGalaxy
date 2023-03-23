@@ -1,40 +1,53 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { toast } from "react-hot-toast"
 import {
   FaAngleDown,
   FaArrowDown,
   FaCaretDown,
+  FaCloudDownloadAlt,
+  FaDownload,
   FaHeart,
   FaRegHeart,
   FaShareAlt,
 } from "react-icons/fa"
 import { useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
+import { GET_PHOTO_BY_ID } from "../constants"
 
 export default function Photo() {
-  const { id } = useParams()
-
-  //   console.log(id)
-  //   search for this id in database and get photo details
-
   const { user } = useSelector((store) => store.auth)
-  // console.log(currentUser)
-  const img = {
-    id: id,
-    src: "https://picsum.photos/id/1/5000/3333",
-    alt: "random",
-    title: "Man typing on a MacBook Air sitting on a bench at a park",
-    width: 1090,
-    height: 800,
-    likes: 99,
-    author: {
+  const { id } = useParams() //   search this id in database and get photo details
+  const initialPhoto = {
+    //     bytes:506210
+    // createdAt:"2023-03-17T16:07:02.806Z"
+    // dimensions:{height: 1568, width: 1584}
+    // format:"jpg"
+    // liked_by:[]
+    // likes_count:0
+    // resource_type:"image"
+    // updatedAt:"2023-03-17T16:07:02.806Z"
+    // uploaded_by:"64148f7ba3771e6aacdce28b"
+    // url:"https://res.cloudinary.com/dadbpnctj/image/upload/v1679069222/projects/PhotoGalaxy/urmpsuuwikbxd7q5ku1n.jpg"
+    // __v:0
+    // _id:"64149026a3771e6aacdce29d"
+
+    _id: id,
+    url: "https://picsum.photos/id/1/5000/3333",
+    alt: "PhotoGalaxy",
+    // title: "Man typing on a MacBook Air sitting on a bench at a park",
+    dimensions: { width: 1090, height: 800 },
+    likes_count: 99,
+    resource_type: "image",
+    uploaded_by: {
       _id: "asdf93493fsaf98asdf",
-      firstName: "Laxman",
-      lastName: "Thapa",
+      first_name: "Laxman",
+      last_name: "Thapa",
       email: "thapalaxman@gamaile.com",
       bio: "Namaskar! mero nam laxman ho ra malai photo khichna ma sanai dekhi ruchi xa",
     },
-    uploadedOn: "12-03-2023",
-    fileSize: "2.77 MB",
+    createdAt: "2023-03-17T16:07:02.806Z",
+    bytes: 2048,
+
     tags: [
       "laptop",
       "man",
@@ -44,30 +57,42 @@ export default function Photo() {
       "typing",
       "working",
     ],
-    likedBy: [
+    liked_by: [
       {
         _id: "asdf93493fsaf98asdf",
-        firstName: "Laxman",
-        lastName: "Thapa",
+        first_name: "Laxman",
+        last_name: "Thapa",
         email: "thapalaxman@gamaile.com",
         bio: "Hello I am Laxman Thapa Photographer.",
       },
       {
         _id: "asdf93493fsaf98asdf",
-        firstName: "Ram",
-        lastName: "Karki",
+        first_name: "Ram",
+        last_name: "Karki",
         email: "karkiram@gamal.com",
         bio: "",
       },
       {
         _id: "asdfas3ii31asdf",
-        firstName: "Ram",
-        lastName: "Karki",
+        first_name: "Ram",
+        last_name: "Karki",
         email: "johndoe@gmail.com",
         bio: "",
       },
     ],
   }
+  const [photo, setPhoto] = useState(initialPhoto)
+  useEffect(() => {
+    fetch(GET_PHOTO_BY_ID + id)
+      .then((res) => res.json())
+      .then((data) => {
+        data.photo && setPhoto(data.photo)
+      })
+      .catch((error) => {
+        console.log(error)
+        toast.error("Error getting photo!")
+      })
+  }, [GET_PHOTO_BY_ID])
 
   const currentURL = window.location.href
   function copyPhotoURL() {
@@ -80,52 +105,56 @@ export default function Photo() {
         {/* PHOTO CONTAINER */}
         <div className="h-full col-start-1 col-end-3 rounded-lg">
           <img
-            src={img.src}
+            src={photo.url}
             className="rounded-lg h-full object-contain"
             data-aos="fade-in"
-            alt={img.alt}
+            alt={photo.alt}
           />
         </div>
         {/* RIGHT SIDE CONTAINING DETAILS ABOUT PHOTO */}
         <div className="col-start-3 col-end-4 text-sm h-full flex flex-col gap-4">
-          <h1 className="text-2xl font-semibold">{img.title}</h1>
+          {/* <h1 className="text-2xl font-semibold">{photo.title}</h1> */}
           <div className="flex items-center gap-4">
             {/* LIKE AND SHARE ICONS  */}
-            <span className="flex items-center gap-2">
-              {img.likedBy.find(
-                (eachUser) => eachUser.email === user.email
-              ) ? (
-                <FaHeart className="cursor-pointer" />
+            <span className="flex items-center gap-2 cursor-pointer">
+              {photo.liked_by?.length &&
+              photo.liked_by.find((eachUser) => eachUser._id === user._id) ? (
+                <FaHeart />
               ) : (
-                <FaRegHeart className="cursor-pointer" />
+                <FaRegHeart />
               )}{" "}
-              {img.likes}
+              {photo.likes_count}
             </span>
             <FaShareAlt onClick={copyPhotoURL} className="cursor-pointer" />
           </div>
           {/* DOWNLOAD BUTTON */}
           <button className=" py-4 rounded bg-green-500 text-white font-bold text-lg">
-            <a href="https://picsum.photos/id/1/5000/3333" download={true}>
-              DOWNLOAD
+            <a href={photo.url} download={true}>
+              <FaCloudDownloadAlt /> DOWNLOAD
             </a>
           </button>
           {/* PHOTO DETAILS */}
           <div className="flex flex-col gap-2">
             <span>
               <span className="font-semibold">Uploaded on:</span>{" "}
-              {img.uploadedOn}
+              {photo.uploadedOn}
             </span>
             <span>
-              <span className="font-semibold">File size:</span> {img.fileSize}
+              <span className="font-semibold">File size:</span>{" "}
+              {photo.bytes <= 1024
+                ? photo.bytes
+                : photo.bytes <= 1048576
+                ? (photo.bytes / 1024).toFixed(2) + " KB"
+                : photo.bytes / (1024 * 1024) + " MB"}
             </span>
             <span>
-              <span className="font-semibold">Dimensions:</span> {img.width} x{" "}
-              {img.height}
+              <span className="font-semibold">Dimensions:</span>{" "}
+              {photo.dimensions?.width} x {photo.dimensions?.height}
             </span>
             <span>
               <span className="font-semibold">Tags:</span>
               <span className="flex flex-wrap gap-1">
-                {img.tags.map((tag, index) => (
+                {photo.tags?.map((tag, index) => (
                   <span key={index}>"{tag}" </span>
                 ))}
               </span>
@@ -136,13 +165,12 @@ export default function Photo() {
             <h3>Uploaded by:</h3>
             <h2 className="font-bold">
               <Link
-                to={`/profile/${img.author.firstName}${img.author.lastName}`}
-                state={img.author}
+                to={`/profile/${photo.uploaded_by?._id}`}
+                state={photo.uploaded_by}
               >
-                {img.author.firstName} {img.author.lastName}
+                {photo.uploaded_by?.first_name} {photo.uploaded_by?.last_name}
               </Link>
             </h2>
-            <p>400 Likes</p>
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ export default function PhotoGallery() {
   const navigate = useNavigate()
 
   function openEachPhotoPage(index, photo, event) {
-    navigate(`/photo/${photo._id}`)
+    navigate(`/photo/${photo.id}`)
   }
 
   //getting photos

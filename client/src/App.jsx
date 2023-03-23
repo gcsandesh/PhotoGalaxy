@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
 import "./App.css"
 import { Toaster } from "react-hot-toast"
