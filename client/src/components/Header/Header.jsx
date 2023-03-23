@@ -1,10 +1,11 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { FaRegBell, FaRegUserCircle, FaUpload } from "react-icons/fa"
 import { SiteLogo } from "../common"
 import UserOptions from "./UserOptions"
 import MobileNavigation from "./MobileNavigation"
 import { useSelector } from "react-redux"
+import Aos from "aos"
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState("")
@@ -32,61 +33,61 @@ export default function Header() {
       message: "Upload complete!",
     },
     {
-      notificationID: "somerandomid3",
+      notificationID: "somerandomid4",
       date: "2023-02-21",
       time: "15:45:00",
       message: "Upload complete!",
     },
     {
-      notificationID: "somerandomid3",
+      notificationID: "somerandomid5",
       date: "2023-02-21",
       time: "15:45:00",
       message: "Upload complete!",
     },
     {
-      notificationID: "somerandomid3",
+      notificationID: "somerandomid6",
       date: "2023-02-21",
       time: "15:45:00",
       message: "Upload complete!",
     },
     {
-      notificationID: "somerandomid3",
+      notificationID: "somerandomid7",
       date: "2023-02-21",
       time: "15:45:00",
       message: "Upload complete!",
     },
     {
-      notificationID: "somerandomid3",
+      notificationID: "somerandomid8",
       date: "2023-02-21",
       time: "15:45:00",
       message: "Upload complete!",
     },
     {
-      notificationID: "somerandomid3",
+      notificationID: "somerandomid9",
       date: "2023-02-21",
       time: "15:45:00",
       message: "Upload complete!",
     },
     {
-      notificationID: "somerandomid3",
+      notificationID: "somerandomid10",
       date: "2023-02-21",
       time: "15:45:00",
       message: "Upload complete!",
     },
     {
-      notificationID: "somerandomid3",
+      notificationID: "somerandomid11",
       date: "2023-02-21",
       time: "15:45:00",
       message: "Upload complete!",
     },
     {
-      notificationID: "somerandomid3",
+      notificationID: "somerandomid12",
       date: "2023-02-21",
       time: "15:45:00",
       message: "Upload complete!",
     },
     {
-      notificationID: "somerandomid3",
+      notificationID: "somerandomid13",
       date: "2023-02-21",
       time: "15:45:00",
       message: "Upload complete!",
@@ -103,6 +104,12 @@ export default function Header() {
       </div>
     )
   })
+
+  useEffect(() => {
+    Aos.init({
+      easing: "ease-in-out",
+    })
+  }, [])
 
   // console.log(openMenu)
   return (
