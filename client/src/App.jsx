@@ -36,7 +36,16 @@ function App() {
     <Router>
       {/* <div className=" container flex flex-col justify-between p-0 h-screen"> */}
       <div>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            style: {
+              borderRadius: "10px",
+              // background: "#333",
+              // color: "#fff",
+            },
+            duration: 4000,
+          }}
+        />
       </div>
 
       <Routes>

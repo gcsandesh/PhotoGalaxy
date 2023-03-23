@@ -29,27 +29,12 @@ export default function LoginForm() {
 
       await dispatch(setCredentials())
 
-      toast.success(`Successfully logged in as '${payload.user.email}'!`, {
-        style: {
-          borderRadius: "10px",
-          background: "#333",
-          color: "#fff",
-        },
-        duration: 4000,
-      })
+      toast.success(`Successfully logged in as '${payload.user.email}'!`)
 
       navigate("/")
     } catch (error) {
       // console.log(error)
-
-      toast.error(error.message, {
-        style: {
-          borderRadius: "10px",
-          background: "#333",
-          color: "#fff",
-        },
-        duration: 4000,
-      })
+      toast.error(error.message)
     }
   }
 

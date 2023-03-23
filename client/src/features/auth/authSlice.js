@@ -45,7 +45,7 @@ export const signupUser = createAsyncThunk(
         return data
       }
     } catch (error) {
-      console.log("Error: ", error.response.data)
+      // console.log("Error: ", error.response.data)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -73,13 +73,13 @@ export const loginUser = createAsyncThunk(
       if (response.status !== 200) {
         // data returned from server is sent to the loginUser.fulfilled action
         //
-        console.log(data)
+        // console.log(data)
         return thunkAPI.rejectWithValue(data)
       } else {
         return data
       }
     } catch (error) {
-      console.log("Error:", error.response.data)
+      // console.log("Error:", error.response.data)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }

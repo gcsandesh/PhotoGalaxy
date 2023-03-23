@@ -1,5 +1,5 @@
-import React from "react"
-import { Link, Navigate } from "react-router-dom"
+import React, { useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import { SiteLogo } from "../../../components/common"
 import gradientBg from "../../../assets/gradient-bg.svg"
 import LoginForm from "./LoginForm"
@@ -7,17 +7,18 @@ import { useSelector } from "react-redux"
 import { toast } from "react-hot-toast"
 
 export default function Login() {
+  const navigate = useNavigate()
   const {
     user: { isLoggedIn },
   } = useSelector((store) => store.auth)
 
-  // console.log(isLoggedIn)
-  if (isLoggedIn) {
-    setTimeout(() => {
-      toast.error("Already Logged In!")
-    }, 1000)
-    return <Navigate to={"/"} />
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      toast.error("You must log out first to log in!")
+      navigate("/")
+    }
+  }, [])
+
   return (
     <main
       style={{
