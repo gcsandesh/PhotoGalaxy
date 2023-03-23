@@ -98,8 +98,9 @@ const authSlice = createSlice({
       }
     },
     logoutUser: (state, action) => {
-      state.user.isLoggedIn = false
       localStorage.clear()
+      state.user = {}
+      state.user.isLoggedIn = false
     },
   },
   extraReducers: (builder) => {
