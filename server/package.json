@@ -4,7 +4,7 @@
   "description": "A stock photo website",
   "main": "index.js",
   "homepage": "https://photo-galaxy.vercel.app/",
-  "_homepage": "https://github.com/SandeshGC/PhotoGalaxy#readme",
+  "__homepage": "https://github.com/SandeshGC/PhotoGalaxy#readme",
   "scripts": {
     "serve": "nodemon index",
     "dev": "nodemon index.js"
