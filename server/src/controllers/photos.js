@@ -99,26 +99,45 @@ const getAllPhotos = async (req, res) => {
 
   if (!_.isEmpty(query)) {
     // if there is query
+    if (_.has(query, "uploaded_by")) {
+      // GET PHOTOS UPLOADED BY USER
 
-    try {
-      const userID = query.user_id
-      const photos = await Photo.find({ uploaded_by: userID })
+      try {
+        const userID = query.uploaded_by
+        const photos = await Photo.find({ uploaded_by: userID })
 
-      if (!photos || !photos.length) {
-        return res.status(404).json({ message: "No uploads yet!" })
+        if (!photos || !photos.length) {
+          return res.status(404).json({ message: "No uploads yet!" })
+        }
+
+        // if there are photos uploaded by user
+        return res.json({ uploads: photos })
+      } catch (error) {
+        return res
+          .status(500)
+          .json({ message: "Error getting uploaded photos!" })
       }
+    } else if (_.has(query, "liked_by")) {
+      //  GET PHOTOS LIKED BY USER
 
-      // if there are photos uploaded by user
-      return res.json({ uploads: photos })
-    } catch (error) {
-      return res.status(500).json({ message: "Error getting photos!" })
+      try {
+        const userID = query.liked_by
+        const photos = await Photo.find({ liked_by: userID })
+        if (!photos || !photos.length) {
+          return res.status(404).json({ message: "No likes yet!" })
+        }
+
+        // if there are photos liked by user
+        return res.json({ likes: photos })
+      } catch (error) {
+        return res.status(500).json({ message: "Error getting liked photos!" })
+      }
     }
   }
 
   // get all photos if no query params
   try {
     const allPhotos = await Photo.find({})
-    // console.log({ photos: allPhotos })
     if (!allPhotos.length) {
       return res.status(404).json({ message: "No photos found!" })
     }
