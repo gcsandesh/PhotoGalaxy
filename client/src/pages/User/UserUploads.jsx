@@ -3,7 +3,7 @@ import { Gallery } from "react-grid-gallery"
 import { toast } from "react-hot-toast"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { GET_PHOTOS_BY_USER_ID } from "../../constants"
+import { GET_USER_UPLOADS } from "../../constants"
 
 export default function UserUploads({ userID }) {
   const navigate = useNavigate()
@@ -15,7 +15,7 @@ export default function UserUploads({ userID }) {
   console.log(images)
 
   useEffect(() => {
-    fetch(GET_PHOTOS_BY_USER_ID + userID)
+    fetch(GET_USER_UPLOADS + userID)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data.uploads)
@@ -28,7 +28,7 @@ export default function UserUploads({ userID }) {
                 src: eachPhoto.url,
                 alt: "photo",
               }))
-            : {}
+            : []
         )
       })
 

@@ -11,7 +11,7 @@ export default function Login() {
     user: { isLoggedIn },
   } = useSelector((store) => store.auth)
 
-  console.log(isLoggedIn)
+  // console.log(isLoggedIn)
   if (isLoggedIn) {
     setTimeout(() => {
       toast.error("Already Logged In!")

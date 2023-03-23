@@ -7,6 +7,7 @@ import UserUploads from "./UserUploads"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { GET_USER_BY_ID } from "../../constants"
+import UserLikes from "./UserLikes"
 
 export default function UserDash() {
   const [currentView, setCurrentView] = useState("Likes")
