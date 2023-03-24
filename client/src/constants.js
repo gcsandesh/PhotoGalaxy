@@ -1,3 +1,4 @@
+// update this based on the url of backend server
 const API_URL = "https://photogalaxy-server.vercel.app/api"
 
 // AUTH
