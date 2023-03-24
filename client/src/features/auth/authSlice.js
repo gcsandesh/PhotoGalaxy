@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-
-const USER_AUTH_URL = "http://localhost:9999/api/auth/user"
+import { USER_AUTH_URL } from "../../constants"
 
 const initialState = {
   user: {
