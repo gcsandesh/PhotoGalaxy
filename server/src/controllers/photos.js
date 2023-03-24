@@ -60,7 +60,12 @@ async function uploadPhotos(req, res) {
     // ).then((result) => console.log(result, photoUploadResponse))
     console.log("arrayofresponses", photoUploadResponse)
 
-    return res.status(201).json({ message: photoUploadResponse })
+    return res
+      .status(201)
+      .json({
+        message: "Uploaded successfully!",
+        uploads: { photoUploadResponse },
+      })
   } catch (error) {
     return res
       .status(500)
