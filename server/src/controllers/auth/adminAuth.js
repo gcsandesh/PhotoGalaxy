@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt")
 const _ = require("lodash")
 const jwt = require("jsonwebtoken")
 
-const JWT_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = process.env.TOKEN_SECRET
 
 const handleAdminLogin = async (req, res) => {
   const email = req.body.email

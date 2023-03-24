@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 const _ = require("lodash")
 const { User } = require("../../models/users")
 
-const JWT_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = process.env.TOKEN_SECRET
 
 ///////////////////////////////////////////
 ////////////////  LOG IN  /////////////////

@@ -6,11 +6,11 @@ const { connectDB } = require("./src/config/db")
 dotenv.config({ path: "../.env" })
 
 // initializing server
-const host = process.env.SERVER_HOST || "localhost"
-const port = process.env.SERVER_PORT || 9988
+const host = process.env.HOST || 'localhost'
+const port = process.env.PORT || 9988
 
 async function start() {
-  const mongoURL = process.env.DB_CONNECTION_STRING
+  const mongoURL = process.env.MONGODB_URL
 
   try {
     ///  CONNECTING TO DATABASE  ///
