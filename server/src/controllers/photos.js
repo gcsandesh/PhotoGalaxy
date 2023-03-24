@@ -26,6 +26,7 @@ async function uploadPhotos(req, res) {
       })
 
       const photo = new Photo({
+        public_id: data.public_id,
         url: data.secure_url,
         format: data.format,
         resource_type: data.resource_type,
@@ -60,12 +61,10 @@ async function uploadPhotos(req, res) {
     // ).then((result) => console.log(result, photoUploadResponse))
     console.log("arrayofresponses", photoUploadResponse)
 
-    return res
-      .status(201)
-      .json({
-        message: "Uploaded successfully!",
-        uploads: { photoUploadResponse },
-      })
+    return res.status(201).json({
+      message: "Uploaded successfully!",
+      uploads: { photoUploadResponse },
+    })
   } catch (error) {
     return res
       .status(500)
@@ -176,11 +175,30 @@ const deletePhoto = async (req, res) => {
   try {
     const photo = await Photo.findById(photoID)
 
+    console.log(photo)
     if (!photo) {
       return res.status(400).json({ message: "Photo does not exist!" })
     }
 
-    const response = await Photo.findByIdAndDelete(photoID)
+    console.log("public id:", photo.public_id)
+    // delete photo from cloudinary
+
+    // console.log(photoID)
+    const user = await User.findOneAndUpdate(
+      { _id: photo.uploaded_by },
+      {
+        // remove the photo id from user uploads by ID
+        $pullAll: {
+          uploaded_photos: [{ _id: photo._id }],
+        },
+      },
+      { new: true }
+    )
+    console.log("user", user)
+
+    await cloudinary.uploader.destroy(photo.public_id)
+    const response = await Photo.findByIdAndDelete(photo._id)
+    console.log(response)
     return res.json({ deleted: response })
   } catch (error) {
     return res.status(500).json({ message: error })
