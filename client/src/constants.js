@@ -1,7 +1,8 @@
-const API_URL = "http://localhost:9999/api"
+const API_URL =
+  "http://photogalaxy-backend-4a98n1f9r-sandeshgc.vercel.app:9999/api"
 
 // AUTH
-export const USER_AUTH_URL = "http://localhost:9999/api/auth/user"
+export const USER_AUTH_URL = API_URL + "/auth/user"
 
 // PHOTO
 export const GET_PHOTO_BY_ID = API_URL + "/photos/id/"

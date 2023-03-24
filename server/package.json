@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A stock photo website",
   "main": "index.js",
-  "__homepage": "https://github.com/SandeshGC/PhotoGalaxy#readme",
+  "homepage": "https://github.com/SandeshGC/PhotoGalaxy#readme",
   "scripts": {
     "serve": "nodemon index",
     "dev": "nodemon index.js"
