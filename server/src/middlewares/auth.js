@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const JWT_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = process.env.TOKEN_SECRET
 
 // verifies token and adds access time to body
 async function verifyToken(req, res, next) {
