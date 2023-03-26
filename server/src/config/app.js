@@ -12,8 +12,8 @@ require("dotenv").config({ path: "../.env" })
 app.set("view engine", "ejs")
 app.use(xss())
 app.use(helmet())
-// app.use(cors({ origin: "https://photogalaxy-client.vercel.app" }))
-app.use(cors())
+app.use(cors({ origin: "https://photogalaxy-client.vercel.app" }))
+// app.use(cors())
 
 // Add Access Control Allow Origin headers
 
