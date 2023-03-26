@@ -12,8 +12,22 @@ require("dotenv").config({ path: "../.env" })
 app.set("view engine", "ejs")
 app.use(xss())
 app.use(helmet())
-app.use(cors({ origin: "https://photogalaxy-client.vercel.app" }))
-// app.use(cors())
+// app.use(cors({ origin: "https://photogalaxy-client.vercel.app" }))
+app.use(cors())
+
+// Add Access Control Allow Origin headers
+
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://photogalaxy-client.vercel.app"
+  )
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  )
+  next()
+})
 
 app.use(express.json({ limit: "50mb" }))
 
