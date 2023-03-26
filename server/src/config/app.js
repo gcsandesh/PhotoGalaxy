@@ -12,7 +12,7 @@ require("dotenv").config({ path: "../.env" })
 app.set("view engine", "ejs")
 app.use(xss())
 app.use(helmet())
-app.use(cors({origin: "https://photogalaxy-client.vercel.app/"}))
+app.use(cors({ origin: "https://photogalaxy-client.vercel.app/" }))
 app.use(express.json({ limit: "50mb" }))
 process.env.NODE_ENV === "development" && app.use(morgan("dev"))
 
