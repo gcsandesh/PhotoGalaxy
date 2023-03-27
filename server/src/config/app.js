@@ -24,17 +24,14 @@ app.use(
 // app.use(cors())
 
 app.use(express.json({ limit: "50mb" }))
+process.env.NODE_ENV === "development" && app.use(morgan("dev"))
 
 app.use(express.urlencoded({ extended: true, limit: "50mb" }))
 app.use("/api", require("../routes"))
 
 // routes
 app.get("/", (req, res) => {
-  // if (process.env.NODE_ENV === "production") {
-  // return res.redirect("http://:9999")
-
-  // }
-  res.status(404).json({ message: "You're in development mode" })
+  res.status(404).json({ message: "You're in development mode..." })
 })
 
 app.get("*", (req, res) => {
@@ -43,7 +40,6 @@ app.get("*", (req, res) => {
 
 // logging for development mode
 if (process.env.NODE_ENV == "development") {
-  app.use(morgan("dev"))
   console.log("(development mode)\nMorgan is running...")
 }
 
