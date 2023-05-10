@@ -102,17 +102,16 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
         {/* PASSWORD, LOGIN AND SIGNUP PAGES ARE DIFFERENT FROM OTHERS */}
-        <Route path="/password">
-          {/* reset password */}
-          <Route path="reset" element={<ResetPassword />} />
 
-          {/* change password */}
-          <Route
-            // path={"change/some-unique-random-link"}
-            path={"change"}
-            element={<ChangePassword />}
-          />
-        </Route>
+        {/* reset password */}
+        <Route path="reset-password" element={<ResetPassword />} />
+
+        {/* change password */}
+        <Route
+          // path={"change/some-unique-random-link"}
+          path={"change-password/:token"}
+          element={<ChangePassword />}
+        />
 
         {/* ADMIN SIDE */}
         <Route path="/admin" element={<Navigate to={"/admin-login"} />} />

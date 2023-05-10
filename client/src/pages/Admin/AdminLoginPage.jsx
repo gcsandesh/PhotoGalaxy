@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux"
 import { loginUser, setCredentials } from "../../features/auth/authSlice"
 import { useNavigate, Link } from "react-router-dom"
 import gradientBg from "../../assets/gradient-bg.svg"
+import { SiteLogo } from "../../components/common"
 
 const AdminLoginPage = () => {
   const dispatch = useDispatch()
@@ -77,7 +78,14 @@ const AdminLoginPage = () => {
       }}
       className="h-screen flex justify-center items-center text-gray-100"
     >
-      <div className="flex items-center justify-center mt-10">
+      <div className="flex flex-col items-center justify-center mt-10">
+        <h2 className="text-3xl font-bold mb-6 flex items-center justify-center">
+          <SiteLogo logoColor={"light"} />
+        </h2>
+
+        <h2 className="text-2xl font-bold mb-6 uppercase tracking-wider underline underline-offset-4 text-center">
+          Login as Admin
+        </h2>
         <form>
           <div className="mb-4">
             <label htmlFor="email" className="block mb-1 text-sm">
