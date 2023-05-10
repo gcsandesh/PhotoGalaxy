@@ -33,7 +33,7 @@ const handleUserLogin = async (req, res) => {
     jwt.sign(
       { user },
       JWT_SECRET,
-      { expiresIn: 24 * 60 * 60 },
+      { expiresIn: 3 * 60 * 60 },
       (error, accessToken) => {
         if (error) {
           console.log("Error logging in!\nError:", error)
