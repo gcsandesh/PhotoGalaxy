@@ -1,5 +1,12 @@
 import React from "react"
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
+import {
+  Route,
+  Routes,
+  BrowserRouter as Router,
+  useNavigate,
+  redirect,
+  Navigate,
+} from "react-router-dom"
 import "./App.css"
 import { Toaster } from "react-hot-toast"
 import {
@@ -12,6 +19,7 @@ import {
   ResetPassword,
   Photo,
   ChangePassword,
+  AdminPanel,
 } from "./pages"
 // import AOS from "aos"
 // import "aos/dist/aos.css"
@@ -19,6 +27,7 @@ import Layout from "./pages/Utilities/Layout"
 import Protected from "./pages/Utilities/Protected"
 import { useDispatch } from "react-redux"
 import { setCredentials } from "./features/auth/authSlice"
+import AdminLoginPage from "./pages/Admin/AdminLoginPage"
 
 function App() {
   const dispatch = useDispatch()
@@ -31,6 +40,13 @@ function App() {
   //   easing: "ease-in-out",
   // })
   // }, [])
+
+  // const navigate = useNavigate()
+
+  if (window.location.pathname.endsWith("/admin")) {
+    // navigate("/admin-login")
+    redirect("/admin-login")
+  }
 
   return (
     <Router>
@@ -97,6 +113,10 @@ function App() {
             element={<ChangePassword />}
           />
         </Route>
+
+        {/* ADMIN SIDE */}
+        <Route path="/admin" element={<Navigate to={"/admin-login"} />} />
+        <Route path="/admin-login" element={<AdminLoginPage />} />
       </Routes>
     </Router>
   )
