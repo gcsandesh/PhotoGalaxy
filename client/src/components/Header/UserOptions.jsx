@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink } from "react-router-dom"
-import { logoutUser } from "../../features/auth/authSlice"
+import { logoutUser } from "../../features/auth/userAuthSlice"
 import toast from "react-hot-toast"
 
 export default function UserOptions() {

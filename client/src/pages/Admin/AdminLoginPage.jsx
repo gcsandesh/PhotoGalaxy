@@ -2,10 +2,10 @@ import React, { useState } from "react"
 import { toast } from "react-hot-toast"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { useDispatch } from "react-redux"
-import { loginUser, setCredentials } from "../../features/auth/authSlice"
 import { useNavigate, Link } from "react-router-dom"
 import gradientBg from "../../assets/gradient-bg.svg"
 import { SiteLogo } from "../../components/common"
+import { loginAdmin, setCredentials } from "../../features/auth/adminAuthSlice"
 
 const AdminLoginPage = () => {
   const dispatch = useDispatch()
@@ -29,7 +29,7 @@ const AdminLoginPage = () => {
     if (!validateForm(formData)) return
     try {
       const payload = await dispatch(
-        loginUser({
+        loginAdmin({
           email: formData.email.toLowerCase(),
           password: formData.password,
         })
