@@ -39,7 +39,7 @@ const AdminLoginPage = () => {
 
       toast.success(`Successfully logged in as '${payload.user.email}'!`)
 
-      navigate("/")
+      navigate("/admin/dashboard")
     } catch (error) {
       // console.log(error)
       toast.error(error.message)
@@ -84,7 +84,7 @@ const AdminLoginPage = () => {
         </h2>
 
         <h2 className="text-2xl font-bold mb-6 uppercase tracking-wider underline underline-offset-4 text-center">
-          Login as Admin
+          Admin Login
         </h2>
         <form>
           <div className="mb-4">

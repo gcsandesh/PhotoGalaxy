@@ -29,6 +29,7 @@ import { useDispatch } from "react-redux"
 import { setCredentials } from "./features/auth/userAuthSlice"
 import AdminLoginPage from "./pages/Admin/AdminLoginPage"
 import AdminRegistration from "./pages/Admin/AdminRegistration"
+import AdminProtected from "./pages/Utilities/AdminProtected"
 
 function App() {
   const dispatch = useDispatch()
@@ -115,10 +116,24 @@ function App() {
         />
 
         {/* ADMIN SIDE */}
-        <Route path="/admin" element={<Navigate to={"/admin-login"} />} />
+        <Route
+          path="/admin"
+          element={
+            <AdminProtected>
+              <Navigate to="/admin/dashboard" />
+            </AdminProtected>
+          }
+        />
         <Route path="/admin-login" element={<AdminLoginPage />} />
-        <Route path="/admin-panel" element={<AdminPanel />} />
         <Route path="/admin-signup" element={<AdminRegistration />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminProtected>
+              <AdminPanel />
+            </AdminProtected>
+          }
+        />
         <Route path="*" element={<Navigate to={"/"} />} />
       </Routes>
     </Router>

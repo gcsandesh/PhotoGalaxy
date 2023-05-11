@@ -23,7 +23,7 @@ const handleAdminLogin = async (req, res) => {
     }
 
     admin = _.pick(admin, "email")
-    const accessToken = jwt.sign(
+    jwt.sign(
       { admin },
       JWT_SECRET,
       { expiresIn: 60 * 60 },
