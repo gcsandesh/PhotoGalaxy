@@ -1,6 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
-import { Navigate } from "react-router"
+import { Navigate } from "react-router-dom"
 
 export default function Protected({ children, admin }) {
   const {
