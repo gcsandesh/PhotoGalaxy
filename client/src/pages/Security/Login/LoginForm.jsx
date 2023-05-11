@@ -76,7 +76,7 @@ export default function LoginForm() {
           Email
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight tracking-wider focus:outline-none"
           id="email"
           type="email"
           name="email"
@@ -89,26 +89,27 @@ export default function LoginForm() {
       </div>
 
       <div className="mb-4 relative">
-        <span className="absolute bottom-1 right-1">
+        <span className="absolute bottom-1.5 right-1">
           {showPassword ? (
             <FaEyeSlash
-              className="text-dark"
+              className="text-dark cursor-pointer"
               size={24}
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           ) : (
             <FaEye
-              className="text-dark"
+              className="text-dark cursor-pointer"
               size={24}
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           )}
         </span>
+
         <label className="block mb-1 text-sm" htmlFor="password">
           Password
         </label>
         <input
-          className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+          className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight tracking-wider focus:outline-none"
           id="password"
           type={showPassword ? "text" : "password"}
           name="password"
@@ -126,7 +127,7 @@ export default function LoginForm() {
 
       {/*  LOGIN BUTTON  */}
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none"
         type="submit"
       >
         Login

@@ -103,16 +103,16 @@ const AdminLoginPage = () => {
             />
           </div>
           <div className="mb-4 relative">
-            <span className="absolute bottom-1 right-1">
+            <span className="absolute bottom-1.5 right-1">
               {showPassword ? (
                 <FaEyeSlash
-                  className="text-dark"
+                  className="text-dark cursor-pointer"
                   size={24}
                   onClick={() => setShowPassword((prevState) => !prevState)}
                 />
               ) : (
                 <FaEye
-                  className="text-dark"
+                  className="text-dark cursor-pointer"
                   size={24}
                   onClick={() => setShowPassword((prevState) => !prevState)}
                 />

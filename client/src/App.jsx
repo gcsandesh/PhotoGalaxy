@@ -134,6 +134,7 @@ function App() {
             </AdminProtected>
           }
         />
+        <Route path="/admin/*" element={<Navigate to={"/admin"} />} />
         <Route path="*" element={<Navigate to={"/"} />} />
       </Routes>
     </Router>
