@@ -33,6 +33,8 @@ export const signupAdmin = createAsyncThunk(
 
       const data = await response.json()
 
+      console.log(data)
+
       if (response.status !== 201) {
         return thunkAPI.rejectWithValue(data)
       } else {

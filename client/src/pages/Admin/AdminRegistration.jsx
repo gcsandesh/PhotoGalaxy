@@ -1,20 +1,21 @@
-import React from "react"
+import React, { useState } from "react"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { signupAdmin } from "../../features/auth/adminAuthSlice"
-import { setCredentials } from "../../features/auth/adminAuthSlice"
+import { signupAdmin, setCredentials } from "../../features/auth/adminAuthSlice"
 import { toast } from "react-hot-toast"
+
+const initialFormData = {
+  email: "",
+  password: "",
+}
 
 const AdminRegistration = () => {
   const [showPassword, setShowPassword] = React.useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [formData, setFormData] = React.useState({
-    email: "",
-    password: "",
-  })
+  const [formData, setFormData] = useState(initialFormData)
 
   function handleInput(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -33,11 +34,15 @@ const AdminRegistration = () => {
 
       await dispatch(setCredentials())
 
-      toast.success(`Successfully logged in as '${payload.admin.email}'!`)
+      console.log("payload:", payload)
+      toast.success(
+        `Account created successfully for '${payload.admin.email}'!`
+      )
 
-      navigate("/")
+      setFormData(initialFormData)
+      // navigate("")
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error(error.message)
     }
   }
@@ -57,7 +62,7 @@ const AdminRegistration = () => {
           value={formData.email}
           required
           minLength={3}
-          className="bg-gray-100 shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight tracking-wider focus:outline-none"
+          className="bg-gray-100 shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
         />
       </div>
       <div className="relative flex flex-col gap-2 my-2">
@@ -86,8 +91,9 @@ const AdminRegistration = () => {
           onChange={handleInput}
           value={formData.password}
           required
+          pattern="^[^\s]{8,}$"
           minLength={8}
-          className="bg-gray-100 shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight tracking-wide focus:outline-none"
+          className="bg-gray-100 shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
         />
       </div>
 
