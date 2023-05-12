@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link, NavLink } from "react-router-dom"
-import { logoutUser } from "../../features/auth/userAuthSlice"
+import { logoutUser } from "../../features/userAuth/userAuthSlice"
 import toast from "react-hot-toast"
 import { FaBars, FaCross, FaTimes } from "react-icons/fa"
 

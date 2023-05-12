@@ -91,16 +91,17 @@ const userAuthSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       console.log("SET CREDENTIALS")
-      console.log(JSON.parse(localStorage.getItem("user")))
-      console.log(state.user)
-      if (localStorage.getItem("user") && localStorage.getItem("accessToken")) {
-        state.user = JSON.parse(localStorage.getItem("user"))
-        state.user.accessToken = JSON.parse(localStorage.getItem("accessToken"))
-        state.user.isLoggedIn = true
-      }
+      console.log(action)
+      console.log(state)
+      // console.log(state.user)
+      // if (localStorage.getItem("user") && localStorage.getItem("accessToken")) {
+      //   state.user = JSON.parse(localStorage.getItem("user"))
+      //   state.user.accessToken = JSON.parse(localStorage.getItem("accessToken"))
+      //   state.user.isLoggedIn = true
+      // }
 
-      // console.log(localStorage.getItem("user"))
-      state = { user: JSON.parse(localStorage.getItem("user")) }
+      // // console.log(localStorage.getItem("user"))
+      // state = { user: JSON.parse(localStorage.getItem("user")) }
     },
     logoutUser: (state, action) => {
       localStorage.clear()

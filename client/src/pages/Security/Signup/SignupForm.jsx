@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { toast } from "react-hot-toast"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import { signupUser } from "../../../features/auth/userAuthSlice"
+import { signupUser } from "../../../features/userAuth/userAuthSlice"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 export default function SignupForm() {

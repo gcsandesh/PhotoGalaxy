@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, Link } from "react-router-dom"
 import { SiteLogo } from "../../components/common"
-import { loginAdmin, setCredentials } from "../../features/auth/adminAuthSlice"
+// import { loginAdmin, setCredentials } from "../../features/adminAuth/adminAuthSlice"
 
 const AdminLoginPage = () => {
   const dispatch = useDispatch()
