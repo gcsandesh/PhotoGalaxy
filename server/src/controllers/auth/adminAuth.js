@@ -2,7 +2,6 @@ const { Admin } = require("../../models/admin")
 const bcrypt = require("bcrypt")
 const _ = require("lodash")
 const jwt = require("jsonwebtoken")
-const validatePassword = require("../../helpers/passwordValidator")
 
 const JWT_SECRET = process.env.TOKEN_SECRET
 
@@ -33,6 +32,7 @@ const handleAdminLogin = async (req, res) => {
           console.log("Error logging in!\nError:", error)
           return res.json({ message: "Could not generate token" })
         }
+        // console.log({ admin, accessToken })
         return res.json({ admin, accessToken })
       }
     )
@@ -43,9 +43,6 @@ const handleAdminLogin = async (req, res) => {
 
 const handleAdminSignup = async (req, res) => {
   const { email, password } = req.body
-
-  // this validate function should be a middleware
-  const errorMsg = validatePassword(password)
 
   if (!email || !password) {
     return res.status(400).json({ message: "Please enter all fields!" })

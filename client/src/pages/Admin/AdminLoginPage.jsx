@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, Link } from "react-router-dom"
 import gradientBg from "../../assets/gradient-bg.svg"
 import { SiteLogo } from "../../components/common"
@@ -18,6 +18,18 @@ const AdminLoginPage = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState([])
   let errorList = errors.map((error, index) => <li key={index}>{error}</li>)
+
+  const {
+    user: { isLoggedIn },
+  } = useSelector((store) => store.auth)
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      toast.error("You must log out first to log in!")
+      console.log("logged in already")
+      navigate("/admin")
+    }
+  }, [])
 
   function handleFormInput(e) {
     setErrors([])
@@ -37,7 +49,8 @@ const AdminLoginPage = () => {
 
       await dispatch(setCredentials())
 
-      toast.success(`Successfully logged in as '${payload.user.email}'!`)
+      console.log("payload", payload)
+      toast.success(`Successfully logged in as '${payload.admin.email}'!`)
 
       navigate("/admin/dashboard")
     } catch (error) {
@@ -99,6 +112,7 @@ const AdminLoginPage = () => {
               value={formData.email}
               placeholder="Enter email"
               required
+              // minLength={3}
               className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
             />
           </div>
@@ -130,6 +144,7 @@ const AdminLoginPage = () => {
               onChange={handleFormInput}
               placeholder="Enter password"
               required
+              // minLength={8}
             />
           </div>
           {/*  ERRORS  */}
@@ -137,6 +152,7 @@ const AdminLoginPage = () => {
             {errorList}
           </ul>
           <button
+            type="submit"
             onClick={submitForm}
             className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >

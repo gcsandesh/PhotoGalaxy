@@ -19,7 +19,7 @@ const initialState = {
 //////////////////////////////////////
 
 export const signupUser = createAsyncThunk(
-  "auth/signup",
+  "userAuth/signup",
   async ({ firstName, lastName, email, password }, thunkAPI) => {
     try {
       const response = await fetch(USER_AUTH_URL + "/signup", {
@@ -55,7 +55,7 @@ export const signupUser = createAsyncThunk(
 /////////////////////////////
 
 export const loginUser = createAsyncThunk(
-  "auth/login",
+  "userAuth/login",
   async ({ email, password }, thunkAPI) => {
     try {
       const response = await fetch(USER_AUTH_URL + "/login", {
@@ -85,8 +85,8 @@ export const loginUser = createAsyncThunk(
 )
 
 /********** USER SLICE ***********/
-const authSlice = createSlice({
-  name: "auth",
+const userAuthSlice = createSlice({
+  name: "userAuth",
   initialState,
   reducers: {
     setCredentials: (state, action) => {
@@ -121,6 +121,8 @@ const authSlice = createSlice({
 
     builder.addCase(loginUser.pending, (state, action) => {
       state.isLoading = true
+      state.user = {}
+      localStorage.clear()
     })
 
     builder.addCase(loginUser.rejected, (state, action) => {
@@ -139,5 +141,5 @@ const authSlice = createSlice({
   },
 })
 
-export const { setCredentials, logoutUser } = authSlice.actions
-export default authSlice.reducer
+export const { setCredentials, logoutUser } = userAuthSlice.actions
+export default userAuthSlice.reducer

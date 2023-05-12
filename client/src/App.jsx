@@ -33,6 +33,7 @@ import AdminProtected from "./pages/Utilities/AdminProtected"
 
 function App() {
   const dispatch = useDispatch()
+  // const 
   // useEffect(() => {
   dispatch(setCredentials())
   // }, [window.location.pathname])

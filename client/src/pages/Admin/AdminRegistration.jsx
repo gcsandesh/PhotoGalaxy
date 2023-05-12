@@ -13,7 +13,7 @@ const initialFormData = {
 const AdminRegistration = () => {
   const [showPassword, setShowPassword] = React.useState(false)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const [formData, setFormData] = useState(initialFormData)
 

@@ -33,8 +33,6 @@ export const signupAdmin = createAsyncThunk(
 
       const data = await response.json()
 
-      console.log(data)
-
       if (response.status !== 201) {
         return thunkAPI.rejectWithValue(data)
       } else {
@@ -118,6 +116,8 @@ const adminAuthSlice = createSlice({
 
     builder.addCase(loginAdmin.pending, (state, action) => {
       state.isLoading = true
+      state.user = {}
+      localStorage.clear()
     })
 
     builder.addCase(loginAdmin.rejected, (state, action) => {
@@ -126,7 +126,7 @@ const adminAuthSlice = createSlice({
 
     builder.addCase(loginAdmin.fulfilled, (state, action) => {
       state.isLoading = false
-      localStorage.setItem("user", JSON.stringify(action.payload.user))
+      localStorage.setItem("user", JSON.stringify(action.payload.admin))
       localStorage.setItem(
         "accessToken",
         JSON.stringify(action.payload.accessToken)
