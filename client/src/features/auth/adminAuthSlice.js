@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { ADMIN_AUTH_URL } from "../../constants"
 
 const initialState = {
-  user: {
+  admin: {
     id: "",
     email: "",
     accessToken: "",
@@ -86,16 +86,16 @@ const adminAuthSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      if (localStorage.getItem("user") && localStorage.getItem("accessToken")) {
-        state.user = JSON.parse(localStorage.getItem("user"))
-        state.user.accessToken = JSON.parse(localStorage.getItem("accessToken"))
-        state.user.isLoggedIn = true
+      if (localStorage.getItem("admin") && localStorage.getItem("accessToken")) {
+        state.admin = JSON.parse(localStorage.getItem("admin"))
+        state.admin.accessToken = JSON.parse(localStorage.getItem("accessToken"))
+        state.admin.isLoggedIn = true
       }
     },
     logoutAdmin: (state, action) => {
       localStorage.clear()
-      state.user = {}
-      state.user.isLoggedIn = false
+      state.admin = {}
+      state.admin.isLoggedIn = false
     },
   },
   extraReducers: (builder) => {
@@ -117,7 +117,7 @@ const adminAuthSlice = createSlice({
 
     builder.addCase(loginAdmin.pending, (state, action) => {
       state.isLoading = true
-      state.user = {}
+      state.admin = {}
       localStorage.clear()
     })
 
@@ -127,12 +127,12 @@ const adminAuthSlice = createSlice({
 
     builder.addCase(loginAdmin.fulfilled, (state, action) => {
       action.payload.admin.isAdmin = true
-      localStorage.setItem("user", JSON.stringify(action.payload.admin))
+      localStorage.setItem("admin", JSON.stringify(action.payload.admin))
       localStorage.setItem(
         "accessToken",
         JSON.stringify(action.payload.accessToken)
       )
-      state.user.isLoggedIn = true
+      state.admin.isLoggedIn = true
       state.isLoading = false
     })
   },
