@@ -90,13 +90,17 @@ const userAuthSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      console.log(localStorage.getItem("user"))
+      console.log("SET CREDENTIALS")
+      console.log(JSON.parse(localStorage.getItem("user")))
+      console.log(state.user)
       if (localStorage.getItem("user") && localStorage.getItem("accessToken")) {
         state.user = JSON.parse(localStorage.getItem("user"))
         state.user.accessToken = JSON.parse(localStorage.getItem("accessToken"))
         state.user.isLoggedIn = true
       }
-      state.user = "Sandesh"
+
+      // console.log(localStorage.getItem("user"))
+      state = { user: JSON.parse(localStorage.getItem("user")) }
     },
     logoutUser: (state, action) => {
       localStorage.clear()
@@ -123,7 +127,7 @@ const userAuthSlice = createSlice({
 
     builder.addCase(loginUser.pending, (state, action) => {
       state.isLoading = true
-      state.user = {}
+      // state.user = {}
       localStorage.clear()
     })
 
