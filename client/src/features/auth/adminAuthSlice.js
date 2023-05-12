@@ -6,6 +6,7 @@ const initialState = {
     id: "",
     email: "",
     accessToken: "",
+    isAdmin: false,
     isLoggedIn: false,
   },
   isLoading: false,
@@ -125,13 +126,14 @@ const adminAuthSlice = createSlice({
     })
 
     builder.addCase(loginAdmin.fulfilled, (state, action) => {
-      state.isLoading = false
+      action.payload.admin.isAdmin = true
       localStorage.setItem("user", JSON.stringify(action.payload.admin))
       localStorage.setItem(
         "accessToken",
         JSON.stringify(action.payload.accessToken)
       )
       state.user.isLoggedIn = true
+      state.isLoading = false
     })
   },
 })

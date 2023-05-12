@@ -25,17 +25,21 @@ import {
 // import "aos/dist/aos.css"
 import Layout from "./pages/Utilities/Layout"
 import Protected from "./pages/Utilities/Protected"
-import { useDispatch } from "react-redux"
-import { setCredentials } from "./features/auth/userAuthSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { setCredentials as setUserCredentials } from "./features/auth/userAuthSlice"
+import { setCredentials as setAdminCredentials } from "./features/auth/adminAuthSlice"
 import AdminLoginPage from "./pages/Admin/AdminLoginPage"
 import AdminRegistration from "./pages/Admin/AdminRegistration"
 import AdminProtected from "./pages/Utilities/AdminProtected"
 
 function App() {
   const dispatch = useDispatch()
-  // const 
+  // const
   // useEffect(() => {
-  dispatch(setCredentials())
+  dispatch(setUserCredentials())
+  // if (isLoggedIn) {
+  // dispatch(setAdminCredentials())
+  // }
   // }, [window.location.pathname])
 
   // useEffect(() => {

@@ -29,6 +29,8 @@ export default function LoginForm() {
 
       await dispatch(setCredentials())
 
+      console.log(payload)
+
       toast.success(`Successfully logged in as '${payload.user.email}'!`)
 
       navigate("/")

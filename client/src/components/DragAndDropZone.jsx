@@ -41,7 +41,7 @@ export default function DragAndDropZone() {
 
   const {
     user: { accessToken },
-  } = useSelector((store) => store.auth)
+  } = useSelector((store) => store.userAuth)
 
   function removeFile(fileID) {
     setFiles((prevFiles) => prevFiles.filter((file, index) => index !== fileID))

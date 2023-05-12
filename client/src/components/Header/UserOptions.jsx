@@ -9,7 +9,7 @@ export default function UserOptions() {
 
   const {
     user: { isLoggedIn },
-  } = useSelector((store) => store.auth)
+  } = useSelector((store) => store.userAuth)
 
   async function handleLogout() {
     try {

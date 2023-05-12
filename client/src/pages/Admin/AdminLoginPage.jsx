@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
+import gradientBg from "../../assets/gradient-bg.svg"
 import { toast } from "react-hot-toast"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, Link } from "react-router-dom"
-import gradientBg from "../../assets/gradient-bg.svg"
 import { SiteLogo } from "../../components/common"
 import { loginAdmin, setCredentials } from "../../features/auth/adminAuthSlice"
 
@@ -21,12 +21,11 @@ const AdminLoginPage = () => {
 
   const {
     user: { isLoggedIn },
-  } = useSelector((store) => store.auth)
+  } = useSelector((store) => store.adminAuth)
 
   useEffect(() => {
     if (isLoggedIn) {
       toast.error("You must log out first to log in!")
-      console.log("logged in already")
       navigate("/admin")
     }
   }, [])

@@ -14,7 +14,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import { DELETE_PHOTO, GET_PHOTO_BY_ID } from "../constants"
 
 export default function Photo() {
-  const { user } = useSelector((store) => store.auth)
+  const { user } = useSelector((store) => store.userAuth)
   const { id } = useParams() //   search this id in database and get photo details
   const [editMode, setEditMode] = useState(false)
 
