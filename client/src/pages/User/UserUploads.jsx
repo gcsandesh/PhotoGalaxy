@@ -10,7 +10,7 @@ export default function UserUploads({ userID }) {
   const [images, setImages] = useState([])
   const {
     user: { _id },
-  } = useSelector((store) => store.auth)
+  } = useSelector((store) => store.userAuth)
 
   // console.log(images)
 

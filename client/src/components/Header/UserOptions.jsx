@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink } from "react-router-dom"
-import { logoutUser } from "../../features/auth/authSlice"
+import { logoutUser } from "../../features/userAuth/userAuthSlice"
 import toast from "react-hot-toast"
 
 export default function UserOptions() {
@@ -9,7 +9,7 @@ export default function UserOptions() {
 
   const {
     user: { isLoggedIn },
-  } = useSelector((store) => store.auth)
+  } = useSelector((store) => store.userAuth)
 
   async function handleLogout() {
     try {

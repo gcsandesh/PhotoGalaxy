@@ -10,7 +10,7 @@ export default function Login() {
   const navigate = useNavigate()
   const {
     user: { isLoggedIn },
-  } = useSelector((store) => store.auth)
+  } = useSelector((store) => store.userAuth)
 
   useEffect(() => {
     if (isLoggedIn) {

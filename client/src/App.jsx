@@ -1,5 +1,12 @@
 import React from "react"
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom"
+import {
+  Route,
+  Routes,
+  BrowserRouter as Router,
+  useNavigate,
+  redirect,
+  Navigate,
+} from "react-router-dom"
 import "./App.css"
 import { Toaster } from "react-hot-toast"
 import {
@@ -12,18 +19,28 @@ import {
   ResetPassword,
   Photo,
   ChangePassword,
+  AdminPanel,
 } from "./pages"
 // import AOS from "aos"
 // import "aos/dist/aos.css"
 import Layout from "./pages/Utilities/Layout"
 import Protected from "./pages/Utilities/Protected"
-import { useDispatch } from "react-redux"
-import { setCredentials } from "./features/auth/authSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { setCredentials as setUserCredentials } from "./features/userAuth/userAuthSlice"
+import { setCredentials as setAdminCredentials } from "./features/adminAuth/adminAuthSlice"
+import AdminLoginPage from "./pages/Admin/AdminLoginPage"
+import AdminRegistration from "./pages/Admin/AdminRegistration"
+import AdminProtected from "./pages/Utilities/AdminProtected"
 
 function App() {
   const dispatch = useDispatch()
+  // const
   // useEffect(() => {
-  dispatch(setCredentials())
+  dispatch(setUserCredentials())
+  dispatch(setAdminCredentials())
+  // if (isLoggedIn) {
+  // dispatch(setAdminCredentials())
+  // }
   // }, [window.location.pathname])
 
   // useEffect(() => {
@@ -31,6 +48,13 @@ function App() {
   //   easing: "ease-in-out",
   // })
   // }, [])
+
+  // const navigate = useNavigate()
+
+  if (window.location.pathname.endsWith("/admin")) {
+    // navigate("/admin-login")
+    redirect("/admin-login")
+  }
 
   return (
     <Router>
@@ -86,17 +110,38 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
         {/* PASSWORD, LOGIN AND SIGNUP PAGES ARE DIFFERENT FROM OTHERS */}
-        <Route path="/password">
-          {/* reset password */}
-          <Route path="reset" element={<ResetPassword />} />
 
-          {/* change password */}
-          <Route
-            // path={"change/some-unique-random-link"}
-            path={"change"}
-            element={<ChangePassword />}
-          />
-        </Route>
+        {/* reset password */}
+        <Route path="reset-password" element={<ResetPassword />} />
+
+        {/* change password */}
+        <Route
+          // path={"change/some-unique-random-link"}
+          path={"change-password/:token"}
+          element={<ChangePassword />}
+        />
+
+        {/* ADMIN SIDE */}
+        <Route
+          path="/admin"
+          element={
+            <AdminProtected>
+              <Navigate to="/admin/dashboard" />
+            </AdminProtected>
+          }
+        />
+        <Route path="/admin-login" element={<AdminLoginPage />} />
+        <Route path="/admin-signup" element={<AdminRegistration />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminProtected>
+              <AdminPanel />
+            </AdminProtected>
+          }
+        />
+        <Route path="/admin/*" element={<Navigate to={"/admin"} />} />
+        <Route path="*" element={<Navigate to={"/"} />} />
       </Routes>
     </Router>
   )

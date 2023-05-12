@@ -1,14 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { USER_AUTH_URL } from "../../constants"
+import { ADMIN_AUTH_URL } from "../../constants"
 
 const initialState = {
-  user: {
+  admin: {
     id: "",
-    firstName: "",
-    lastName: "",
     email: "",
-    profilePicture: "",
     accessToken: "",
+    isAdmin: false,
     isLoggedIn: false,
   },
   isLoading: false,
@@ -18,19 +16,17 @@ const initialState = {
 /////////////  SIGN UP  //////////////
 //////////////////////////////////////
 
-export const signupUser = createAsyncThunk(
-  "auth/signup",
-  async ({ firstName, lastName, email, password }, thunkAPI) => {
+export const signupAdmin = createAsyncThunk(
+  "adminAuth/signup",
+  async ({ email, password }, thunkAPI) => {
     try {
-      const response = await fetch(USER_AUTH_URL + "/signup", {
+      const response = await fetch(ADMIN_AUTH_URL + "/signup", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstName,
-          lastName,
           email,
           password,
         }),
@@ -54,11 +50,11 @@ export const signupUser = createAsyncThunk(
 //////////  LOGIN  //////////
 /////////////////////////////
 
-export const loginUser = createAsyncThunk(
-  "auth/login",
+export const loginAdmin = createAsyncThunk(
+  "adminAuth/login",
   async ({ email, password }, thunkAPI) => {
     try {
-      const response = await fetch(USER_AUTH_URL + "/login", {
+      const response = await fetch(ADMIN_AUTH_URL + "/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -70,7 +66,7 @@ export const loginUser = createAsyncThunk(
       const data = await response.json()
 
       if (response.status !== 200) {
-        // data returned from server is sent to the loginUser.fulfilled action
+        // data returned from server is sent to the loginAdmin.fulfilled action
         //
         // console.log(data)
         return thunkAPI.rejectWithValue(data)
@@ -84,60 +80,68 @@ export const loginUser = createAsyncThunk(
   }
 )
 
-/********** USER SLICE ***********/
-const authSlice = createSlice({
-  name: "auth",
+/********** ADMIN SLICE ***********/
+const adminAuthSlice = createSlice({
+  name: "adminAuth",
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      if (localStorage.getItem("user") && localStorage.getItem("accessToken")) {
-        state.user = JSON.parse(localStorage.getItem("user"))
-        state.user.accessToken = JSON.parse(localStorage.getItem("accessToken"))
-        state.user.isLoggedIn = true
+      if (
+        localStorage.getItem("admin") &&
+        localStorage.getItem("accessToken")
+      ) {
+        state.admin = JSON.parse(localStorage.getItem("admin"))
+        state.admin.accessToken = JSON.parse(
+          localStorage.getItem("accessToken")
+        )
+        state.admin.isLoggedIn = true
       }
     },
-    logoutUser: (state, action) => {
+    logoutAdmin: (state, action) => {
       localStorage.clear()
-      state.user = {}
-      state.user.isLoggedIn = false
+      state.admin = {}
+      state.admin.isLoggedIn = false
     },
   },
   extraReducers: (builder) => {
     // sign up //
 
-    builder.addCase(signupUser.pending, (state, action) => {
+    builder.addCase(signupAdmin.pending, (state, action) => {
       state.isLoading = true
     })
 
-    builder.addCase(signupUser.rejected, (state, action) => {
+    builder.addCase(signupAdmin.rejected, (state, action) => {
       state.isLoading = false
     })
 
-    builder.addCase(signupUser.fulfilled, (state, action) => {
+    builder.addCase(signupAdmin.fulfilled, (state, action) => {
       state.isLoading = false
     })
 
     // login //
 
-    builder.addCase(loginUser.pending, (state, action) => {
+    builder.addCase(loginAdmin.pending, (state, action) => {
       state.isLoading = true
+      state.admin = {}
+      localStorage.clear()
     })
 
-    builder.addCase(loginUser.rejected, (state, action) => {
+    builder.addCase(loginAdmin.rejected, (state, action) => {
       state.isLoading = false
     })
 
-    builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.isLoading = false
-      localStorage.setItem("user", JSON.stringify(action.payload.user))
+    builder.addCase(loginAdmin.fulfilled, (state, action) => {
+      action.payload.admin.isAdmin = true
+      localStorage.setItem("admin", JSON.stringify(action.payload.admin))
       localStorage.setItem(
         "accessToken",
         JSON.stringify(action.payload.accessToken)
       )
-      state.user.isLoggedIn = true
+      state.admin.isLoggedIn = true
+      state.isLoading = false
     })
   },
 })
 
-export const { setCredentials, logoutUser } = authSlice.actions
-export default authSlice.reducer
+export const { setCredentials, logoutAdmin } = adminAuthSlice.actions
+export default adminAuthSlice.reducer

@@ -3,6 +3,7 @@ const API_URL = "http://localhost:9999/api"
 
 // AUTH
 export const USER_AUTH_URL = API_URL + "/auth/user"
+export const ADMIN_AUTH_URL = API_URL + "/auth/admin"
 
 // PHOTO
 export const GET_PHOTO_BY_ID = API_URL + "/photos/id/"
