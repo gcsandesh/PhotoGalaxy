@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom"
 
 const AdminProtected = ({ children }) => {
   const {
-    user: { isLoggedIn },
+    admin: { isLoggedIn },
   } = useSelector((store) => store.adminAuth)
 
   return isLoggedIn ? <div>{children}</div> : <Navigate to={"/admin-login"} />

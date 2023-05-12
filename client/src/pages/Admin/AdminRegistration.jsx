@@ -2,7 +2,10 @@ import React, { useState } from "react"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-// import { signupAdmin, setCredentials } from "../../features/adminAuth/adminAuthSlice"
+import {
+  signupAdmin,
+  setCredentials,
+} from "../../features/adminAuth/adminAuthSlice"
 import { toast } from "react-hot-toast"
 
 const initialFormData = {
@@ -23,28 +26,28 @@ const AdminRegistration = () => {
 
   async function submitForm(e) {
     e.preventDefault()
-    // console.log(formData)
-    // try {
-    //   const payload = await dispatch(
-    //     signupAdmin({
-    //       email: formData.email.toLowerCase(),
-    //       password: formData.password,
-    //     })
-    //   ).unwrap()
+    console.log(formData)
+    try {
+      const payload = await dispatch(
+        signupAdmin({
+          email: formData.email.toLowerCase(),
+          password: formData.password,
+        })
+      ).unwrap()
 
-    //   await dispatch(setCredentials())
+      await dispatch(setCredentials())
 
-    //   console.log("payload:", payload)
-    //   toast.success(
-    //     `Account created successfully for '${payload.admin.email}'!`
-    //   )
+      console.log("payload:", payload)
+      toast.success(
+        `Account created successfully for '${payload.admin.email}'!`
+      )
 
-    //   setFormData(initialFormData)
-    //   // navigate("")
-    // } catch (error) {
-    //   // console.log(error)
-    //   toast.error(error.message)
-    // }
+      setFormData(initialFormData)
+      // navigate("")
+    } catch (error) {
+      // console.log(error)
+      toast.error(error.message)
+    }
   }
 
   return (

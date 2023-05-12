@@ -71,8 +71,6 @@ export const loginUser = createAsyncThunk(
 
       if (response.status !== 200) {
         // data returned from server is sent to the loginUser.fulfilled action
-        //
-        // console.log(data)
         return thunkAPI.rejectWithValue(data)
       } else {
         return data
@@ -90,18 +88,11 @@ const userAuthSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      console.log("SET CREDENTIALS")
-      console.log(action)
-      console.log(state)
-      // console.log(state.user)
-      // if (localStorage.getItem("user") && localStorage.getItem("accessToken")) {
-      //   state.user = JSON.parse(localStorage.getItem("user"))
-      //   state.user.accessToken = JSON.parse(localStorage.getItem("accessToken"))
-      //   state.user.isLoggedIn = true
-      // }
-
-      // // console.log(localStorage.getItem("user"))
-      // state = { user: JSON.parse(localStorage.getItem("user")) }
+      if (localStorage.getItem("user") && localStorage.getItem("accessToken")) {
+        state.user = JSON.parse(localStorage.getItem("user"))
+        state.user.accessToken = JSON.parse(localStorage.getItem("accessToken"))
+        state.user.isLoggedIn = true
+      }
     },
     logoutUser: (state, action) => {
       localStorage.clear()
@@ -128,7 +119,6 @@ const userAuthSlice = createSlice({
 
     builder.addCase(loginUser.pending, (state, action) => {
       state.isLoading = true
-      // state.user = {}
       localStorage.clear()
     })
 

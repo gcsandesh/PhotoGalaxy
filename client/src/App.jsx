@@ -26,8 +26,8 @@ import {
 import Layout from "./pages/Utilities/Layout"
 import Protected from "./pages/Utilities/Protected"
 import { useDispatch, useSelector } from "react-redux"
-import { setCredentials } from "./features/userAuth/userAuthSlice"
-// import { setCredentials as setAdminCredentials } from "./features/auth/adminAuthSlice"
+import { setCredentials as setUserCredentials } from "./features/userAuth/userAuthSlice"
+import { setCredentials as setAdminCredentials } from "./features/adminAuth/adminAuthSlice"
 import AdminLoginPage from "./pages/Admin/AdminLoginPage"
 import AdminRegistration from "./pages/Admin/AdminRegistration"
 import AdminProtected from "./pages/Utilities/AdminProtected"
@@ -36,7 +36,8 @@ function App() {
   const dispatch = useDispatch()
   // const
   // useEffect(() => {
-  dispatch(setCredentials())
+  dispatch(setUserCredentials())
+  dispatch(setAdminCredentials())
   // if (isLoggedIn) {
   // dispatch(setAdminCredentials())
   // }
