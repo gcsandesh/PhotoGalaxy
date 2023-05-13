@@ -53,13 +53,13 @@ async function uploadPhotos(req, res) {
       )
 
       // console.log("saved photo id:", savedPhoto.id)
-      console.log("user", user)
+      // console.log("user", user)
 
-      console.log("savedphoto:", savedPhoto)
+      // console.log("savedphoto:", savedPhoto)
       photoUploadResponse.push(savedPhoto)
     })
     // ).then((result) => console.log(result, photoUploadResponse))
-    console.log("arrayofresponses", photoUploadResponse)
+    // console.log("arrayofresponses", photoUploadResponse)
 
     return res.status(201).json({
       message: "Uploaded successfully!",
@@ -175,12 +175,12 @@ const deletePhoto = async (req, res) => {
   try {
     const photo = await Photo.findById(photoID)
 
-    console.log(photo)
+    // console.log(photo)
     if (!photo) {
       return res.status(400).json({ message: "Photo does not exist!" })
     }
 
-    console.log("public id:", photo.public_id)
+    // console.log("public id:", photo.public_id)
     // delete photo from cloudinary
 
     // console.log(photoID)
@@ -194,11 +194,11 @@ const deletePhoto = async (req, res) => {
       },
       { new: true }
     )
-    console.log("user", user)
+    // console.log("user", user)
 
     await cloudinary.uploader.destroy(photo.public_id)
     const response = await Photo.findByIdAndDelete(photo._id)
-    console.log(response)
+    // console.log(response)
     return res.json({ deleted: response })
   } catch (error) {
     return res.status(500).json({ message: error })
