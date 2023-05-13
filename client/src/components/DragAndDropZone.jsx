@@ -50,9 +50,12 @@ export default function DragAndDropZone() {
   ////////////////    UPLOAD FILES AT LAST    //////////////////
   async function handlePhotosUpload(event) {
     event.preventDefault()
+    if (!files.length) {
+      return toast.error("No photos to upload!")
+    }
 
-    const reqBody = { photos: files }
-    console.log("body:", reqBody)
+    // const reqBody = { photos: files }
+    // console.log("body:", reqBody)
 
     // // uploading image on clicking submit button
     await fetch(UPLOAD_PHOTOS, {
@@ -65,6 +68,7 @@ export default function DragAndDropZone() {
     })
       .then(() => {
         toast.success("Uploaded Successfully!")
+        setFiles([])
         // console.log("uploaded")
       })
       .catch(() => {
@@ -85,7 +89,6 @@ export default function DragAndDropZone() {
           new Promise((resolve, reject) => {
             const reader = new FileReader()
             reader.readAsDataURL(file)
-
             reader.onabort = (msg) => reject(msg)
             reader.onerror = (error) => reject(error)
             reader.onload = (data) => {
