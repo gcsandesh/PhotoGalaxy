@@ -1,7 +1,5 @@
 from imageai.Classification import ImageClassification
-from PIL import Image
-from flask import Flask, request, jsonify, render_template
-import numpy as np
+from flask import Flask, request, jsonify
 import tensorflow as tf
 from io import BytesIO
 
