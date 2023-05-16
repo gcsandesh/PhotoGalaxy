@@ -107,7 +107,6 @@ export default function Photo() {
     navigator.clipboard.writeText(currentURL)
   }
 
-  // console.log(photo)
 
   return (
     <div className="container p-4 mx-auto ">

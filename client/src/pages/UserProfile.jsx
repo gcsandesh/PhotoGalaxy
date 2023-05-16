@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom"
 import { Gallery } from "react-grid-gallery"
+import { GET_USER_UPLOADS } from "../constants"
 
 export default function UserProfile() {
   const navigate = useNavigate()
-
   const location = useLocation()
   const propsData = location.state
   const author = propsData
-
+  const id = author._id
   const [userUploads, setUserUploads] = useState([
     {
       _id: "123",
@@ -16,41 +16,37 @@ export default function UserProfile() {
       width: 950,
       height: 200,
     },
-    {
-      _id: "111",
-      src: "https://fastly.picsum.photos/id/220/350/350.jpg?hmac=I8BX8Fg9UVkOB74C1exWvExDIOJ51GdzCEEagiS9_yM",
-      width: 3500,
-      height: 750,
-    },
-    {
-      _id: "222",
-      src: "https://fastly.picsum.photos/id/52/350/350.jpg?hmac=Q3V4GgnpXq3S-pwb99ATu6mk3zGJqzdErVGc2wJ6vRY",
-      width: 1920,
-      height: 800,
-    },
-    {
-      _id: "333",
-      src: "https://fastly.picsum.photos/id/354/350/350.jpg?hmac=HhYdM2mII9asa3KjiazJD73aGn9hUICREn_Gykn9CPM",
-      width: 850,
-      height: 350,
-    },
-    {
-      _id: "333",
-      src: "https://fastly.picsum.photos/id/354/350/350.jpg?hmac=HhYdM2mII9asa3KjiazJD73aGn9hUICREn_Gykn9CPM",
-      width: 850,
-      height: 850,
-    },
   ])
 
   function handleImgClick(index, image, event) {
-    // console.log("clicked")
-    // console.log(index)
-    // console.log(image)
-    // console.log(event)
     navigate(`/photo/${image._id}`)
   }
-
   if (!propsData) return <Navigate to={"/"} />
+
+  // fetching user uploads
+  const mapImageData = (data) => {
+    return data.uploads.map((item) => ({
+      _id: item._id,
+      src: item.url,
+      width: item.dimensions.width,
+      height: item.dimensions.height,
+    }))
+  }
+
+  useEffect(() => {
+    const fetchUserUploads = async () => {
+      try {
+        const response = await fetch(GET_USER_UPLOADS + id)
+        const data = await response.json()
+        const mappedData = mapImageData(data)
+        setUserUploads(mappedData)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    fetchUserUploads()
+  }, [GET_USER_UPLOADS, id])
 
   return (
     <div className="container mx-auto p-4">
@@ -58,13 +54,13 @@ export default function UserProfile() {
         <div className="my-2">
           <img
             className="w-24 h-24 rounded-full"
-            src="https://fastly.picsum.photos/id/1062/350/350.jpg?hmac=DW0o1zff5dPjJt4417pmt5iMxt6XEKpT0WbTeHtpL8Q"
+            src={author.profile_picture}
             alt="Profile Picture Of The Creator"
           />
         </div>
         <div className="my-4 text-center">
           <h1 className="font-bold text-xl">
-            {author.firstName + " " + author.lastName}
+            {author.first_name + " " + author.last_name}
           </h1>
           <h1 className="font-bold text-sm">{author.email}</h1>
           <p className="text-center w-full sm:w-1/2 mx-auto my-2 text-xs md:text-sm md:leading-none leading-none">
@@ -77,7 +73,7 @@ export default function UserProfile() {
       {/* USER UPLOADS SECTION */}
       <div className="mt-4">
         <h3 className="font-bold my-4 text-xl underline underline-offset-4 text-center">
-          Photos by {author.firstName + " " + author.lastName}
+          Uploaded Photos
         </h3>
         <div className="my-2">
           <Gallery
