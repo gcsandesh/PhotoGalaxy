@@ -12,6 +12,7 @@ node_modules
 dist
 dist-ssr
 *.local
+inception_v3_google.pth
 
 # Editor directories and files
 .vscode/*

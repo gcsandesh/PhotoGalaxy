@@ -14,4 +14,4 @@ requests
 imageai
 flask
 tensorflow
-#the python version used is 3.9 
+#the python version used is 3.11.3

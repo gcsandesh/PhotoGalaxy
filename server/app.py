@@ -4,7 +4,7 @@ import tensorflow as tf
 from io import BytesIO
 
 
-model = tf.keras.models.load_model('server\src\cnn_model.h5')
+model = tf.keras.models.load_model('server\\src\\cnn_model.h5') 
 
 app = Flask(__name__, template_folder = 'templates')
 
