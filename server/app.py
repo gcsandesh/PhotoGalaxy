@@ -6,12 +6,7 @@ from io import BytesIO
 
 model = tf.keras.models.load_model('server\\src\\cnn_model.h5') 
 
-app = Flask(__name__, template_folder = 'templates')
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
+app = Flask(__name__)
 
 
 @app.route('/classify', methods=['POST'])
@@ -43,6 +38,19 @@ def classify_image():
 
     # Render the index template with the file upload form and classification result
     return render_template('index.html', label=label)
+
+
+@app.route('/tags', methods=['POST'])
+def handle_tags():
+    # Perform your specific task here
+    # Retrieve the data from the API call
+    data = request.get_json()
+    
+    # Process the data and generate the array of text
+    text_array = ['tag1', 'tag2', 'tag3']  # Replace with your actual logic
+    
+    # Return the JSON response
+    return jsonify({'tags': text_array})
 
 
 if __name__ == '__main__':
