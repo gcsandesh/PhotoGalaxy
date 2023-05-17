@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 @app.route("/classify", methods=["POST"])
 def classify_image():
-     # Get the Base64-encoded image from the request
+    # Get the Base64-encoded image from the request
     image_data = request.json["image"]
 
     # Decode the Base64-encoded image to binary
@@ -46,11 +46,16 @@ def classify_image():
 
 @app.route("/tags", methods=["POST"])
 def generate_tags():
-    # Get the file from the request
-    file = request.files["file"]
+    # Get the Base64-encoded image from the request
+    image_data = request.json["image"]
 
-    # Read the file
-    img = tf.keras.preprocessing.image.load_img(BytesIO(file.read()))
+    # Decode the Base64-encoded image to binary
+    image_bytes = base64.b64decode(image_data)
+
+    # Load the image from bytes
+    img = tf.keras.preprocessing.image.load_img(
+        io.BytesIO(image_bytes), target_size=(240, 320)
+    )
 
     prediction = ImageClassification()
     # Here i used pretrained inception Inception model however any one could be used
