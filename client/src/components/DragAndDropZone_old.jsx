@@ -129,9 +129,9 @@ export default function DragAndDropZone() {
           {...getRootProps({ style })}
           className="mx-auto flex items-center justify-center w-full h-44"
         >
-          <input name={"photo"} id={"photo"} {...getRootProps()} hidden />
+          <input name="photo" id="photo" {...getRootProps()} hidden />
           {isDragActive ? (
-            <p>Drop it like it's hot🥵</p>
+            <p>Drop photo here...</p>
           ) : (
             <p>
               Drag 'n' drop up to 10 files here, or click to select files...
