@@ -4,21 +4,26 @@ from flask import Flask, request, jsonify, render_template
 import numpy as np
 import tensorflow as tf
 from io import BytesIO
+import base64
+import io 
 
 
-model = tf.keras.models.load_model("server\\src\\cnn_model.h5")
+model = tf.keras.models.load_model("server\src\cnn_model.h5")
 
 app = Flask(__name__)
 
 
 @app.route("/classify", methods=["POST"])
 def classify_image():
-    # Get the file from the request
-    file = request.files["file"]
+    # Get the Base64-encoded image from the request
+    image_data = request.json["image"]
 
-    # Read the file
+    # Decode the Base64-encoded image to binary
+    image_bytes = base64.b64decode(image_data)
+
+    # Load the image from bytes
     img = tf.keras.preprocessing.image.load_img(
-        BytesIO(file.read()), target_size=(240, 320)
+        io.BytesIO(image_bytes), target_size=(240, 320)
     )
 
     # Convert the image to a numpy array
@@ -41,18 +46,23 @@ def classify_image():
 
 @app.route("/tags", methods=["POST"])
 def generate_tags():
-    # Get the file from the request
-    file = request.files["file"]
+    # Get the Base64-encoded image from the request
+    image_data = request.json["image"]
 
-    # Read the file
-    img = tf.keras.preprocessing.image.load_img(BytesIO(file.read()))
+    # Decode the Base64-encoded image to binary
+    image_bytes = base64.b64decode(image_data)
+
+    # Load the image from bytes
+    img = tf.keras.preprocessing.image.load_img(
+        io.BytesIO(image_bytes), target_size=(240, 320)
+    )
 
     prediction = ImageClassification()
     # Here i used pretrained inception Inception model however any one could be used
     prediction.setModelTypeAsInceptionV3()
 
     # Directly give the path where the model is stored or use above code to join paths
-    prediction.setModelPath("server\\similar-recommender\\inception_v3_google.pth")
+    prediction.setModelPath("server\src\inception_v3_google.pth")
     prediction.loadModel()
 
     # Give path to the image which is to be classified
