@@ -12,6 +12,7 @@ A stock photo platform to find and download beautiful photos of your need.
   For server:
   `cd server`
   `npm install`
+  `cd server/similar-recommender && pip install -r requirements.txt`
 
   For client:
   `cd client`
@@ -43,9 +44,8 @@ A stock photo platform to find and download beautiful photos of your need.
 
 ## Authors
 
--  [Sandesh GC](https://www.gcsandesh.com.np)
--  [Subek Sharma](https://www.linkedin.com/in/subek-sharma/)
-
+- [Sandesh GC](https://www.gcsandesh.com.np)
+- [Subek Sharma](https://www.linkedin.com/in/subek-sharma/)
 
 <!-- pip install requests -->
 <!-- pip install DeepImageSearch -->

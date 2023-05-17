@@ -50,9 +50,12 @@ export default function DragAndDropZone() {
   ////////////////    UPLOAD FILES AT LAST    //////////////////
   async function handlePhotosUpload(event) {
     event.preventDefault()
+    if (!files.length) {
+      return toast.error("No photos to upload!")
+    }
 
-    const reqBody = { photos: files }
-    console.log("body:", reqBody)
+    // const reqBody = { photos: files }
+    // console.log("body:", reqBody)
 
     // // uploading image on clicking submit button
     await fetch(UPLOAD_PHOTOS, {
@@ -65,6 +68,7 @@ export default function DragAndDropZone() {
     })
       .then(() => {
         toast.success("Uploaded Successfully!")
+        setFiles([])
         // console.log("uploaded")
       })
       .catch(() => {
@@ -85,7 +89,6 @@ export default function DragAndDropZone() {
           new Promise((resolve, reject) => {
             const reader = new FileReader()
             reader.readAsDataURL(file)
-
             reader.onabort = (msg) => reject(msg)
             reader.onerror = (error) => reject(error)
             reader.onload = (data) => {
@@ -126,9 +129,9 @@ export default function DragAndDropZone() {
           {...getRootProps({ style })}
           className="mx-auto flex items-center justify-center w-full h-44"
         >
-          <input name={"photo"} id={"photo"} {...getRootProps()} hidden />
+          <input name="photo" id="photo" {...getRootProps()} hidden />
           {isDragActive ? (
-            <p>Drop it like it's hot🥵</p>
+            <p>Drop photo here...</p>
           ) : (
             <p>
               Drag 'n' drop up to 10 files here, or click to select files...
