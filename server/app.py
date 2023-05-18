@@ -11,6 +11,12 @@ from DeepImageSearch import SearchImage
 import requests
 from PIL import Image
 
+# model_path = os.path.join("server", "src", "cnn_model.h5")
+model_path = os.path.join("src", "cnn_model.h5")
+if os.name == "nt":  # Windows
+    model_path = os.path.join("server", model_path)
+
+model = tf.keras.models.load_model(model_path)
 
 app = Flask(__name__)
 CORS(app)

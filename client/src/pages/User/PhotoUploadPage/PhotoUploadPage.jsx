@@ -1,6 +1,5 @@
 import React from "react"
-import { DragAndDropZone } from "../components"
-// import AddPhotoForm from "../components/AddPhotoForm"
+import { PhotoForm } from "../../../components"
 
 export default function PhotoUploadPage() {
   return (
@@ -8,8 +7,8 @@ export default function PhotoUploadPage() {
       <h1 className="text-center my-4 text-2xl font-bold underline leading-loose underline-offset-4">
         Upload Photo
       </h1>
-      {/* <AddPhotoForm /> */}
-      <DragAndDropZone />
+
+      <PhotoForm />
     </div>
   )
 }

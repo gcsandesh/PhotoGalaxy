@@ -1,3 +1,4 @@
-import UserDash from './UserDash'
+import UserDash from "./UserDash"
+import PhotoUploadPage from "./PhotoUploadPage/PhotoUploadPage"
 
-export { UserDash }
+export { UserDash, PhotoUploadPage }
