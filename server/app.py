@@ -4,12 +4,14 @@ import tensorflow as tf
 import base64
 import io 
 from io import BytesIO
+from flask_cors import CORS
 
 
 
-model = tf.keras.models.load_model("./src/cnn_model.h5")
+model = tf.keras.models.load_model("server/src/cnn_model.h5")
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/classify", methods=["POST"])
@@ -43,9 +45,9 @@ def classify_image():
 
     # Get the predicted class label
     if prediction[0] < 0.3:
-        label = " 18+ CONTENT."
+        label = '0' #18+ content
     else:
-        label = "SAFE TO USE."
+        label = '1' #safe to use 
 
     return jsonify(label)
 
