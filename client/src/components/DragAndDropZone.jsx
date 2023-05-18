@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from "react"
 import { useDropzone } from "react-dropzone"
 import { toast } from "react-hot-toast"
-import { FaRegTimesCircle } from "react-icons/fa"
+import { FaArrowCircleDown, FaRegTimesCircle } from "react-icons/fa"
 import { BsCloudUpload } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { CLASSIFY_PHOTO, GET_TAGS, UPLOAD_PHOTOS } from "../constants"
@@ -39,7 +39,9 @@ const rejectStyle = {
 
 export default function DragAndDropZone() {
   const [file, setFile] = useState()
-  const [preview, setPreview] = useState()
+  const [b64, setb64] = useState()
+  const [isValid, setIsValid] = useState()
+  const [tags, setTags] = useState()
 
   const {
     user: { accessToken },
@@ -47,6 +49,7 @@ export default function DragAndDropZone() {
 
   function removeFile() {
     setFile(null)
+    setb64(null)
   }
 
   //////////////    GET TAGS    //////////////////
@@ -64,7 +67,6 @@ export default function DragAndDropZone() {
     } catch (err) {
       console.log(err)
       toast.error("Error getting tags!")
-      return err
     }
   }
 
@@ -113,21 +115,18 @@ export default function DragAndDropZone() {
   }
 
   /////////////   WHEN FILE IS DROPPED    //////////////
-  const onDrop = useCallback((droppedFiles) => {
+  const onDrop = useCallback(async (droppedFiles) => {
     const acceptedFile = droppedFiles[0]
-
-    // verify photo at first
-    verifyPhoto(acceptedFile)
+    setIsValid(await verifyPhoto(acceptedFile))
+    setFile(acceptedFile)
+    setb64(await convertToBase64(acceptedFile))
 
     // const tags = getTags()
     // console.log(tags)
-
-    setPreview(convertToBase64(acceptedFile))
-    // setFile(acceptedFile)
   }, [])
 
-  console.log("file", file)
-  console.log("preview", preview)
+  // console.log("file", file)
+  // console.log("preview", preview?.length)
 
   /////////////   CONVERT FILE TO BASE64    //////////////
   const convertToBase64 = async (file) => {
@@ -184,42 +183,51 @@ export default function DragAndDropZone() {
 
       {/* ***** ** PREVIEWS ** ***** */}
       <div className="my-4">
-        {file && preview && <Preview b64={preview} handleRemove={removeFile} />}
+        {file && b64 && (
+          <Preview b64={b64} isValid={isValid} handleRemove={removeFile} />
+        )}
       </div>
 
-      <button
-        onClick={verifyPhoto}
-        className="my-1 px-2 py-1 bg-blue-500 hover:bg-blue-800 duration-200 rounded-md text-white"
-      >
-        Verify
-      </button>
+      {file && (
+        <>
+          <button
+            onClick={verifyPhoto}
+            className="my-1 px-2 py-1 bg-blue-500 hover:bg-blue-800 duration-200 rounded-md text-white"
+          >
+            Verify
+          </button>
 
-      <button
-        onClick={getTags}
-        className="my-1 px-2 py-1 bg-secondaryGreen hover:bg-green-900 duration-200 rounded-md text-white"
-      >
-        Generate Tags
-      </button>
+          <button
+            onClick={getTags}
+            className="my-1 px-2 py-1 bg-secondaryGreen hover:bg-green-900 duration-200 rounded-md text-white"
+          >
+            Generate Tags
+          </button>
 
-      <button
-        onClick={handlePhotosUpload}
-        className="my-1 mx-auto text-white bg-blue-500 hover:bg-blue-700 duration-200  font-bold px-3 py-1 sm:py-1 rounded focus:outline-none"
-      >
-        UPLOAD
-      </button>
+          <button
+            onClick={handlePhotosUpload}
+            className="my-1 mx-auto text-white bg-blue-500 hover:bg-blue-700 duration-200  font-bold px-3 py-1 sm:py-1 rounded focus:outline-none"
+          >
+            UPLOAD
+          </button>
+        </>
+      )}
     </div>
   )
 }
 
-const Preview = ({ handleRemove, b64 }) => {
+const Preview = ({ handleRemove, b64, isValid }) => {
   return (
     <div className="rounded relative group flex items-center flex-col border-2 hover:border-rose-400 transition-all border-green-400">
       <FaRegTimesCircle
         size={24}
         onClick={handleRemove}
-        className="text-rose-500 absolute right-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:visible opacity-0 invisible"
+        className="text-rose-500 z-10 absolute right-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:visible opacity-0 invisible"
       />
-      <img className="w-64 h-64 object-contain pt-4 p-2" src={b64} />
+      <img
+        className={`${!isValid && "blur-md"} w-64 h-64 object-contain pt-4 p-2`}
+        src={b64}
+      />
     </div>
   )
 }
