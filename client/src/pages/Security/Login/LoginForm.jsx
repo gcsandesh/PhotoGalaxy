@@ -32,7 +32,7 @@ export default function LoginForm() {
 
       await dispatch(setCredentials())
 
-      console.log(payload)
+      // console.log(payload)
 
       toast.success(`Successfully logged in as '${payload.user.email}'!`)
 
@@ -57,7 +57,7 @@ export default function LoginForm() {
     }
     if (formData.email && /\s+/.test(formData.email)) {
       isValid = false
-      console.log(email.match(/\s+/))
+      // console.log(email.match(/\s+/))
       setErrors((prevErrors) => [
         ...prevErrors,
         "* Email cannot contain white spaces!",

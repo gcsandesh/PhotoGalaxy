@@ -1,23 +1,36 @@
-from flask import Flask, request, render_template
-import numpy as np
+from imageai.Classification import ImageClassification
+from flask import Flask, request, jsonify
 import tensorflow as tf
+import base64
+import io
 from io import BytesIO
+from flask_cors import CORS
+import numpy as np
+import os
+import tensorflow as tf
+
+model_path = os.path.join("server", "src", "cnn_model.h5")
+model = tf.keras.models.load_model(model_path)
+
+app = Flask(__name__)
+CORS(app)
 
 
-model = tf.keras.models.load_model('server\src\cnn_model.h5')
-
-app = Flask(__name__, template_folder = 'templates')
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
-
-@app.route('/classify', methods=['POST'])
+@app.route("/classify", methods=["POST"])
 def classify_image():
+    # # Get the Base64-encoded image from the request
+    # image_data = request.json["image"]
+
+    # # Decode the Base64-encoded image to binary
+    # image_bytes = base64.b64decode(image_data)
+
+    # # Load the image from bytes
+    # img = tf.keras.preprocessing.image.load_img(
+    #     io.BytesIO(image_bytes), target_size=(240, 320)
+    # )
+
     # Get the file from the request
-    file = request.files['file']
+    file = request.files['photo']
 
     # Read the file
     img = tf.keras.preprocessing.image.load_img(
@@ -29,22 +42,56 @@ def classify_image():
     # Normalize the image
     img_array /= 255.0
 
-    # Add a batch dimension
+    # Add an additional dimension to match the expected input shape
     img_array = np.expand_dims(img_array, axis=0)
 
     # Predict the class
     prediction = model.predict(img_array)
 
     # Get the predicted class label
-    if prediction[0]<0.3 :
-         label = ' 18+ CONTENT.'
+    if prediction[0] < 0.3:
+        label = 0 #18+ content
     else:
-         label = 'SAFE TO USE.'
+        label = 1 #safe to use 
 
-    # Render the index template with the file upload form and classification result
-    return render_template('index.html', label=label)
+    return jsonify(label)
+
+
+@app.route("/tags", methods=["POST"])
+def generate_tags():
+    # # Get the Base64-encoded image from the request
+    # image_data = request.json["image"]
+
+    # # Decode the Base64-encoded image to binary
+    # image_bytes = base64.b64decode(image_data)
+
+    # # Load the image from bytes
+    # img = tf.keras.preprocessing.image.load_img(
+    #     io.BytesIO(image_bytes), target_size=(240, 320)
+    # )
+
+    # Get the file from the request
+    file = request.files['file']
+
+    # Read the file
+    img = tf.keras.preprocessing.image.load_img(
+        BytesIO(file.read()), target_size=(240, 320))
+
+    prediction = ImageClassification()
+    # Here i used pretrained inception Inception model however any one could be used
+    prediction.setModelTypeAsInceptionV3()
+
+    # Directly give the path where the model is stored or use above code to join paths
+    prediction.setModelPath("server\src\inception_v3_google.pth")
+    prediction.loadModel()
+
+    # Give path to the image which is to be classified
+    predictions = prediction.classifyImage(img, result_count=5)
+
+    # Return the JSON response
+
+    return jsonify(predictions[0])
 
 
 if __name__ == '__main__':
-    app.run()
-
+    app.run(host='0.0.0.0', port=5000)

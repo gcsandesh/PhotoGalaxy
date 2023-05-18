@@ -19,18 +19,28 @@ import {
   ResetPassword,
   Photo,
   ChangePassword,
-  AdminPanel,
 } from "./pages"
+
+import {
+  AdminDash,
+  AdminLoginPage,
+  AdminPanel,
+  AdminRegistration,
+  ReportedItems,
+  SiteAnalytics,
+  SiteSettings,
+  UserMgmt,
+  AdminMgmt
+} from "./pages/Admin"
 // import AOS from "aos"
 // import "aos/dist/aos.css"
 import Layout from "./pages/Utilities/Layout"
 import Protected from "./pages/Utilities/Protected"
+import AdminProtected from "./pages/Utilities/AdminProtected"
+
 import { useDispatch, useSelector } from "react-redux"
 import { setCredentials as setUserCredentials } from "./features/userAuth/userAuthSlice"
 import { setCredentials as setAdminCredentials } from "./features/adminAuth/adminAuthSlice"
-import AdminLoginPage from "./pages/Admin/AdminLoginPage"
-import AdminRegistration from "./pages/Admin/AdminRegistration"
-import AdminProtected from "./pages/Utilities/AdminProtected"
 
 function App() {
   const dispatch = useDispatch()
@@ -132,14 +142,22 @@ function App() {
         />
         <Route path="/admin-login" element={<AdminLoginPage />} />
         <Route path="/admin-signup" element={<AdminRegistration />} />
+
         <Route
-          path="/admin/dashboard"
+          path="/admin"
           element={
             <AdminProtected>
               <AdminPanel />
             </AdminProtected>
           }
-        />
+        >
+          <Route path="analytics" element={<SiteAnalytics />} />
+          <Route path="dashboard" element={<AdminDash />} />
+          <Route path="admin-mgmt" element={<AdminMgmt />} />
+          <Route path="user-mgmt" element={<UserMgmt />} />
+          <Route path="reports" element={<ReportedItems />} />
+          <Route path="settings" element={<SiteSettings />} />
+        </Route>
         <Route path="/admin/*" element={<Navigate to={"/admin"} />} />
         <Route path="*" element={<Navigate to={"/"} />} />
       </Routes>
