@@ -6,8 +6,11 @@ import io
 from io import BytesIO
 from flask_cors import CORS
 import numpy as np
+import os
+import tensorflow as tf
 
-model = tf.keras.models.load_model("server/src/cnn_model.h5")
+model_path = os.path.join("server", "src", "cnn_model.h5")
+model = tf.keras.models.load_model(model_path)
 
 app = Flask(__name__)
 CORS(app)
