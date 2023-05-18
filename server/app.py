@@ -9,7 +9,7 @@ import numpy as np
 import os
 import tensorflow as tf
 
-model_path = os.path.join("server", "src", "cnn_model.h5")
+# model_path = os.path.join("server", "src", "cnn_model.h5")
 model_path = os.path.join("src", "cnn_model.h5")
 if os.name == "nt":  # Windows
     model_path = os.path.join("server", model_path)
