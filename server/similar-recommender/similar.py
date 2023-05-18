@@ -1,4 +1,4 @@
-#importing the necessary moduled
+# importing the necessary moduled
 import sys
 import requests
 from io import BytesIO
@@ -14,5 +14,6 @@ image_data = response.content
 image_variable = BytesIO(image_data)
 
 
-print(SearchImage().get_similar_images(
-    image_variable, number_of_images=int(sys.argv[2])))
+print(
+    SearchImage().get_similar_images(image_variable, number_of_images=int(sys.argv[2]))
+)
