@@ -10,6 +10,10 @@ import os
 import tensorflow as tf
 
 model_path = os.path.join("server", "src", "cnn_model.h5")
+model_path = os.path.join("src", "cnn_model.h5")
+if os.name == "nt":  # Windows
+    model_path = os.path.join("server", model_path)
+
 model = tf.keras.models.load_model(model_path)
 
 app = Flask(__name__)
@@ -50,9 +54,9 @@ def classify_image():
 
     # Get the predicted class label
     if prediction[0] < 0.3:
-        label = 0 #18+ content
+        label = 0  # 18+ content
     else:
-        label = 1 #safe to use 
+        label = 1  # safe to use
 
     return jsonify(label)
 
