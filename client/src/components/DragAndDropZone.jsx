@@ -54,34 +54,35 @@ export default function DragAndDropZone() {
     let formData = new FormData()
     formData.append("photo", file) // file is the image file
 
-    fetch(GET_TAGS, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        toast(data)
+    try {
+      const res = await fetch(GET_TAGS, {
+        method: "POST",
+        body: formData,
       })
+      const data = await res.json()
+      return data
+    } catch (err) {
+      console.log(err)
+      toast.error("Error getting tags!")
+      return err
+    }
   }
 
-  const verifyPhoto = async () => {
-    let formData = new FormData()
-    formData.append("photo", file) // file is the image file
+  const verifyPhoto = async (file) => {
+    try {
+      let formData = new FormData()
+      formData.append("photo", file) // file is the image file
 
-    fetch(CLASSIFY_PHOTO, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        if (data === 1) {
-          toast.success("Verified Successfully!")
-        } else {
-          toast.error("Error Verifying!")
-        }
+      const res = await fetch(CLASSIFY_PHOTO, {
+        method: "POST",
+        body: formData,
       })
+      const data = await res.json()
+      return data
+    } catch (err) {
+      console.log(err)
+      toast.error("Error verifying photo!")
+    }
   }
 
   ////////////////    UPLOAD FILES AT LAST    //////////////////
@@ -114,13 +115,23 @@ export default function DragAndDropZone() {
   /////////////   WHEN FILE IS DROPPED    //////////////
   const onDrop = useCallback((droppedFiles) => {
     const acceptedFile = droppedFiles[0]
-    convertToBase64(acceptedFile)
-    setFile(acceptedFile)
+
+    // verify photo at first
+    verifyPhoto(acceptedFile)
+
+    // const tags = getTags()
+    // console.log(tags)
+
+    setPreview(convertToBase64(acceptedFile))
+    // setFile(acceptedFile)
   }, [])
 
+  console.log("file", file)
+  console.log("preview", preview)
+
   /////////////   CONVERT FILE TO BASE64    //////////////
-  const convertToBase64 = (file) => {
-    new Promise((resolve, reject) => {
+  const convertToBase64 = async (file) => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.readAsDataURL(file)
       reader.onabort = (msg) => reject(msg)
@@ -129,7 +140,7 @@ export default function DragAndDropZone() {
         // console.log(data.target.result)
         resolve(data.target.result)
       }
-    }).then((b64) => setPreview(b64))
+    })
   }
 
   const {
