@@ -5,6 +5,7 @@ import base64
 import io 
 from io import BytesIO
 from flask_cors import CORS
+import numpy as np
 
 
 
@@ -28,7 +29,8 @@ def classify_image():
     # )
 
     # Get the file from the request
-    file = request.files['file']
+    file = request.files['photo']
+
 
     # Read the file
     img = tf.keras.preprocessing.image.load_img(
@@ -40,14 +42,17 @@ def classify_image():
     # Normalize the image
     img_array /= 255.0
 
+    # Add an additional dimension to match the expected input shape
+    img_array = np.expand_dims(img_array, axis=0)
+
     # Predict the class
     prediction = model.predict(img_array)
 
     # Get the predicted class label
     if prediction[0] < 0.3:
-        label = '0' #18+ content
+        label = 0 #18+ content
     else:
-        label = '1' #safe to use 
+        label = 1 #safe to use 
 
     return jsonify(label)
 
