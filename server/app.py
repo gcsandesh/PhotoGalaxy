@@ -2,11 +2,9 @@ from imageai.Classification import ImageClassification
 from flask import Flask, request, jsonify
 import tensorflow as tf
 import base64
-import io 
+import io
 from io import BytesIO
 from flask_cors import CORS
-
-
 
 model = tf.keras.models.load_model("server/src/cnn_model.h5")
 
@@ -28,7 +26,7 @@ def classify_image():
     # )
 
     # Get the file from the request
-    file = request.files['file']
+    file = request.files['photo']
 
     # Read the file
     img = tf.keras.preprocessing.image.load_img(
@@ -76,7 +74,6 @@ def generate_tags():
     # Here i used pretrained inception Inception model however any one could be used
     prediction.setModelTypeAsInceptionV3()
 
-
     # Directly give the path where the model is stored or use above code to join paths
     prediction.setModelPath("server\src\inception_v3_google.pth")
     prediction.loadModel()
@@ -86,9 +83,8 @@ def generate_tags():
 
     # Return the JSON response
 
-    return jsonify(predictions[0]) 
+    return jsonify(predictions[0])
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
