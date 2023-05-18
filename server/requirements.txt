@@ -1,9 +1,11 @@
 # pil
 deepimagesearch
-imageai
 numpy
+flask
+torch
+torchvision
+tensorflow
+imageai
 io
 requests
-flask
-tensorflow
 #the python version used is 3.9

@@ -1,3 +1,6 @@
+
+*.http
+
 # Logs
 logs
 *.log
@@ -24,3 +27,6 @@ inception_v3_google.pth
 *.njsproj
 *.sln
 *.sw?
+
+#PYTHON VIRUTAL ENV
+.venv

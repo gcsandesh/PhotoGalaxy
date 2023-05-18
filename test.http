@@ -1,7 +1,0 @@
-POST
-
-http://localhost:5000/tags
-
-{
-    base64: ""
-}
