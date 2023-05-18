@@ -12,7 +12,7 @@ A stock photo platform to find and download beautiful photos of your need.
   For server:
   `cd server`
   `npm install`
-  `cd server/similar-recommender && pip install -r requirements.txt`
+  `cd server && pip install -r requirements.txt`
 
   For client:
   `cd client`

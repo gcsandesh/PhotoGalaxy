@@ -10,7 +10,7 @@ const AddPhotoForm = () => {
     new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.readAsDataURL(acceptedFile)
-      reader.read
+      // reader.read
       reader.onabort = (msg) => reject(msg)
       reader.onerror = (error) => reject(error)
       reader.onload = (data) => {
@@ -23,7 +23,7 @@ const AddPhotoForm = () => {
     setFile([])
   }, [])
 
-  console.log(file)
+  // console.log(file)
 
   return (
       <div className="flex gap-6 items-start justify-between">
