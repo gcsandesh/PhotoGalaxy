@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast"
 import { FaRegTimesCircle } from "react-icons/fa"
 import { BsCloudUpload } from "react-icons/bs"
 import { useSelector } from "react-redux"
-import { UPLOAD_PHOTOS } from "../constants"
+import { CLASSIFY_PHOTO, GET_TAGS, UPLOAD_PHOTOS } from "../constants"
 
 // ////// STYLES ////// //
 
@@ -16,7 +16,7 @@ const baseStyle = {
   padding: "20px",
   borderWidth: 2,
   borderRadius: 7,
-  borderColor: "#000",
+  // borderColor: "#000",
   borderColor: "rgb(59,130,246)",
   borderStyle: "dashed",
   backgroundColor: "#fafafa",
@@ -39,6 +39,7 @@ const rejectStyle = {
 
 export default function DragAndDropZone() {
   const [file, setFile] = useState()
+  const [preview, setPreview] = useState()
 
   const {
     user: { accessToken },
@@ -48,6 +49,41 @@ export default function DragAndDropZone() {
     setFile(null)
   }
 
+  //////////////    GET TAGS    //////////////////
+  const getTags = async () => {
+    let formData = new FormData()
+    formData.append("photo", file) // file is the image file
+
+    fetch(GET_TAGS, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        toast(data)
+      })
+  }
+
+  const verifyPhoto = async () => {
+    let formData = new FormData()
+    formData.append("photo", file) // file is the image file
+
+    fetch(CLASSIFY_PHOTO, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data === 1) {
+          toast.success("Verified Successfully!")
+        } else {
+          toast.error("Error Verifying!")
+        }
+      })
+  }
+
   ////////////////    UPLOAD FILES AT LAST    //////////////////
   async function handlePhotosUpload(event) {
     event.preventDefault()
@@ -55,10 +91,7 @@ export default function DragAndDropZone() {
       return toast.error("No photos to upload!")
     }
 
-    // const reqBody = { photos: files }
-    // console.log("body:", reqBody)
-
-    // // uploading image on clicking submit button
+    // uploading image on clicking submit button
     await fetch(UPLOAD_PHOTOS, {
       method: "POST",
       body: JSON.stringify({ photos: file }),
@@ -78,22 +111,26 @@ export default function DragAndDropZone() {
       })
   }
 
-  /////////////   WHEN FILE is DROPPED    //////////////
+  /////////////   WHEN FILE IS DROPPED    //////////////
   const onDrop = useCallback((droppedFiles) => {
     const acceptedFile = droppedFiles[0]
+    convertToBase64(acceptedFile)
+    setFile(acceptedFile)
+  }, [])
+
+  /////////////   CONVERT FILE TO BASE64    //////////////
+  const convertToBase64 = (file) => {
     new Promise((resolve, reject) => {
       const reader = new FileReader()
-      reader.readAsDataURL(acceptedFile)
-      // reader.readAsArrayBuffer(acceptedFile)
+      reader.readAsDataURL(file)
       reader.onabort = (msg) => reject(msg)
       reader.onerror = (error) => reject(error)
       reader.onload = (data) => {
-        console.log(data.target.result)
+        // console.log(data.target.result)
         resolve(data.target.result)
       }
-    }).then((b64) => setFile(b64))
-    setFile(acceptedFile)
-  }, [])
+    }).then((b64) => setPreview(b64))
+  }
 
   const {
     getRootProps,
@@ -113,8 +150,6 @@ export default function DragAndDropZone() {
     }),
     [isFocused, isDragAccept, isDragReject]
   )
-
-  console.log(file)
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -138,29 +173,26 @@ export default function DragAndDropZone() {
 
       {/* ***** ** PREVIEWS ** ***** */}
       <div className="my-4">
-        {file && <Preview b64={file} handleRemove={removeFile} />}
+        {file && preview && <Preview b64={preview} handleRemove={removeFile} />}
       </div>
 
       <button
-        onClick={() => {
-          fetch("http://192.168.1.118:5000/classify", {
-            method: "POST",
-            body: JSON.stringify({ file }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-            // .then((res) => res.json())
-            .then((data) => console.log(data))
-        }}
-        className="border-2 px-2 py-1 bg-blue-400 rounded-md"
+        onClick={verifyPhoto}
+        className="my-1 px-2 py-1 bg-blue-500 hover:bg-blue-800 duration-200 rounded-md text-white"
       >
-        Check
+        Verify
+      </button>
+
+      <button
+        onClick={getTags}
+        className="my-1 px-2 py-1 bg-secondaryGreen hover:bg-green-900 duration-200 rounded-md text-white"
+      >
+        Generate Tags
       </button>
 
       <button
         onClick={handlePhotosUpload}
-        className="mx-auto text-white bg-blue-500 hover:bg-blue-700 font-bold px-2 py-2 sm:py-1 rounded focus:outline-none"
+        className="my-1 mx-auto text-white bg-blue-500 hover:bg-blue-700 duration-200  font-bold px-3 py-1 sm:py-1 rounded focus:outline-none"
       >
         UPLOAD
       </button>
