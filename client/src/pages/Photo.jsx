@@ -90,6 +90,22 @@ export default function Photo() {
       })
   }
 
+  // fetching and downloading photo on click
+  function handleDownload() {
+    fetch(photo.url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]))
+        const link = document.createElement("a")
+        const fileName = photo.public_id.split("PhotoGalaxy/")[1] + ".jpg"
+        link.href = url
+        link.setAttribute("download", fileName)
+        document.body.appendChild(link)
+        link.click()
+        link.parentNode.removeChild(link)
+      })
+  }
+
   useEffect(() => {
     fetch(GET_PHOTO_BY_ID + id)
       .then((res) => res.json())
@@ -106,7 +122,6 @@ export default function Photo() {
   function copyPhotoURL() {
     navigator.clipboard.writeText(currentURL)
   }
-
 
   return (
     <div className="container p-4 mx-auto ">
@@ -140,12 +155,11 @@ export default function Photo() {
           <div className="flex gap-2">
             {/* DOWNLOAD BUTTON */}
 
-            <button className=" p-3 rounded bg-green-500 hover:bg-gray-50 border-2 transition-all duration-200 border-green-500 hover:text-green-500  w-full text-white font-bold text-lg">
-              <a
-                href={photo.url}
-                download={true}
-                className=" flex items-center justify-center gap-2"
-              >
+            <button
+              onClick={handleDownload}
+              className=" p-3 rounded bg-green-500 hover:bg-gray-50 border-2 transition-all duration-200 border-green-500 hover:text-green-500  w-full text-white font-bold text-lg"
+            >
+              <a className=" flex items-center justify-center gap-2">
                 <FaCloudDownloadAlt size={20} /> <span>DOWNLOAD</span>
               </a>
             </button>
