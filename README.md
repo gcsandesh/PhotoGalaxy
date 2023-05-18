@@ -1,6 +1,7 @@
 # PhotoGalaxy
 
-A stock photo platform to find and download beautiful photos of your need.
+A stock photo platform to find and download beautiful photos of your need. 
+It uses a CNN model trained on nearly 2200 images to classify images into two classes : NSFW & SFW. The model showed a training accuracy of 92% and a test accuracy of about 90%. 
 
 ## Running the app on your device locally
 
