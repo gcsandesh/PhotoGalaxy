@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom"
 import { Gallery } from "react-grid-gallery"
-import { GET_USER_UPLOADS } from "../constants"
+import { GET_USER_UPLOADS } from "../../../constants"
 
 export default function UserProfile() {
   const navigate = useNavigate()

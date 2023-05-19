@@ -1,9 +1,9 @@
 import Home from "./Home/Home"
 import Photo from "./Photo"
 import Category from "./Category"
-import UserProfile from "./UserProfile"
+import PhotoUploadPage from "./PhotoUploadPage/PhotoUploadPage"
 import { AdminPanel } from "./Admin"
-import { UserDash, PhotoUploadPage } from "./User"
+import { UserDash, UserProfile } from "./User"
 import { Login, ChangePassword, ResetPassword, Signup } from "./Security"
 
 export {
