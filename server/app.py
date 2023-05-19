@@ -7,7 +7,6 @@ from flask_cors import CORS
 import numpy as np
 import os
 import tensorflow as tf
-from DeepImageSearch import SearchImage
 import requests
 from PIL import Image
 
@@ -84,23 +83,23 @@ def generate_tags():
     return jsonify(predictions[0])
 
 
-@app.route("/similar", methods=["POST"])
-def similar_recommender():
-    # Get the url from the request
-    url = request.args.get("url")
-    response = requests.get(url)
+# @app.route("/similar", methods=["POST"])
+# def similar_recommender():
+#     # Get the url from the request
+#     url = request.args.get("url")
+#     response = requests.get(url)
 
-    # Get the image data from the response
-    image_data = response.content
+#     # Get the image data from the response
+#     image_data = response.content
 
-    # Store the image data as a variable
-    image_variable = BytesIO(image_data)
+#     # Store the image data as a variable
+#     image_variable = BytesIO(image_data)
 
-    similar_images = SearchImage().get_similar_images(image_variable,6)
+#     similar_images = SearchImage().get_similar_images(image_variable,6)
     
 
-    # Return the JSON response
-    return jsonify(similar_images)  #https://res.cloudinary.com/dadbpnctj/image/upload/v1679638550/projects/PhotoGalaxy/
+#     # Return the JSON response
+#     return jsonify(similar_images)  #https://res.cloudinary.com/dadbpnctj/image/upload/v1679638550/projects/PhotoGalaxy/
 
 
 if __name__ == "__main__":
