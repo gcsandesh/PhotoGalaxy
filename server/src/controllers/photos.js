@@ -5,61 +5,48 @@ const _ = require("lodash")
 
 ////////////    UPLOAD ONE OR MANY PHOTOS    /////////////
 
-async function uploadPhotos(req, res) {
+async function uploadPhoto(req, res) {
   const accessInfo = req.accessInfo
-  const photos = req.body.photos
+  const file = req.body.photo
 
   // console.log(accessInfo)
 
-  if (!photos.length) {
-    return res.status(400).send({ message: "No photos to upload!" })
+  if (!file) {
+    return res.status(400).send({ message: "No photo to upload!" })
   }
 
   try {
-    // either all or no photos should be saved
-    const photoUploadResponse = []
-
-    // Promise.all(
-    photos.forEach(async (eachPhoto, index) => {
-      const data = await cloudinary.uploader.upload(eachPhoto, {
-        folder: `projects/PhotoGalaxy`,
-      })
-
-      const photo = new Photo({
-        public_id: data.public_id,
-        url: data.secure_url,
-        format: data.format,
-        resource_type: data.resource_type,
-        dimensions: {
-          height: data.height,
-          width: data.width,
-        },
-        bytes: data.bytes,
-        uploaded_by: accessInfo.user._id,
-      })
-
-      const savedPhoto = await photo.save()
-
-      const userFilter = { _id: accessInfo.user._id }
-      const updateData = {
-        uploaded_photos: savedPhoto._id,
-      }
-      const user = await User.findOneAndUpdate(
-        userFilter,
-        { $push: updateData },
-        {
-          new: true,
-        }
-      )
-
-      // console.log("saved photo id:", savedPhoto.id)
-      // console.log("user", user)
-
-      // console.log("savedphoto:", savedPhoto)
-      photoUploadResponse.push(savedPhoto)
+    const data = await cloudinary.uploader.upload(file, {
+      folder: `projects/PhotoGalaxy`,
     })
-    // ).then((result) => console.log(result, photoUploadResponse))
-    // console.log("arrayofresponses", photoUploadResponse)
+
+    const photo = new Photo({
+      public_id: data.public_id,
+      url: data.secure_url,
+      format: data.format,
+      resource_type: data.resource_type,
+      dimensions: {
+        height: data.height,
+        width: data.width,
+      },
+      bytes: data.bytes,
+      uploaded_by: accessInfo.user._id,
+    })
+
+    const savedPhoto = await photo.save()
+
+    const userFilter = { _id: accessInfo.user._id }
+    const updateData = {
+      uploaded_photos: savedPhoto._id,
+    }
+    const user = await User.findOneAndUpdate(
+      userFilter,
+      { $push: updateData },
+      {
+        new: true,
+      }
+    )
+    const photoUploadResponse = savedPhoto
 
     return res.status(201).json({
       message: "Uploaded successfully!",
@@ -210,6 +197,6 @@ module.exports = {
   getPhoto,
   getPhotosFromCategory,
   getSimilarPhotos,
-  uploadPhotos,
+  uploadPhoto,
   deletePhoto,
 }

@@ -17,20 +17,22 @@ const PhotoForm = () => {
   ////////////////    UPLOAD FILES AT LAST    //////////////////
   const handlePhotosUpload = async (event) => {
     event.preventDefault()
-    if (!file.length) {
+    if (!b64) {
       return toast.error("No photos to upload!")
     }
 
+    console.log(b64)
     // uploading image on clicking submit button
     await fetch(UPLOAD_PHOTOS, {
       method: "POST",
-      body: JSON.stringify({ photos: file }),
+      body: JSON.stringify({ photo: b64 }),
       headers: {
         Authorization: "Bearer " + accessToken,
         "Content-Type": "application/json",
       },
     })
-      .then(() => {
+      .then(async (res) => {
+        console.log(await res.json())
         toast.success("Uploaded Successfully!")
         setFile([])
         // console.log("uploaded")

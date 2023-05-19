@@ -44,8 +44,8 @@ export default function HomeGallery() {
         images={images}
         enableImageSelection={false}
         onClick={openEachPhotoPage}
-        margin={3}
-        rowHeight={250}
+        margin={10}
+        rowHeight={400}
         tileViewportStyle={(o) => ({
           objectFit: "contain",
           height: o.item.scaledHeight,
