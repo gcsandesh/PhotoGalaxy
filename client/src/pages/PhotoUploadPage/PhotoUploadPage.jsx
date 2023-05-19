@@ -1,5 +1,5 @@
 import React from "react"
-import { PhotoForm } from "../../../components"
+import { PhotoForm } from "../../components"
 
 export default function PhotoUploadPage() {
   return (
