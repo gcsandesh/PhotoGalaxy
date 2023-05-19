@@ -1,7 +1,5 @@
 import React, { useCallback, useMemo } from "react"
 import { useDropzone } from "react-dropzone"
-
-import { FaRegTimesCircle } from "react-icons/fa"
 import { BsCloudUpload } from "react-icons/bs"
 
 // ////// STYLES ////// //

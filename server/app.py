@@ -8,12 +8,6 @@ import numpy as np
 import os
 import tensorflow as tf
 
-# model_path = os.path.join("server", "src", "cnn_model.h5")
-model_path = os.path.join("src", "cnn_model.h5")
-if os.name == "nt":  # Windows
-    model_path = os.path.join("server", model_path)
-
-model = tf.keras.models.load_model(model_path)
 
 app = Flask(__name__)
 CORS(app)
@@ -38,7 +32,10 @@ def classify_image():
     # Add an additional dimension to match the expected input shape
     img_array = np.expand_dims(img_array, axis=0)
 
-    model_path = os.path.join("server", "src", "cnn_model.h5")
+    model_path = os.path.join("src", "cnn_model.h5")
+    if os.name == "nt":  # Windows
+        model_path = os.path.join("server", model_path)
+
     model = tf.keras.models.load_model(model_path)
 
     # Predict the class
@@ -67,7 +64,12 @@ def generate_tags():
 
     # Here i used pretrained inception Inception model however any one could be used
     prediction.setModelTypeAsInceptionV3()
-    model_path = os.path.join("server", "src", "inception_v3_google.pth")
+
+    model_path = os.path.join("src", "inception_v3_google.pth")
+    if os.name == "nt":  # Windows
+        model_path = os.path.join("server", model_path)
+
+    model = tf.keras.models.load_model(model_path)
     prediction.setModelPath(model_path)
     prediction.loadModel()
 

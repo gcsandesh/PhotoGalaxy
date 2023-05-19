@@ -19,4 +19,4 @@ export const GET_USER_BY_ID = API_URL + "/users/id/"
 
 // FLASK
 export const CLASSIFY_PHOTO = FLASK_URL + "/classify"
-export const GET_TAGS = FLASK_URL + "/tags"
+export const GENERATE_TAGS = FLASK_URL + "/tags"
