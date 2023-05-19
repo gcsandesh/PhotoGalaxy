@@ -4,10 +4,9 @@ import { NavLink } from "react-router-dom"
 const Navigation = () => {
   return (
     <>
-      {" "}
       <li>
         <NavLink
-          className="hover:bg-[#023e8a] px-4 py-4 w-full block duration-200"
+          className="hover:bg-[#023e8a] px-4 py-4 w-full block duration-200 rounded-t-xl"
           to=""
         >
           Dashboard
@@ -18,7 +17,7 @@ const Navigation = () => {
           className="hover:bg-[#023e8a] px-4 py-4 w-full block duration-200"
           to="analytics"
         >
-          SiteAnalytics
+          Site Analytics
         </NavLink>
       </li>
       <li>
@@ -42,12 +41,12 @@ const Navigation = () => {
           className="hover:bg-[#023e8a] px-4 py-4 w-full block duration-200"
           to="reports"
         >
-          Reported Items
+          Reported Contents
         </NavLink>
       </li>
       <li>
         <NavLink
-          className="hover:bg-[#023e8a] px-4 py-4 w-full block duration-200"
+          className="hover:bg-[#023e8a] px-4 py-4 w-full block duration-200 rounded-b-xl"
           to="settings"
         >
           Settings
