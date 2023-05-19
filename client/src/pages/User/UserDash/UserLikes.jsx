@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { GET_USER_LIKES } from "../../constants"
+import { GET_USER_LIKES } from "../../../constants"
 
 export default function UserLikes({ userID }) {
   const [photos, setPhotos] = useState([])

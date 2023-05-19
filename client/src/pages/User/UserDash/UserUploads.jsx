@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { Gallery } from "react-grid-gallery"
 import { toast } from "react-hot-toast"
-import { useSelector } from "react-redux"
+// import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { GET_USER_UPLOADS } from "../../constants"
+import { GET_USER_UPLOADS } from "../../../constants"
 
 export default function UserUploads({ userID }) {
   const navigate = useNavigate()
   const [images, setImages] = useState([])
-  const {
-    user: { _id },
-  } = useSelector((store) => store.userAuth)
+  // const {
+  //   user: { _id },
+  // } = useSelector((store) => store.userAuth)
 
   // console.log(images)
 

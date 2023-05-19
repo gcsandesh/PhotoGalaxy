@@ -3,10 +3,10 @@ import { toast } from "react-hot-toast"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 
-import UserUploads from "./UserUploads"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { GET_USER_BY_ID } from "../../../constants"
+import UserUploads from "./UserUploads"
 import UserLikes from "./UserLikes"
 
 export default function UserDash() {
