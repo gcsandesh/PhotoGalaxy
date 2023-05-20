@@ -43,7 +43,7 @@ export default function DragAndDropZone({
   /////////////   WHEN FILE IS DROPPED    //////////////
   const onDrop = useCallback(async (droppedFiles) => {
     const acceptedFile = droppedFiles[0]
-    // setIsValid(await verifyPhoto(acceptedFile))
+    setIsValid(await verifyPhoto(acceptedFile))
     setFile(acceptedFile)
     setb64(await convertToBase64(acceptedFile))
   }, [])

@@ -10,7 +10,7 @@ const UploadPreview = ({
   b64,
   isValid,
   tags,
-  //   getTags,
+  // getTags,
   handlePhotosUpload,
   //   setTags,
 }) => {
@@ -34,11 +34,11 @@ const UploadPreview = ({
 
       const data = await res.json()
       console.log("data", data)
-      toast.success("Tags generated successfully!")
+      // toast.success("Tags generated successfully!")
       return data
     } catch (err) {
       console.log(err)
-      toast.error("Error getting tags!")
+      // toast.error("Error getting tags!")
     }
   }
 
@@ -51,8 +51,8 @@ const UploadPreview = ({
           className="text-rose-500 z-10 absolute right-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:visible opacity-0 invisible"
         />
         <img
-          // className={`${!isValid && "blur-md"}  h-96 object-contain pt-4 p-2`}
-          className={`h-96 object-contain pt-4 p-2`}
+          className={`${!isValid && "blur-md"}  h-96 object-contain pt-4 p-2`}
+          // className={`h-96 object-contain pt-4 p-2`}
           src={b64}
         />
       </div>
@@ -72,6 +72,7 @@ const UploadPreview = ({
             {/* buttons */}
             <>
               <button
+                type="button"
                 onClick={generateTags}
                 className="my-1 w-1/2 px-2 py-1 bg-secondaryGreen hover:bg-green-900 duration-200 rounded-md text-white"
               >
@@ -79,6 +80,7 @@ const UploadPreview = ({
               </button>
 
               <button
+                type="submit"
                 onClick={handlePhotosUpload}
                 className="w-1/2 my-1 text-white bg-blue-500 hover:bg-blue-700 duration-200 font-bold px-3 py-1 sm:py-1 rounded focus:outline-none"
               >
