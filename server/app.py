@@ -61,10 +61,10 @@ def generate_tags():
 
     prediction = ImageClassification()
 
-    # Here i used pretrained inception Inception model however any one could be used
-    prediction.setModelTypeAsInceptionV3()
+    # Here i used pretrained Resnet however any one could be used
+    prediction.setModelTypeAsResNet50()
 
-    model_path = os.path.join("src", "inception_v3_google.pth")
+    model_path = os.path.join("src", 'resnet50-19c8e357.pth')
     if os.name == "nt":  # Windows
         model_path = os.path.join("server", model_path)
 
