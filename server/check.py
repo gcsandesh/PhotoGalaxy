@@ -6,12 +6,12 @@ import os
 
 prediction = ImageClassification()
 
-prediction.setModelTypeAsInceptionV3()
+prediction.setModelTypeAsResNet50()
 
-prediction.setModelPath('server\src\inception_v3_google.pth')
+prediction.setModelPath("C:\\Users\\subek\\Downloads\\resnet50-19c8e357.pth")
 prediction.loadModel()
 
-predictions = prediction.classifyImage("C:\\Users\\subek\\Pictures\\New folder\\2.jpg", result_count=5)
+predictions = prediction.classifyImage("C:\\Users\\subek\\Desktop\\nature-quotes-landscape-1648265299.jpg", result_count=5)
 print(predictions)
 
    
