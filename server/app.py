@@ -72,7 +72,7 @@ def generate_tags():
     prediction.loadModel()
 
     # Give path to the image which is to be classified
-    predictions = prediction.classifyImage(img, result_count=5)
+    predictions = prediction.classifyImage(img, result_count=10)
 
     # Return the JSON response
 
