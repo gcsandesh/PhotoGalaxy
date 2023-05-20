@@ -186,7 +186,7 @@ export default function SignupForm() {
       {/* PASSWORD */}
       <div className="mb-4 relative">
         <span className="absolute bottom-1.5 right-1">
-          {showPassword ? (
+          {!showPassword ? (
             <FaEyeSlash
               className="text-dark cursor-pointer"
               size={24}
@@ -220,7 +220,7 @@ export default function SignupForm() {
       {/* CONFIRM PASSWORD */}
       <div className="mb-4 relative">
         <span className="absolute bottom-1.5 right-1">
-          {showConfirmPassword ? (
+          {!showConfirmPassword ? (
             <FaEyeSlash
               className="text-dark cursor-pointer"
               size={24}

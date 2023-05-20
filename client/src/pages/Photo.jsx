@@ -21,11 +21,11 @@ export default function Photo() {
   const navigate = useNavigate()
 
   function deletePhoto() {
-    // console.log(DELETE_PHOTO + photo._id)
+    console.log(DELETE_PHOTO + photo._id)
     fetch(DELETE_PHOTO + photo._id, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${user.accessToken}`,
+        Authorization: "Bearer " + user.accessToken,
       },
     })
       .then((res) => res.json())

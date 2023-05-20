@@ -163,7 +163,6 @@ function getSimilarPhotos(req, res) {
 /  DELETE PHOTO
 *****/
 const deletePhoto = async (req, res) => {
-  // console.log(req.accessInfo)
   const photoID = req.params.id
   const userID = req.accessInfo.user._id
 
@@ -174,8 +173,6 @@ const deletePhoto = async (req, res) => {
     if (!photo) {
       return res.status(404).json({ message: "Photo does not exist!" })
     }
-
-    console.log(photo.uploaded_by.toString(), userID.toString())
 
     if (photo.uploaded_by.toString() !== userID.toString()) {
       return res.status(401).json({ message: "Unauthorized!" })

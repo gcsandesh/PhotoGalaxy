@@ -10,8 +10,8 @@ const PhotoForm = () => {
     user: { accessToken },
   } = useSelector((store) => store.userAuth)
   const [file, setFile] = useState()
-  const [b64, setb64] = useState()
-  const [isValid, setIsValid] = useState()
+  const [b64, setb64] = useState("")
+  const [isValid, setIsValid] = useState(false)
   const [tags, setTags] = useState([])
 
   ////////////////    UPLOAD FILES AT LAST    //////////////////
@@ -43,6 +43,11 @@ const PhotoForm = () => {
         toast.success("Uploaded Successfully!")
         setFile([])
         // console.log("uploaded")
+
+        setFile(null)
+        setb64("")
+        setIsValid(false)
+        setTags([])
       })
       .catch((err) => {
         toast.error("Error uploading!")

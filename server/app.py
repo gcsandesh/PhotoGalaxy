@@ -41,7 +41,7 @@ def classify_image():
     prediction = model.predict(img_array)
 
     # Get the predicted class label
-    if prediction[0] < 0.3:
+    if prediction[0] < 0.5:
         label = 0  # 18+ content
     else:
         label = 1  # safe to use
@@ -72,7 +72,7 @@ def generate_tags():
     prediction.loadModel()
 
     # Give path to the image which is to be classified
-    predictions = prediction.classifyImage(img, result_count=10)
+    predictions = prediction.classifyImage(img, result_count=7)
 
     # Return the JSON response
 
