@@ -8,11 +8,15 @@ const _ = require("lodash")
 async function uploadPhoto(req, res) {
   const accessInfo = req.accessInfo
   const file = req.body.photo
+  const tags = req.body.tags
 
   // console.log(accessInfo)
 
   if (!file) {
     return res.status(400).send({ message: "No photo to upload!" })
+  }
+  if (!tags) {
+    return res.status(400).send({ message: "Tags are required!" })
   }
 
   try {
@@ -31,6 +35,7 @@ async function uploadPhoto(req, res) {
       },
       bytes: data.bytes,
       uploaded_by: accessInfo.user._id,
+      tags: tags,
     })
 
     const savedPhoto = await photo.save()
@@ -39,6 +44,7 @@ async function uploadPhoto(req, res) {
     const updateData = {
       uploaded_photos: savedPhoto._id,
     }
+
     const user = await User.findOneAndUpdate(
       userFilter,
       { $push: updateData },
@@ -50,7 +56,7 @@ async function uploadPhoto(req, res) {
 
     return res.status(201).json({
       message: "Uploaded successfully!",
-      uploads: { photoUploadResponse },
+      upload: photoUploadResponse,
     })
   } catch (error) {
     return res
@@ -187,6 +193,70 @@ const deletePhoto = async (req, res) => {
     const response = await Photo.findByIdAndDelete(photo._id)
     // console.log(response)
     return res.json({ deleted: response })
+  } catch (error) {
+    return res.status(500).json({ message: error })
+  }
+}
+
+// like a photo
+const likePhoto = async (req, res) => {
+  const photoID = req.params.id
+  const userID = req.accessInfo.user._id
+
+  try {
+    const photo = await Photo.findByIdAndUpdate(
+      photoID,
+      {
+        $push: { liked_by: userID },
+        $inc: { likes_count: 1 },
+      },
+      { new: true }
+    )
+
+    if (!photo) {
+      return res.status(404).json({ message: "Photo not found!" })
+    }
+
+    const user = await User.findOneAndUpdate(
+      { _id: userID },
+      {
+        $push: { liked_photos: photoID },
+      },
+      { new: true }
+    )
+    return res.json({ message: "Photo liked!", photo, user: user.email })
+  } catch (error) {
+    return res.status(500).json({ message: error })
+  }
+}
+// unlike a photo
+const unlikePhoto = async (req, res) => {
+  const photoID = req.params.id
+  const userID = req.accessInfo.user._id
+
+  try {
+    const photo = await Photo.findByIdAndUpdate(
+      photoID,
+      {
+        $pull: { liked_by: userID },
+        $inc: { likes_count: -1 },
+      },
+      { new: true }
+    )
+
+    if (!photo) {
+      return res.status(404).json({ message: "Photo not found!" })
+    }
+
+    const user = await User.findOneAndUpdate(
+      { _id: userID },
+      {
+        $pull: { liked_photos: photoID },
+      },
+      { new: true }
+    )
+
+    res.send({ message: "Photo unliked!", photo: photo, user: user.email })
   } catch (error) {
     return res.status(500).json({ message: error })
   }
