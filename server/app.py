@@ -64,12 +64,11 @@ def generate_tags():
     # Here i used pretrained inception Inception model however any one could be used
     prediction.setModelTypeAsInceptionV3()
 
-    # model_path_ = os.path.join("src", "inception_v3_google.pth")
-    # if os.name == "nt":  # Windows
-    #     model_path_ = os.path.join("server", model_path_)
+    model_path = os.path.join("src", "inception_v3_google.pth")
+    if os.name == "nt":  # Windows
+        model_path = os.path.join("server", model_path)
 
-    # model = tf.keras.models.load_model(model_path_)
-    prediction.setModelPath('server\src\inception_v3_google.pth')
+    prediction.setModelPath(model_path)
     prediction.loadModel()
 
     # Give path to the image which is to be classified
