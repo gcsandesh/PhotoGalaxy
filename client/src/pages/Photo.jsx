@@ -143,7 +143,7 @@ export default function Photo() {
               {photo?.likes_count > 0 &&
               photo?.liked_by.find((eachUser) => eachUser === user?._id)
                 ?.length ? (
-                <FaHeart onClick={unlikePhoto} size={18} />
+                <FaHeart onClick={unlikePhoto} size={18} className="fill-rose-500" />
               ) : (
                 <FaRegHeart onClick={likePhoto} size={18} />
               )}{" "}
@@ -151,7 +151,7 @@ export default function Photo() {
             </span>
             <FaShareAlt
               onClick={copyPhotoURL}
-              className="cursor-pointer"
+              className="cursor-pointer fill-blue-600"
               title="Copy to Clipboard"
             />
           </div>
