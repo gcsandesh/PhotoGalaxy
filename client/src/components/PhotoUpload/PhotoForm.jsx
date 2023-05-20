@@ -15,14 +15,21 @@ const PhotoForm = () => {
   const [tags, setTags] = useState([])
 
   ////////////////    UPLOAD FILES AT LAST    //////////////////
+  // uploading image on clicking submit button
   const handlePhotosUpload = async (event) => {
     event.preventDefault()
     if (!b64) {
       return toast.error("No photos to upload!")
     }
 
-    console.log(b64)
-    // uploading image on clicking submit button
+    if (!isValid) {
+      return toast.error("Cannot upload this photo!")
+    }
+
+    if (!tags.length) {
+      return toast.error("Please add tags!")
+    }
+
     await fetch(UPLOAD_PHOTOS, {
       method: "POST",
       body: JSON.stringify({ photo: b64 }),
@@ -32,14 +39,14 @@ const PhotoForm = () => {
       },
     })
       .then(async (res) => {
-        console.log(await res.json())
+        // console.log(await res.json())
         toast.success("Uploaded Successfully!")
         setFile([])
         // console.log("uploaded")
       })
-      .catch(() => {
+      .catch((err) => {
         toast.error("Error uploading!")
-        // console.log("error")
+        // console.log("error",err)
       })
   }
 
@@ -55,7 +62,7 @@ const PhotoForm = () => {
       const data = await res.json()
       return data
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       toast.error("Error verifying photo!")
     }
   }

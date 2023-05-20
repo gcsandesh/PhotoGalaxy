@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { TagsInput } from "react-tag-input-component"
 import { FaRegTimesCircle } from "react-icons/fa"
 import { GENERATE_TAGS } from "../../constants"
@@ -13,13 +13,27 @@ const UploadPreview = ({
   handlePhotosUpload,
   setTags,
 }) => {
-  // const [selected, setSelected] = useState(tags || [])
+  const [selected, setSelected] = useState(tags || [])
 
   ////////////////    GENERATE TAGS    //////////////////
   const generateTags = async () => {
     // console.log(await getTags())
-    setTags(await getTags())
+    if (!isValid) return toast.error("Cannot get tags for this photo!")
+    const receivedTags = await getTags()
+    console.log(receivedTags)
+    setSelected((prevSelected) => {
+      const newTags = receivedTags.filter((tag) => !prevSelected.includes(tag))
+      return [...prevSelected, ...newTags]
+    })
   }
+
+  const handleTagsChange = (enteredTag) => {
+    setSelected(enteredTag)
+  }
+
+  useEffect(() => {
+    setTags(selected)
+  }, [selected])
   //////////////    GET TAGS    //////////////////
   const getTags = async () => {
     // console.log("file:", file)
@@ -44,7 +58,11 @@ const UploadPreview = ({
 
   return (
     <div className="grid grid-cols-4 gap-4">
-      <div className="col-start-1 col-end-3 rounded relative group flex items-center flex-col border-2 hover:border-rose-400 transition-all border-green-400">
+      <div
+        className={`${
+          !isValid && "border-rose-400 "
+        } col-start-1 col-end-3 rounded relative group flex items-center flex-col border-2 hover:border-rose-400 transition-all border-green-400`}
+      >
         <FaRegTimesCircle
           size={24}
           onClick={handleRemove}
@@ -63,19 +81,30 @@ const UploadPreview = ({
             <span className="">Tags</span>
             <TagsInput
               value={tags}
-              onChange={setTags}
+              onChange={handleTagsChange}
               name="tags"
-              placeHolder="Enter tags here"
-              required
+              placeHolder="Enter tags here..."
+              onExisting={() => {
+                toast.error("Tag already exists!")
+              }}
+              disabled={!isValid}
             />
-            <em className="text-sm">Press enter to add new tag</em>
+            {isValid ? (
+              <em className="text-sm">Press enter to add new tags</em>
+            ) : (
+              <em className="text-sm text-red-500">
+                Cannot add tags for this photo!
+              </em>
+            )}
 
             {/* buttons */}
             <>
               <button
                 type="button"
                 onClick={generateTags}
-                className="my-1 w-1/2 px-2 py-1 bg-secondaryGreen hover:bg-green-900 duration-200 rounded-md text-white"
+                className={`${
+                  !isValid && "bg-gray-500 hover:bg-gray-500 text-gray-700 "
+                }my-1 w-1/2 px-2 py-1 bg-secondaryGreen hover:bg-green-900 duration-200 rounded-md text-white`}
               >
                 Generate Tags
               </button>
@@ -83,7 +112,9 @@ const UploadPreview = ({
               <button
                 type="submit"
                 onClick={handlePhotosUpload}
-                className="w-1/2 my-1 text-white bg-blue-500 hover:bg-blue-700 duration-200 font-bold px-3 py-1 sm:py-1 rounded focus:outline-none"
+                className={`${
+                  !isValid && "bg-gray-500 hover:bg-gray-500 text-gray-700 "
+                }w-1/2 my-1 text-white bg-blue-500 hover:bg-blue-700 duration-200 px-3 py-1 sm:py-1 rounded focus:outline-none`}
               >
                 Upload
               </button>
