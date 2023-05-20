@@ -57,27 +57,29 @@ const UploadPreview = ({
   }
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 border-2">
       <div
         className={`${
           !isValid && "border-rose-400 "
-        } col-start-1 col-end-3 rounded relative group flex items-center flex-col border-2 hover:border-rose-400 transition-all border-green-400`}
+        } lg:col-start-1 mx-auto lg:col-end-4 rounded relative group flex items-center flex-col border-4 transition-all border-green-400 h-full`}
       >
-        <FaRegTimesCircle
-          size={24}
+        {/* <FaRegTimesCircle
+          size={50}
           onClick={handleRemove}
-          className="text-rose-500 z-10 absolute right-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:visible opacity-0 invisible"
-        />
+          className="text-rose-500 fill-red-500 z-10 absolute right-0 cursor-pointer transition-all duration-300 group-hover:opacity-100 group-hover:visible opacity-0 invisible"
+        /> */}
         <img
-          className={`${!isValid && "blur-md"}  h-96 object-contain pt-4 p-2`}
+          className={`${
+            !isValid && "blur-md"
+          } max-h-[30rem] w-full object-contain p-2`}
           // className={`h-96 object-contain pt-4 p-2`}
           src={b64}
         />
       </div>
 
-      <div className="col-start-3 col-end-5">
-        <form>
-          <label htmlFor="tags" className="flex flex-col gap-2">
+      <div className=" mx-auto w-[425px] border-2 lg:col-start-4 lg:col-end-7">
+        <form className="mx-auto flex flex-col justify-between h-full">
+          <label htmlFor="tags" className="flex flex-col gap-2 mb-0">
             <span className="">Tags</span>
             <TagsInput
               value={tags}
@@ -90,36 +92,44 @@ const UploadPreview = ({
               disabled={!isValid}
             />
             {isValid ? (
-              <em className="text-sm">Press enter to add new tags</em>
+              <em className="text-xs">Press enter to add new tags</em>
             ) : (
-              <em className="text-sm text-red-500">
+              <em className="text-xs text-red-500">
                 Cannot add tags for this photo!
               </em>
             )}
-
-            {/* buttons */}
-            <>
-              <button
-                type="button"
-                onClick={generateTags}
-                className={`${
-                  !isValid && "bg-gray-500 hover:bg-gray-500 text-gray-700 "
-                }my-1 w-1/2 px-2 py-1 bg-secondaryGreen hover:bg-green-900 duration-200 rounded-md text-white`}
-              >
-                Generate Tags
-              </button>
-
-              <button
-                type="submit"
-                onClick={handlePhotosUpload}
-                className={`${
-                  !isValid && "bg-gray-500 hover:bg-gray-500 text-gray-700 "
-                }w-1/2 my-1 text-white bg-blue-500 hover:bg-blue-700 duration-200 px-3 py-1 sm:py-1 rounded focus:outline-none`}
-              >
-                Upload
-              </button>
-            </>
           </label>
+
+          {/* buttons */}
+          <div className="flex flex-col items-center w-full justify-between gap-2 mt-4 max-w-[425px]">
+            <button
+              type="button"
+              onClick={generateTags}
+              className={`${
+                !isValid && "bg-gray-500 hover:bg-gray-500 text-gray-700 "
+              }my-1 p-3 bg-blue-500 hover:bg-blue-700 duration-200 rounded-md text-white w-full`}
+            >
+              Auto-generate Tags
+            </button>
+
+            <button
+              type="submit"
+              onClick={handlePhotosUpload}
+              className={`${
+                !isValid && "bg-gray-500 hover:bg-gray-500 text-gray-700 "
+              } my-1 text-white  bg-secondaryGreen hover:bg-green-800 duration-200 p-3 rounded-md focus:outline-none w-full`}
+            >
+              Upload
+            </button>
+
+            <button
+              type="button"
+              onClick={handleRemove}
+              className="text-white bg-rose-500 hover:bg-rose-900 duration-200 p-3 rounded-md focus:outline-none w-full"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>
