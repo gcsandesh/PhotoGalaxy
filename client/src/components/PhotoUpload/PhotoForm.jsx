@@ -32,7 +32,7 @@ const PhotoForm = () => {
 
     await fetch(UPLOAD_PHOTOS, {
       method: "POST",
-      body: JSON.stringify({ photo: b64 }),
+      body: JSON.stringify({ photo: b64, tags: tags }),
       headers: {
         Authorization: "Bearer " + accessToken,
         "Content-Type": "application/json",
