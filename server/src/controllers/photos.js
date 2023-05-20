@@ -274,7 +274,7 @@ const unlikePhoto = async (req, res) => {
 module.exports = {
   getAllPhotos,
   getPhoto,
-  getPhotosFromCategory,
+  // getPhotosFromCategory,
   getSimilarPhotos,
   uploadPhoto,
   deletePhoto,
