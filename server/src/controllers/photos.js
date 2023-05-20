@@ -163,48 +163,44 @@ function getSimilarPhotos(req, res) {
 /  DELETE PHOTO
 *****/
 const deletePhoto = async (req, res) => {
-  // console.log(req.accessInfo)
   const photoID = req.params.id
-  // const userID = req.accessInfo.user._id
-  console.log(req.accessInfo)
-  console.log(photoID)
+  const userID = req.accessInfo.user._id
 
   try {
-  //   const photo = await Photo.findById(photoID)
+    const photo = await Photo.findById(photoID)
 
-    // console.log(photo)
-    // if (!photo) {
-    //   return res.status(404).json({ message: "Photo does not exist!" })
-    // }
+    console.log(photo)
+    if (!photo) {
+      return res.status(404).json({ message: "Photo does not exist!" })
+    }
 
-    // if (photo.uploaded_by.toString() !== userID.toString()) {
-    //   return res.status(401).json({ message: "Unauthorized!" })
-    // }
+    if (photo.uploaded_by.toString() !== userID.toString()) {
+      return res.status(401).json({ message: "Unauthorized!" })
+    }
 
-    // const user = await User.findOneAndUpdate(
-    //   { _id: photo.uploaded_by },
-    //   {
-    //     // remove the photo id from user uploads by ID
-    //     $pullAll: {
-    //       uploaded_photos: [{ _id: photo._id }],
-    //     },
-    //     // decrement the uploads count
-    //     $inc: {
-    //       uploads_count: -1,
-    //     },
-    //   },
-    //   { new: true }
-    // )
+    const user = await User.findOneAndUpdate(
+      { _id: photo.uploaded_by },
+      {
+        // remove the photo id from user uploads by ID
+        $pullAll: {
+          uploaded_photos: [{ _id: photo._id }],
+        },
+        // decrement the uploads count
+        $inc: {
+          uploads_count: -1,
+        },
+      },
+      { new: true }
+    )
 
-    // if (!user) {
-    //   return res.status(404).json({ message: "User not found!" })
-    // }
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" })
+    }
 
-    // await cloudinary.uploader.destroy(photo.public_id)
-    // const response = await Photo.findByIdAndDelete(photo._id)
+    await cloudinary.uploader.destroy(photo.public_id)
+    const response = await Photo.findByIdAndDelete(photo._id)
     // console.log(response)
-    return res.json({ message: "Photo deleted!" })
-    // return res.json({ deleted: response })
+    return res.json({ deleted: response })
   } catch (error) {
     return res.status(500).json({ message: error })
   }
