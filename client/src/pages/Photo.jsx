@@ -17,69 +17,20 @@ export default function Photo() {
   const { user } = useSelector((store) => store.userAuth)
   const { id } = useParams() //   search this id in database and get photo details
   const [editMode, setEditMode] = useState(false)
-
-  const initialPhoto = {
-    _id: id,
-    url: "https://via.placeholder.com/500/333",
-    alt: "PhotoGalaxy",
-    format: "jpg",
-    // title: "Man typing on a MacBook Air sitting on a bench at a park",
-    dimensions: { width: 1090, height: 800 },
-    likes_count: 99,
-    resource_type: "image",
-    uploaded_by: {
-      _id: "asdf93493fsaf98asdf",
-      first_name: "Laxman",
-      last_name: "Thapa",
-      email: "thapalaxman@gamaile.com",
-      bio: "Namaskar! mero nam laxman ho ra malai photo khichna ma sanai dekhi ruchi xa",
-    },
-    createdAt: "2023-03-17T16:07:02.806Z",
-    bytes: 2048,
-
-    tags: [
-      "laptop",
-      "man",
-      "furniture",
-      "macbook",
-      "park",
-      "typing",
-      "working",
-    ],
-    liked_by: [
-      {
-        _id: "asdf93493fsaf98asdf",
-        first_name: "Laxman",
-        last_name: "Thapa",
-        email: "thapalaxman@gamaile.com",
-        bio: "Hello I am Laxman Thapa Photographer.",
-      },
-      {
-        _id: "asdf93493fsaf98asdf",
-        first_name: "Ram",
-        last_name: "Karki",
-        email: "karkiram@gamal.com",
-        bio: "",
-      },
-      {
-        _id: "asdfas3ii31asdf",
-        first_name: "Ram",
-        last_name: "Karki",
-        email: "johndoe@gmail.com",
-        bio: "",
-      },
-    ],
-  }
-  const [photo, setPhoto] = useState(initialPhoto)
+  const [photo, setPhoto] = useState({})
   const navigate = useNavigate()
 
   function deletePhoto() {
-    console.log(DELETE_PHOTO + photo._id)
-    fetch(DELETE_PHOTO + photo._id, { method: "DELETE" })
+    // console.log(DELETE_PHOTO + photo._id)
+    fetch(DELETE_PHOTO + photo._id, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data)
-        toast.success("deleted successfully!")
+        toast.success("Deleted successfully!")
         setTimeout(() => {
           navigate("/")
         }, 100)
@@ -113,7 +64,7 @@ export default function Photo() {
         data.photo && setPhoto(data.photo)
       })
       .catch((error) => {
-        console.log(error)
+        // console.log(error)
         toast.error("Error getting photo!")
       })
   }, [GET_PHOTO_BY_ID])
@@ -142,7 +93,7 @@ export default function Photo() {
             {/* LIKE AND SHARE ICONS  */}
             <span className="flex items-center gap-2 cursor-pointer">
               {photo.liked_by?.length &&
-              photo.liked_by.find((eachUser) => eachUser._id === user._id) ? (
+              photo.liked_by.find((eachUser) => eachUser?._id === user?._id) ? (
                 <FaHeart />
               ) : (
                 <FaRegHeart />
@@ -166,7 +117,7 @@ export default function Photo() {
 
             {/* EDIT BUTTON */}
 
-            {photo.uploaded_by._id === user._id && (
+            {photo.uploaded_by?._id === user._id && (
               <button
                 onClick={() => setEditMode(true)}
                 className="p-3 rounded border-blue-500 bg-blue-500 text-gray-50 transition-all duration-200 hover:text-blue-500 hover:bg-gray-50 border-2 flex justify-center items-center gap-2"
@@ -178,13 +129,12 @@ export default function Photo() {
 
             {/* DELETE BUTTON */}
 
-            {photo.uploaded_by._id === user._id && (
+            {photo.uploaded_by?._id === user._id && (
               <button
                 onClick={deletePhoto}
                 className="p-3 rounded transition-all duration-300 hover:bg-gray-50 bg-red-500 text-gray-50 hover:text-red-500 border-red-500 border-2 flex justify-center items-center gap-2"
               >
                 <FaRegTrashAlt size={20} />
-                {/* <span>Delete</span> */}
               </button>
             )}
           </div>
@@ -216,6 +166,7 @@ export default function Photo() {
               </span>
             </span>
           </div>
+
           {/* AUTHOR DETAILS */}
           <div className="">
             <h3>Uploaded by:</h3>
