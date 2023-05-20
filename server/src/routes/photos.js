@@ -4,7 +4,7 @@ const router = require("express").Router()
 const {
   getPhoto,
   getAllPhotos,
-  getPhotosFromCategory,
+  // getPhotosFromCategory,
   getSimilarPhotos,
   uploadPhoto,
   deletePhoto,
