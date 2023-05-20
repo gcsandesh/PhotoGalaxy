@@ -169,7 +169,7 @@ const deletePhoto = async (req, res) => {
   try {
     const photo = await Photo.findById(photoID)
 
-    console.log(photo)
+    // console.log(photo)
     if (!photo) {
       return res.status(404).json({ message: "Photo does not exist!" })
     }
@@ -199,8 +199,8 @@ const deletePhoto = async (req, res) => {
 
     await cloudinary.uploader.destroy(photo.public_id)
     const response = await Photo.findByIdAndDelete(photo._id)
-    // console.log(response)
-    return res.json({ deleted: response })
+    return res.json({ message: "Photo deleted!", response, user: user?.email })
+    // return res.json({ deleted: response })
   } catch (error) {
     return res.status(500).json({ message: error })
   }
@@ -218,7 +218,7 @@ const likePhoto = async (req, res) => {
         $push: { liked_by: userID },
         $inc: { likes_count: 1 },
       },
-      { new: true }
+      { new: true, populate: { path: "uploaded_by", select: "-password" } }
     )
 
     if (!photo) {
@@ -249,7 +249,7 @@ const unlikePhoto = async (req, res) => {
         $pull: { liked_by: userID },
         $inc: { likes_count: -1 },
       },
-      { new: true }
+      { new: true, populate: { path: "uploaded_by", select: "-password" } }
     )
 
     if (!photo) {
@@ -277,4 +277,6 @@ module.exports = {
   getSimilarPhotos,
   uploadPhoto,
   deletePhoto,
+  likePhoto,
+  unlikePhoto,
 }

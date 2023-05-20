@@ -62,7 +62,7 @@ const UploadPreview = ({
       <div
         className={`${
           !isValid && "border-rose-400 "
-        } lg:col-start-1 mx-auto lg:col-end-4 rounded relative group flex items-center flex-col border-4 transition-all border-green-400 h-full w-full`}
+        } lg:col-start-1 mx-auto lg:col-end-4 rounded flex items-center flex-col border-4 transition-all border-green-400 h-full w-full`}
       >
         <img
           className={`${

@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
 
-    uploads_count: { type: Number, required: true, default: 0 },
+    uploads_count: { type: Number, required: true, default: 0, min: 0 },
 
     uploaded_photos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Photo" }],
 
