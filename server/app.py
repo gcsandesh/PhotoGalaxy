@@ -1,14 +1,11 @@
 from imageai.Classification import ImageClassification
 from flask import Flask, request, jsonify
 import tensorflow as tf
-import io
 from io import BytesIO
 from flask_cors import CORS
 import numpy as np
 import os
 import tensorflow as tf
-import requests
-from PIL import Image
 
 
 app = Flask(__name__)
