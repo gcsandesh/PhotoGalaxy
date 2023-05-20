@@ -56,7 +56,7 @@ def generate_tags():
 
     # Read the file
     img = tf.keras.preprocessing.image.load_img(
-        BytesIO(file.read()), target_size=(240, 320)
+        BytesIO(file.read())
     )
 
     prediction = ImageClassification()
@@ -64,12 +64,12 @@ def generate_tags():
     # Here i used pretrained inception Inception model however any one could be used
     prediction.setModelTypeAsInceptionV3()
 
-    model_path = os.path.join("src", "inception_v3_google.pth")
-    if os.name == "nt":  # Windows
-        model_path = os.path.join("server", model_path)
+    # model_path_ = os.path.join("src", "inception_v3_google.pth")
+    # if os.name == "nt":  # Windows
+    #     model_path_ = os.path.join("server", model_path_)
 
-    model = tf.keras.models.load_model(model_path)
-    prediction.setModelPath(model_path)
+    # model = tf.keras.models.load_model(model_path_)
+    prediction.setModelPath('server\src\inception_v3_google.pth')
     prediction.loadModel()
 
     # Give path to the image which is to be classified
@@ -78,25 +78,6 @@ def generate_tags():
     # Return the JSON response
 
     return jsonify(predictions[0])
-
-
-# @app.route("/similar", methods=["POST"])
-# def similar_recommender():
-#     # Get the url from the request
-#     url = request.args.get("url")
-#     response = requests.get(url)
-
-#     # Get the image data from the response
-#     image_data = response.content
-
-#     # Store the image data as a variable
-#     image_variable = BytesIO(image_data)
-
-#     similar_images = SearchImage().get_similar_images(image_variable,6)
-    
-
-#     # Return the JSON response
-#     return jsonify(similar_images)  #https://res.cloudinary.com/dadbpnctj/image/upload/v1679638550/projects/PhotoGalaxy/
 
 
 if __name__ == "__main__":
