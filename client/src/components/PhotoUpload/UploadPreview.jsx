@@ -10,19 +10,19 @@ const UploadPreview = ({
   b64,
   isValid,
   tags,
-  // getTags,
   handlePhotosUpload,
-  //   setTags,
+  setTags,
 }) => {
-  const [selected, setSelected] = useState(tags || [])
+  // const [selected, setSelected] = useState(tags || [])
 
   ////////////////    GENERATE TAGS    //////////////////
   const generateTags = async () => {
-    console.log(await getTags())
+    // console.log(await getTags())
+    setTags(await getTags())
   }
   //////////////    GET TAGS    //////////////////
   const getTags = async () => {
-    console.log("file:", file)
+    // console.log("file:", file)
     let formData = new FormData()
     formData.append("photo", file) // file is the image file
 
@@ -33,12 +33,12 @@ const UploadPreview = ({
       })
 
       const data = await res.json()
-      console.log("data", data)
-      // toast.success("Tags generated successfully!")
+      // setSelected(data)
+      toast.success("Tags generated!")
       return data
     } catch (err) {
-      console.log(err)
-      // toast.error("Error getting tags!")
+      // console.log(err)
+      toast.error("Error getting tags!")
     }
   }
 
@@ -62,10 +62,11 @@ const UploadPreview = ({
           <label htmlFor="tags" className="flex flex-col gap-2">
             <span className="">Tags</span>
             <TagsInput
-              value={selected}
-              onChange={setSelected}
+              value={tags}
+              onChange={setTags}
               name="tags"
               placeHolder="Enter tags here"
+              required
             />
             <em className="text-sm">Press enter to add new tag</em>
 

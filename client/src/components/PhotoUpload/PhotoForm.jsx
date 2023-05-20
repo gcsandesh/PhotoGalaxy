@@ -102,8 +102,7 @@ const PhotoForm = () => {
           isValid={isValid}
           handleRemove={removeFile}
           handlePhotosUpload={handlePhotosUpload}
-          // getTags={getTags}
-          // setTags={setTags}
+          setTags={setTags}
         />
       )}
     </div>
