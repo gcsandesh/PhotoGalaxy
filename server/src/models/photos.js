@@ -46,6 +46,8 @@ const photoSchema = new mongoose.Schema(
     likes_count: { type: Number, required: true, default: 0 },
 
     liked_by: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+
+    tags: [{ type: String }],
   },
   { timestamps: true }
 )
