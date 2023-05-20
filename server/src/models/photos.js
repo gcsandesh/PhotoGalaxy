@@ -43,7 +43,7 @@ const photoSchema = new mongoose.Schema(
       required: true,
     },
 
-    likes_count: { type: Number, required: true, default: 0 },
+    likes_count: { type: Number, required: true, default: 0, min: 0 },
 
     liked_by: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 
