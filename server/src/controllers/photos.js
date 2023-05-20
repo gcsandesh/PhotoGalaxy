@@ -218,7 +218,7 @@ const likePhoto = async (req, res) => {
         $push: { liked_by: userID },
         $inc: { likes_count: 1 },
       },
-      { new: true }
+      { new: true, populate: { path: "uploaded_by", select: "-password" } }
     )
 
     if (!photo) {
@@ -249,7 +249,7 @@ const unlikePhoto = async (req, res) => {
         $pull: { liked_by: userID },
         $inc: { likes_count: -1 },
       },
-      { new: true }
+      { new: true, populate: { path: "uploaded_by", select: "-password" } }
     )
 
     if (!photo) {
@@ -277,4 +277,6 @@ module.exports = {
   getSimilarPhotos,
   uploadPhoto,
   deletePhoto,
+  likePhoto,
+  unlikePhoto,
 }

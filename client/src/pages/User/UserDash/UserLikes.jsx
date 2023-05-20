@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { GET_USER_LIKES } from "../../../constants"
+import { Gallery } from "react-grid-gallery"
+import { useNavigate } from "react-router-dom"
 
 export default function UserLikes({ userID }) {
   const [photos, setPhotos] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch(GET_USER_LIKES + userID)
