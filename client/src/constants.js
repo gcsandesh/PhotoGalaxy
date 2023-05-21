@@ -1,5 +1,5 @@
 // update this based on the url of backend server
-const API_URL = "https://localhost:9999/api"
+const API_URL = "http://localhost:9999/api"
 const FLASK_URL = "http://localhost:5000"
 
 // AUTH
