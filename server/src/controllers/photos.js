@@ -5,65 +5,57 @@ const _ = require("lodash")
 
 ////////////    UPLOAD ONE OR MANY PHOTOS    /////////////
 
-async function uploadPhotos(req, res) {
+async function uploadPhoto(req, res) {
   const accessInfo = req.accessInfo
-  const photos = req.body.photos
+  const file = req.body.photo
+  const tags = req.body.tags
 
   // console.log(accessInfo)
 
-  if (!photos.length) {
-    return res.status(400).send({ message: "No photos to upload!" })
+  if (!file) {
+    return res.status(400).send({ message: "No photo to upload!" })
+  }
+  if (!tags) {
+    return res.status(400).send({ message: "Tags are required!" })
   }
 
   try {
-    // either all or no photos should be saved
-    const photoUploadResponse = []
-
-    // Promise.all(
-    photos.forEach(async (eachPhoto, index) => {
-      const data = await cloudinary.uploader.upload(eachPhoto, {
-        folder: `projects/PhotoGalaxy`,
-      })
-
-      const photo = new Photo({
-        public_id: data.public_id,
-        url: data.secure_url,
-        format: data.format,
-        resource_type: data.resource_type,
-        dimensions: {
-          height: data.height,
-          width: data.width,
-        },
-        bytes: data.bytes,
-        uploaded_by: accessInfo.user._id,
-      })
-
-      const savedPhoto = await photo.save()
-
-      const userFilter = { _id: accessInfo.user._id }
-      const updateData = {
-        uploaded_photos: savedPhoto._id,
-      }
-      const user = await User.findOneAndUpdate(
-        userFilter,
-        { $push: updateData },
-        {
-          new: true,
-        }
-      )
-
-      // console.log("saved photo id:", savedPhoto.id)
-      console.log("user", user)
-
-      console.log("savedphoto:", savedPhoto)
-      photoUploadResponse.push(savedPhoto)
+    const data = await cloudinary.uploader.upload(file, {
+      folder: `projects/PhotoGalaxy`,
     })
-    // ).then((result) => console.log(result, photoUploadResponse))
-    console.log("arrayofresponses", photoUploadResponse)
+
+    const photo = new Photo({
+      public_id: data.public_id,
+      url: data.secure_url,
+      format: data.format,
+      resource_type: data.resource_type,
+      dimensions: {
+        height: data.height,
+        width: data.width,
+      },
+      bytes: data.bytes,
+      uploaded_by: accessInfo.user._id,
+      tags: tags,
+    })
+
+    const savedPhoto = await photo.save()
+
+    const userFilter = { _id: accessInfo.user._id }
+    const updateData = {
+      uploaded_photos: savedPhoto._id,
+    }
+
+    const user = await User.findOneAndUpdate(
+      userFilter,
+      { $push: updateData, $inc: { uploads_count: 1 } },
+      {
+        new: true,
+      }
+    )
 
     return res.status(201).json({
       message: "Uploaded successfully!",
-      uploads: { photoUploadResponse },
+      upload: { photo: savedPhoto, user: user.email },
     })
   } catch (error) {
     return res
@@ -156,34 +148,36 @@ const getAllPhotos = async (req, res) => {
 
 ////////////    GET ALL PHOTOS FROM A CATEGORY    /////////////
 
-function getPhotosFromCategory(req, res) {
-  console.log("Send photos of specific category")
-}
+// function getPhotosFromCategory(req, res) {
+//   console.log("Send photos of specific category")
+// }
 
 ////////////    GET PHOTOS SIMILAR TO A PHOTO    /////////////
 function getSimilarPhotos(req, res) {
   // get a photo from request and send other photos that are similar to them
   console.log("similar photos are sent")
+  res.send({ message: "api incomplete!" })
 }
 
 /*****
 /  DELETE PHOTO
 *****/
 const deletePhoto = async (req, res) => {
-  // console.log(req.accessInfo)
   const photoID = req.params.id
+  const userID = req.accessInfo.user._id
+
   try {
     const photo = await Photo.findById(photoID)
 
-    console.log(photo)
+    // console.log(photo)
     if (!photo) {
-      return res.status(400).json({ message: "Photo does not exist!" })
+      return res.status(404).json({ message: "Photo does not exist!" })
     }
 
-    console.log("public id:", photo.public_id)
-    // delete photo from cloudinary
+    if (photo.uploaded_by.toString() !== userID.toString()) {
+      return res.status(401).json({ message: "Unauthorized!" })
+    }
 
-    // console.log(photoID)
     const user = await User.findOneAndUpdate(
       { _id: photo.uploaded_by },
       {
@@ -191,15 +185,86 @@ const deletePhoto = async (req, res) => {
         $pullAll: {
           uploaded_photos: [{ _id: photo._id }],
         },
+        // decrement the uploads count
+        $inc: {
+          uploads_count: -1,
+        },
       },
       { new: true }
     )
-    console.log("user", user)
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" })
+    }
 
     await cloudinary.uploader.destroy(photo.public_id)
     const response = await Photo.findByIdAndDelete(photo._id)
-    console.log(response)
-    return res.json({ deleted: response })
+    return res.json({ message: "Photo deleted!", response, user: user?.email })
+    // return res.json({ deleted: response })
+  } catch (error) {
+    return res.status(500).json({ message: error })
+  }
+}
+
+// like a photo
+const likePhoto = async (req, res) => {
+  const photoID = req.params.id
+  const userID = req.accessInfo.user._id
+
+  try {
+    const photo = await Photo.findByIdAndUpdate(
+      photoID,
+      {
+        $push: { liked_by: userID },
+        $inc: { likes_count: 1 },
+      },
+      { new: true }
+    )
+
+    if (!photo) {
+      return res.status(404).json({ message: "Photo not found!" })
+    }
+
+    const user = await User.findOneAndUpdate(
+      { _id: userID },
+      {
+        $push: { liked_photos: photoID },
+      },
+      { new: true }
+    )
+    return res.json({ message: "Photo liked!", photo, user: user.email })
+  } catch (error) {
+    return res.status(500).json({ message: error })
+  }
+}
+// unlike a photo
+const unlikePhoto = async (req, res) => {
+  const photoID = req.params.id
+  const userID = req.accessInfo.user._id
+
+  try {
+    const photo = await Photo.findByIdAndUpdate(
+      photoID,
+      {
+        $pull: { liked_by: userID },
+        $inc: { likes_count: -1 },
+      },
+      { new: true }
+    )
+
+    if (!photo) {
+      return res.status(404).json({ message: "Photo not found!" })
+    }
+
+    const user = await User.findOneAndUpdate(
+      { _id: userID },
+      {
+        $pull: { liked_photos: photoID },
+      },
+      { new: true }
+    )
+
+    res.send({ message: "Photo unliked!", photo: photo, user: user.email })
   } catch (error) {
     return res.status(500).json({ message: error })
   }
@@ -208,8 +273,8 @@ const deletePhoto = async (req, res) => {
 module.exports = {
   getAllPhotos,
   getPhoto,
-  getPhotosFromCategory,
+  // getPhotosFromCategory,
   getSimilarPhotos,
-  uploadPhotos,
+  uploadPhoto,
   deletePhoto,
 }

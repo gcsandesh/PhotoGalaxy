@@ -1,9 +1,0 @@
-pil
-deepimagesearch
-imageai
-numpy
-io
-requests
-flask
-tensorflow
-#the python version used is 3.9

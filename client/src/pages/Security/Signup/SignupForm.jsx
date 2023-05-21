@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { toast } from "react-hot-toast"
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import { signupUser } from "../../../features/auth/authSlice"
+import { Link, useNavigate } from "react-router-dom"
+import { signupUser } from "../../../features/userAuth/userAuthSlice"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 export default function SignupForm() {
@@ -185,16 +185,16 @@ export default function SignupForm() {
 
       {/* PASSWORD */}
       <div className="mb-4 relative">
-        <span className="absolute bottom-1 right-1">
-          {showPassword ? (
+        <span className="absolute bottom-1.5 right-1">
+          {!showPassword ? (
             <FaEyeSlash
-              className="text-dark"
+              className="text-dark cursor-pointer"
               size={24}
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           ) : (
             <FaEye
-              className="text-dark"
+              className="text-dark cursor-pointer"
               size={24}
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
@@ -219,21 +219,22 @@ export default function SignupForm() {
 
       {/* CONFIRM PASSWORD */}
       <div className="mb-4 relative">
-        <span className="absolute bottom-1 right-1">
-          {showConfirmPassword ? (
+        <span className="absolute bottom-1.5 right-1">
+          {!showConfirmPassword ? (
             <FaEyeSlash
-              className="text-dark"
+              className="text-dark cursor-pointer"
               size={24}
               onClick={() => setShowConfirmPassword((prevState) => !prevState)}
             />
           ) : (
             <FaEye
-              className="text-dark"
+              className="text-dark cursor-pointer"
               size={24}
               onClick={() => setShowConfirmPassword((prevState) => !prevState)}
             />
           )}
         </span>
+
         <label className="block mb-2" htmlFor="cpassword">
           Confirm Password:
         </label>
@@ -251,7 +252,10 @@ export default function SignupForm() {
       </div>
 
       {/* TERMS AND CONDITIONS */}
-      <label htmlFor="agreement" className="text-xs md:text-sm">
+      <label
+        htmlFor="agreement"
+        className="text-xs md:text-sm flex mt-2"
+      >
         <input
           type={"checkbox"}
           name={"agreement"}
@@ -259,9 +263,16 @@ export default function SignupForm() {
             setIsChecked((prevState) => !prevState)
           }}
           checked={formData.agreementIsChecked}
+          className="h-5 w-5 cursor-pointer mt-0.5"
           required
-        />{" "}
-        I agree with the terms and conditions of PhotoGalaxy.
+        />
+
+        <span className="ml-3">
+          I have read and agree with PhotoGalaxy's{" "}
+          <Link to={"/terms-and-conditions"} className="text-blue-400">
+            terms and conditions.
+          </Link>
+        </span>
       </label>
 
       {/* ERRORS */}

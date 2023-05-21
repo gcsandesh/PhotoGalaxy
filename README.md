@@ -1,6 +1,6 @@
 # PhotoGalaxy
 
-A stock photo platform to find and download beautiful photos of your need.
+This is a stock photo platform to find and download beautiful photos of your need. Users can come here to surf a huge library of images and download the ones that meet their requirements.Also they can upload their images on the platform for others to use.It uses a CNN model trained on nearly 2200 images to classify images into two classes : NSFW & SFW. The model showed a training accuracy of 92% and a test accuracy of about 90%. Moreover, there is also a feature of generating the tags for the images. This is done with the help of a pre-trained model on several million images by google named inceptionv3.
 
 ## Running the app on your device locally
 
@@ -12,6 +12,7 @@ A stock photo platform to find and download beautiful photos of your need.
   For server:
   `cd server`
   `npm install`
+  `cd server && pip install -r requirements.txt`
 
   For client:
   `cd client`
@@ -43,9 +44,8 @@ A stock photo platform to find and download beautiful photos of your need.
 
 ## Authors
 
--  [Sandesh GC](https://www.gcsandesh.com.np)
--  [Subek Sharma](https://www.linkedin.com/in/subek-sharma/)
-
+- [Sandesh GC](https://www.gcsandesh.com.np)
+- [Subek Sharma](https://www.linkedin.com/in/subek-sharma/)
 
 <!-- pip install requests -->
 <!-- pip install DeepImageSearch -->

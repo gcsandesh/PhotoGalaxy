@@ -15,9 +15,9 @@ app.use(helmet())
 app.use(
   cors({
     origin: [
-      "http://photogalaxy-client.vercel.app",
-      "https://photogalaxy-client.vercel.app",
-      "https://photogalaxy-client.vercel.app/upload",
+      "http://localhost:5173",
+      // "https://photogalaxy-client.vercel.app",
+      // "https://photogalaxy-client.vercel.app/upload",
     ],
   })
 )

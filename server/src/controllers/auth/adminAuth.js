@@ -23,7 +23,7 @@ const handleAdminLogin = async (req, res) => {
     }
 
     admin = _.pick(admin, "email")
-    const accessToken = jwt.sign(
+    jwt.sign(
       { admin },
       JWT_SECRET,
       { expiresIn: 60 * 60 },
@@ -32,6 +32,7 @@ const handleAdminLogin = async (req, res) => {
           console.log("Error logging in!\nError:", error)
           return res.json({ message: "Could not generate token" })
         }
+        // console.log({ admin, accessToken })
         return res.json({ admin, accessToken })
       }
     )
@@ -43,6 +44,15 @@ const handleAdminLogin = async (req, res) => {
 const handleAdminSignup = async (req, res) => {
   const { email, password } = req.body
 
+  if (!email || !password) {
+    return res.status(400).json({ message: "Please enter all fields!" })
+  }
+
+  const existingAdmin = await Admin.findOne({ email })
+  if (existingAdmin) {
+    return res.status(400).json({ message: "User already exists!" })
+  }
+
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(password, salt)
 
@@ -53,7 +63,7 @@ const handleAdminSignup = async (req, res) => {
 
   const adminResult = await admin.save()
 
-  res.json({ admin: _.pick(adminResult, "email") })
+  res.status(201).json({ admin: _.pick(adminResult, "email") })
 }
 
 module.exports = { handleAdminLogin, handleAdminSignup }

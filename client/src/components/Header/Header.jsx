@@ -11,7 +11,7 @@ export default function Header() {
   const [openMenu, setOpenMenu] = useState("")
   const {
     user: { isLoggedIn },
-  } = useSelector((store) => store.auth)
+  } = useSelector((store) => store.userAuth)
 
   const [notifications, setNotifications] = useState([
     {

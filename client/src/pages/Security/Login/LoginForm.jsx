@@ -1,7 +1,10 @@
 import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { loginUser, setCredentials } from "../../../features/auth/authSlice"
+import {
+  loginUser,
+  setCredentials,
+} from "../../../features/userAuth/userAuthSlice"
 import { toast } from "react-hot-toast"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 
@@ -29,6 +32,8 @@ export default function LoginForm() {
 
       await dispatch(setCredentials())
 
+      // console.log(payload)
+
       toast.success(`Successfully logged in as '${payload.user.email}'!`)
 
       navigate("/")
@@ -52,7 +57,7 @@ export default function LoginForm() {
     }
     if (formData.email && /\s+/.test(formData.email)) {
       isValid = false
-      console.log(email.match(/\s+/))
+      // console.log(email.match(/\s+/))
       setErrors((prevErrors) => [
         ...prevErrors,
         "* Email cannot contain white spaces!",
@@ -76,7 +81,7 @@ export default function LoginForm() {
           Email
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight tracking-wider focus:outline-none"
           id="email"
           type="email"
           name="email"
@@ -87,27 +92,29 @@ export default function LoginForm() {
           required
         />
       </div>
+
       <div className="mb-4 relative">
-        <span className="absolute bottom-1 right-1">
-          {showPassword ? (
+        <span className="absolute bottom-1.5 right-1">
+          {!showPassword ? (
             <FaEyeSlash
-              className="text-dark"
+              className="text-dark cursor-pointer"
               size={24}
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           ) : (
             <FaEye
-              className="text-dark"
+              className="text-dark cursor-pointer"
               size={24}
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           )}
         </span>
+
         <label className="block mb-1 text-sm" htmlFor="password">
           Password
         </label>
         <input
-          className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+          className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight tracking-wider focus:outline-none"
           id="password"
           type={showPassword ? "text" : "password"}
           name="password"
@@ -125,7 +132,7 @@ export default function LoginForm() {
 
       {/*  LOGIN BUTTON  */}
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none"
         type="submit"
       >
         Login
