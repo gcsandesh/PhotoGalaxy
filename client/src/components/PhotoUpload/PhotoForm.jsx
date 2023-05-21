@@ -115,6 +115,7 @@ const PhotoForm = () => {
           handleRemove={removeFile}
           handlePhotosUpload={handlePhotosUpload}
           setTags={setTags}
+          
         />
       )}
     </div>

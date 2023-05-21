@@ -3,6 +3,7 @@ import { TagsInput } from "react-tag-input-component"
 import { FaRegTimesCircle } from "react-icons/fa"
 import { GENERATE_TAGS } from "../../constants"
 import { toast } from "react-hot-toast"
+import { Link } from "react-router-dom"
 
 const UploadPreview = ({
   handleRemove,
@@ -14,6 +15,11 @@ const UploadPreview = ({
   setTags,
 }) => {
   const [selected, setSelected] = useState(tags || [])
+  const [isAccepted, setIsAccepted] = useState(true)
+
+  const toggleIsAccepted = () => {
+    setIsAccepted((prev) => !prev)
+  }
 
   ////////////////    GENERATE TAGS    //////////////////
   const generateTags = async () => {
@@ -95,7 +101,24 @@ const UploadPreview = ({
             )}
           </label>
 
+          <p className="text-sm mt-auto">
+            <input
+              type="checkbox"
+              value={isAccepted}
+              onChange={toggleIsAccepted}
+              defaultChecked
+              className="mr-2"
+            />
+            I agree that the photo does not violate PhotoGalaxy's{" "}
+            <Link
+              to="/terms-and-conditions"
+              className="text-blue-500 hover:underline duration-200"
+            >
+              terms and conditions.
+            </Link>
+          </p>
           {/* buttons */}
+
           <div className="flex flex-col items-center w-full justify-between gap-2 mt-4 max-w-[425px]">
             <button
               type="button"
