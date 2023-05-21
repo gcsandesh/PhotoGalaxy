@@ -1,6 +1,6 @@
 // update this based on the url of backend server
-const API_URL = "https://photogalaxy-server.vercel.app/api"
-const FLASK_URL = "http://photogalaxy-server-flask.vercel.app:5000"
+const API_URL = "https://localhost:9999/api"
+const FLASK_URL = "http://localhost:5000"
 
 // AUTH
 export const USER_AUTH_URL = API_URL + "/auth/user"
