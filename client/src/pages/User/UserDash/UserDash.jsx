@@ -210,7 +210,10 @@ export default function UserDash() {
       </div>
 
       <div className="">
-        Total uploads: {currentUser?.uploads_count?.toString()}
+        Likes: 16
+        <br />
+        Uploads: {currentUser?.uploads_count?.toString()}
+        {/* {currentUser?.likes_count?.toString()} */}
       </div>
 
       <hr className="border-2 border-dark mt-6 mb-2" />
