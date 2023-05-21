@@ -26,7 +26,7 @@ const UploadPreview = ({
     // console.log(await getTags())
     if (!isValid) return toast.error("Cannot generate tags for this photo!")
     const receivedTags = await getTags()
-    console.log(receivedTags)
+    // console.log(receivedTags)
     setSelected((prevSelected) => {
       const newTags = receivedTags.filter((tag) => !prevSelected.includes(tag))
       return [...prevSelected, ...newTags]
@@ -102,20 +102,21 @@ const UploadPreview = ({
           </label>
 
           <p className="text-sm mt-auto">
-            <input
-              type="checkbox"
-              value={isAccepted}
-              onChange={toggleIsAccepted}
-              defaultChecked
-              className="mr-2"
-            />
-            I agree that the photo does not violate PhotoGalaxy's{" "}
-            <Link
-              to="/terms-and-conditions"
-              className="text-blue-500 hover:underline duration-200"
-            >
-              terms and conditions.
-            </Link>
+            <label>
+              <input
+                type="checkbox"
+                checked={isAccepted ? true : false}
+                onChange={toggleIsAccepted}
+                className="mr-2"
+              />
+              I agree that the photo does not violate PhotoGalaxy's{" "}
+              <Link
+                to="/terms-and-conditions"
+                className="text-blue-500 hover:underline duration-200"
+              >
+                terms and conditions.
+              </Link>
+            </label>
           </p>
           {/* buttons */}
 
@@ -134,7 +135,12 @@ const UploadPreview = ({
 
             <button
               type="button"
-              onClick={handlePhotosUpload}
+              // disabled={!isAccepted}
+              onClick={(e) =>
+                isAccepted
+                  ? handlePhotosUpload(e)
+                  : toast.error("Please agree to the terms and conditions!")
+              }
               className={
                 !isValid
                   ? "my-1 p-3 bg-gray-500 text-gray-200 rounded-md w-full"

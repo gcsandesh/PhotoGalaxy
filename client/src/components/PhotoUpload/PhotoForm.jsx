@@ -39,11 +39,10 @@ const PhotoForm = () => {
       },
     })
       .then(async (res) => {
-        // console.log(await res.json())
+        if (!res.ok) {
+          return toast.error("Error uploading!")
+        }
         toast.success("Uploaded Successfully!")
-        setFile([])
-        // console.log("uploaded")
-
         setFile(null)
         setb64("")
         setIsValid(false)
@@ -115,7 +114,6 @@ const PhotoForm = () => {
           handleRemove={removeFile}
           handlePhotosUpload={handlePhotosUpload}
           setTags={setTags}
-          
         />
       )}
     </div>
