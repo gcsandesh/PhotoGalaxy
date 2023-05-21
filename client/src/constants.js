@@ -18,6 +18,7 @@ export const UNLIKE_PHOTO = API_URL + "/photos/unlike/"
 
 // USER
 export const GET_USER_BY_ID = API_URL + "/users/id/"
+export const UPDATE_USER = API_URL + "/users/id/"
 
 // FLASK
 export const CLASSIFY_PHOTO = FLASK_URL + "/classify"

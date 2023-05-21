@@ -37,24 +37,19 @@ async function deleteUser(req, res) {
 /*********  UPDATE USER  **********/
 async function updateUser(req, res) {
   const userId = req.params.id
-  const user = await User.findById(userId)
+  const user = await User.findOne({ _id: userId })
   // if user is not found in db
-  if (!result) return res.status(404).json({ message: "User not found!" })
+  if (!user) return res.status(404).json({ message: "User not found!" })
 
-  const { firstName, lastName, email, password } = req.body
+  const { first_name, last_name, email, bio, website } = req.body
 
-  // if (firstName && lastName && email && password) {
-  //   user.$set({
-  //     firstName: firstName,
-  //     lastName: lastName,
-  //     email: email,
-  //     password: password,
-  //   })
-  // }
-  // if (firstName) {
-  //   user.$set({ firstName: firstName })
-  // }
-  const result = await user.save()
+  if (first_name) user.$set({ first_name })
+  if (last_name) user.$set({ last_name })
+  if (email) user.$set({ email })
+  if (bio) user.$set({ bio })
+  if (website) user.$set({ website })
+
+  const result = await user.save({ new: true })
   return res.send(result)
 }
 
