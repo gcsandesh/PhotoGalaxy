@@ -9,7 +9,7 @@ import tensorflow as tf
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["http://localhost:5173", "http://localhost:5000","https://photogalaxy-client.vercel.app/" ])
 
 
 @app.route("/classify", methods=["POST"])
