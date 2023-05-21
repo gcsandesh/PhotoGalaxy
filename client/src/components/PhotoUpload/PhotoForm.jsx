@@ -87,7 +87,9 @@ const PhotoForm = () => {
 
   const removeFile = () => {
     setFile(null)
-    setb64(null)
+    setb64("")
+    setIsValid(false)
+    setTags([])
   }
 
   return (
