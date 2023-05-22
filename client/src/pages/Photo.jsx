@@ -81,6 +81,8 @@ export default function Photo() {
   }
 
   const likePhoto = () => {
+    if (!user.accessToken) return navigate("/login")
+    
     fetch(LIKE_PHOTO + photo._id, {
       method: "PUT",
       headers: {
@@ -100,6 +102,8 @@ export default function Photo() {
   }
 
   const unlikePhoto = () => {
+    if (!user.accessToken) return navigate("/login")
+
     fetch(UNLIKE_PHOTO + photo._id, {
       method: "PUT",
       headers: {
@@ -143,7 +147,11 @@ export default function Photo() {
               {photo?.likes_count > 0 &&
               photo?.liked_by.find((eachUser) => eachUser === user?._id)
                 ?.length ? (
-                <FaHeart onClick={unlikePhoto} size={18} className="fill-rose-500" />
+                <FaHeart
+                  onClick={unlikePhoto}
+                  size={18}
+                  className="fill-rose-500"
+                />
               ) : (
                 <FaRegHeart onClick={likePhoto} size={18} />
               )}{" "}
