@@ -39,7 +39,7 @@ const Navigation = () => {
       <li>
         <NavLink
           className="hover:bg-[#023e8a] px-4 py-4 w-full block duration-200"
-          to="reports"
+          to="reported-contents"
         >
           Reported Contents
         </NavLink>
