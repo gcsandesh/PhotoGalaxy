@@ -19,6 +19,7 @@ import {
   ResetPassword,
   Photo,
   ChangePassword,
+  SearchPage,
 } from "./pages"
 
 import {
@@ -30,7 +31,7 @@ import {
   SiteAnalytics,
   SiteSettings,
   UserMgmt,
-  AdminMgmt
+  AdminMgmt,
 } from "./pages/Admin"
 // import AOS from "aos"
 // import "aos/dist/aos.css"
@@ -85,6 +86,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/search" element={<SearchPage />} />
 
           {/* public profile of each user */}
           <Route path="profile/:username" element={<UserProfile />} />
