@@ -155,7 +155,7 @@ function App() {
           <Route path="dashboard" element={<AdminDash />} />
           <Route path="admin-mgmt" element={<AdminMgmt />} />
           <Route path="user-mgmt" element={<UserMgmt />} />
-          <Route path="reports" element={<ReportedItems />} />
+          <Route path="reported-contents" element={<ReportedItems />} />
           <Route path="settings" element={<SiteSettings />} />
         </Route>
         <Route path="/admin/*" element={<Navigate to={"/admin"} />} />
