@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { TagsInput } from "react-tag-input-component"
-import { FaRegTimesCircle } from "react-icons/fa"
 import { GENERATE_TAGS } from "../../constants"
 import { toast } from "react-hot-toast"
 import { Link } from "react-router-dom"

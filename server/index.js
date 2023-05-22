@@ -7,7 +7,7 @@ dotenv.config({ path: "../.env" })
 
 // initializing server
 const host = process.env.HOST || 'localhost'
-const port = process.env.PORT || 9988
+const port = process.env.PORT || 9999
 
 async function start() {
   const mongoURL = process.env.MONGODB_URL

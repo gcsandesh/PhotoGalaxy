@@ -42,6 +42,8 @@ import AdminProtected from "./pages/Utilities/AdminProtected"
 import { useDispatch, useSelector } from "react-redux"
 import { setCredentials as setUserCredentials } from "./features/userAuth/userAuthSlice"
 import { setCredentials as setAdminCredentials } from "./features/adminAuth/adminAuthSlice"
+import TermsAndConditions from "./pages/TermsAndConditions"
+import PrivacyPolicy from "./pages/PrivacyPolicy"
 
 function App() {
   const dispatch = useDispatch()
@@ -113,6 +115,12 @@ function App() {
               </Protected>
             }
           />
+
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Route>
 
         {/* log in */}
@@ -160,6 +168,7 @@ function App() {
           <Route path="reported-contents" element={<ReportedItems />} />
           <Route path="settings" element={<SiteSettings />} />
         </Route>
+
         <Route path="/admin/*" element={<Navigate to={"/admin"} />} />
         <Route path="*" element={<Navigate to={"/"} />} />
       </Routes>
