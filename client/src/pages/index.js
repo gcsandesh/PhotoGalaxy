@@ -5,6 +5,7 @@ import PhotoUploadPage from "./PhotoUploadPage/PhotoUploadPage"
 import { AdminPanel } from "./Admin"
 import { UserDash, UserProfile } from "./User"
 import { Login, ChangePassword, ResetPassword, Signup } from "./Security"
+import SearchPage from "./SearchPage"
 
 export {
   AdminPanel,
@@ -18,4 +19,5 @@ export {
   UserProfile,
   PhotoUploadPage,
   ResetPassword,
+  SearchPage,
 }

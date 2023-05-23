@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { TagsInput } from "react-tag-input-component"
-import { FaRegTimesCircle } from "react-icons/fa"
 import { GENERATE_TAGS } from "../../constants"
 import { toast } from "react-hot-toast"
+import { Link } from "react-router-dom"
 
 const UploadPreview = ({
   handleRemove,
@@ -14,13 +14,18 @@ const UploadPreview = ({
   setTags,
 }) => {
   const [selected, setSelected] = useState(tags || [])
+  const [isAccepted, setIsAccepted] = useState(true)
+
+  const toggleIsAccepted = () => {
+    setIsAccepted((prev) => !prev)
+  }
 
   ////////////////    GENERATE TAGS    //////////////////
   const generateTags = async () => {
     // console.log(await getTags())
     if (!isValid) return toast.error("Cannot generate tags for this photo!")
     const receivedTags = await getTags()
-    console.log(receivedTags)
+    // console.log(receivedTags)
     setSelected((prevSelected) => {
       const newTags = receivedTags.filter((tag) => !prevSelected.includes(tag))
       return [...prevSelected, ...newTags]
@@ -95,7 +100,25 @@ const UploadPreview = ({
             )}
           </label>
 
+          <p className="text-sm mt-auto">
+            <label>
+              <input
+                type="checkbox"
+                checked={isAccepted ? true : false}
+                onChange={toggleIsAccepted}
+                className="mr-2"
+              />
+              I agree that the photo does not violate PhotoGalaxy's{" "}
+              <Link
+                to="/terms-and-conditions"
+                className="text-blue-500 hover:underline duration-200"
+              >
+                terms and conditions.
+              </Link>
+            </label>
+          </p>
           {/* buttons */}
+
           <div className="flex flex-col items-center w-full justify-between gap-2 mt-4 max-w-[425px]">
             <button
               type="button"
@@ -111,7 +134,12 @@ const UploadPreview = ({
 
             <button
               type="button"
-              onClick={handlePhotosUpload}
+              // disabled={!isAccepted}
+              onClick={(e) =>
+                isAccepted
+                  ? handlePhotosUpload(e)
+                  : toast.error("Please agree to the terms and conditions!")
+              }
               className={
                 !isValid
                   ? "my-1 p-3 bg-gray-500 text-gray-200 rounded-md w-full"

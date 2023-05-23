@@ -91,7 +91,6 @@ const getPhoto = async (req, res) => {
 
 const getAllPhotos = async (req, res) => {
   const query = req.query
-  // console.log(query)
 
   if (!_.isEmpty(query)) {
     // if there is query
@@ -128,7 +127,29 @@ const getAllPhotos = async (req, res) => {
       } catch (error) {
         return res.status(500).json({ message: "Error getting liked photos!" })
       }
+    } else if (_.has(query, "search")) {
+      console.log(query.search.split(" "))
+      //  GET PHOTOS WITH TAGS
+      try {
+        const photos = await Photo.find({ tags: query.search })
+        if (!photos || !photos.length) {
+          return res.status(404).json({ message: "No photos found!" })
+        }
+        return res.json({ photos: photos })
+      } catch (error) {
+        return res.status(500).json({ message: "Error getting photos!" })
+      }
     }
+    // else if (_.has(query, "search")) {
+    // try {
+    //   const photos = await Photo.find({ tags: query.search })
+    //   if (!photos || !photos.length) {
+    //     return res.status(404).json({ message: "No photos found!" })
+    //   }
+    //   return res.json({ photos: photos })
+    // } catch (error) {
+    //   return res.status(500).json({ message: "Error getting photos!" })
+    // }
   }
 
   // get all photos if no query params
@@ -268,6 +289,12 @@ const unlikePhoto = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error })
   }
+}
+
+const searchPhoto = async (req, res) => {
+  const query = req.query.query
+  const page = req.query.page || 1
+  const limit = req.query.limit || 10
 }
 
 module.exports = {

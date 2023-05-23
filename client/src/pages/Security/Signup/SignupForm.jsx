@@ -252,10 +252,7 @@ export default function SignupForm() {
       </div>
 
       {/* TERMS AND CONDITIONS */}
-      <label
-        htmlFor="agreement"
-        className="text-xs md:text-sm flex mt-2"
-      >
+      <label htmlFor="agreement" className="text-xs md:text-sm flex mt-2">
         <input
           type={"checkbox"}
           name={"agreement"}
@@ -281,6 +278,12 @@ export default function SignupForm() {
         {errorList}
       </ul>
 
+      <span className="text-xs">
+        By signing up, you agree to PhotoGalaxy's{" "}
+        <Link to={"/privacy-policy"} className="text-blue-400">
+          Privacy Policy
+        </Link>
+      </span>
       {/* SIGN UP BUTTON */}
       <button
         className="mx-auto md:mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
