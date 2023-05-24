@@ -58,7 +58,6 @@ The flask_server is not hosted yet. Only the frontend and express server are hos
 
 - [Sandesh GC](https://www.gcsandesh.com.np)
 - [Subek Sharma](https://www.linkedin.com/in/subek-sharma/)
-- [Subash Khatri](https://github.com/Aromakc)
 
 <!-- pip install requests -->
 <!-- pip install DeepImageSearch -->
